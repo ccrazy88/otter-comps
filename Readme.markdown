@@ -1,13 +1,14 @@
 # Otter Comps!  And learning (a little bit) about git, perhaps!
 **Authors**: Chrisna Aing, Sarah Halls, and Kiva Oken  
 
-There will be a first draft of this paper here by Thursday, February 18, 2010!
+There will be a first draft of this paper here by Thursday, February 25, 2010!
 Otherwise, we will all be dead.  A presentation should also appear at some point
 and it will also be written in LaTeX, obv.  
 
 [George] says that throwing this on both of you will be next to impossible and I
-want to prove him wrong even though I sort of agree with him, so yeah.  Here
-goes.
+want to prove him wrong, even though I sort of agree with him.  Please help me
+out here!  And take a look at his terrific face.  Really, unless we are going to
+type the entire thing together, this will be a godsend.
 
 ## Git
 
@@ -36,18 +37,23 @@ goes.
 1. See me.  I'll do it for you -- it will be much less painful (for you) this
    way.
 
-### Tutorial:
+### Tutorials:
 
-It can be found [here].  You will want to skip to the point about cloning an
-existing repository.  The existing repository will be this one, the link to
-which can be found near the top of the page!  The tutorial will teach you the
-basics you will need to know, which I hope is all we need to get this thing
-done.  And then you will be able to show this to all of your friends!
+1. [Read this first].  You will want to skip to the point about cloning an
+   existing repository.  The existing repository will be this one, the link to
+   which can be found near the top of the page!  The tutorial will teach you the
+   basics you will need to know, which I hope is all we need to get this thing
+   done.  And then you will be able to show this to all of your friends!
+2. [Working with the repository].  This is an overview of the commands you will
+   use to interact with the online version of our paper and presentation.
+3. More are on the way?
 
-### Some helpful links and/or reading:
+### Strategy:
 
-[Working with the repository](http://help.github.com/remotes/).  
-More are on the way.
+**Master**: Contains final or close-to-final portions of our paper.  
+**Branches**: We will each take multiple branches out, each of which will
+correspond to a piece of the paper that we are currently working on.  Once they
+are finished to our liking, they will then be merged to the master.
 
 ## LaTeX
 
@@ -71,4 +77,5 @@ Goodbye!
 [Generate]: http://help.github.com/mac-key-setup/
 [Set]: http://help.github.com/git-email-settings/
 [Download]: http://tinyurl.com/ydyjqva
-[here]: http://learn.github.com/p/setup.html
+[Read this first]: http://learn.github.com/p/setup.html
+[Working with the repository]: http://help.github.com/remotes
