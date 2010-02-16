@@ -1,0 +1,8 @@
+# LaTeX Stuff:
+*.aux
+*.log
+*.pdf
+*.synctex.gz
+
+# OS X Stuff:
+.DS_Store
