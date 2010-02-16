@@ -5,10 +5,9 @@ There will be a first draft of this paper here by Thursday, February 25, 2010!
 Otherwise, we will all be dead.  A presentation should also appear at some point
 and it will also be written in LaTeX, obv.  
 
-[George] says that throwing this on both of you will be next to impossible and I
-want to prove him wrong, even though I sort of agree with him.  Please help me
-out here!  And take a look at his terrific face.  Really, unless we are going to
-type the entire thing together, this will be a godsend.
+[George](http://drp.ly/pzye4+) says that throwing this on both of you will be
+next to impossible and I want to prove him wrong.  Unless we are going to type
+the entire thing together, this will be a godsend.
 
 ## Git
 
@@ -22,20 +21,27 @@ type the entire thing together, this will be a godsend.
 4. Press `Ctrl-x Ctrl-s` to save and then `Ctrl-x Ctrl-c` to exit.
 5. Close and reopen the Terminal application and try executing the command 
    `git`.  If you see a long list of commands, it is installed.
-6. [Generate] and add a new SSH key.
-7. [Set] your username, e-mail, and GitHub token.
+6. [Generate](http://tinyurl.com/yayaygu) and add a new SSH key.
+7. [Set](http://help.github.com/git-email-settings/) your username, e-mail, and
+   GitHub token.
 8. Enter the command `git config --global core.autocrlf input`.
-9. You should be ready to get going!
 
 **Mac OS X**:
 
-1. [Download] and install git.
-2. Follow Steps 6-9 of the 3rd CMC installation guide.
+1. [Download](http://tinyurl.com/ydyjqva) and install git.
+2. Open the Terminal application.
+3. Follow Steps 6-8 of the 3rd CMC installation guide.
 
 **Windows**:
 
-1. See me.  I'll do it for you -- it will be much less painful (for you) this
-   way.
+1. [Download](http://tinyurl.com/yayaygu) and install msysgit.
+   * Select both Windows Explorer integration options.
+   * Use Git Bash only.
+   * Use OpenSSH.
+2. Open Git Bash.
+3. [Generate](http://help.github.com/msysgit-key-setup/) and add a new SSH key.
+4. Follow Step 7 of the 3rd CMC installation guide.
+5. Enter the command `git config --global core.autocrlf true`.
 
 ### Tutorials:
 
@@ -46,14 +52,11 @@ type the entire thing together, this will be a godsend.
    done.  And then you will be able to show this to all of your friends!
 2. [Working with the repository].  This is an overview of the commands you will
    use to interact with the online version of our paper and presentation.
-3. More are on the way?
 
-### Strategy:
+### Strategy?:
 
 **Master**: Contains final or close-to-final portions of our paper.  
-**Branches**: We will each take multiple branches out, each of which will
-correspond to a piece of the paper that we are currently working on.  Once they
-are finished to our liking, they will then be merged to the master.
+**Branches**: Contain not-so-final portion of our paper?
 
 ## LaTeX
 
@@ -73,9 +76,5 @@ are finished to our liking, they will then be merged to the master.
 
 Goodbye!
 
-[George]: http://drp.ly/pzye4+
-[Generate]: http://help.github.com/mac-key-setup/
-[Set]: http://help.github.com/git-email-settings/
-[Download]: http://tinyurl.com/ydyjqva
 [Read this first]: http://learn.github.com/p/setup.html
 [Working with the repository]: http://help.github.com/remotes
