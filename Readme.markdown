@@ -1,6 +1,8 @@
 # Otter Comps!  And learning (a little bit) about git, perhaps!
 **Authors**: Chrisna Aing, Sarah Halls, and Kiva Oken  
 
+### Read the wiki!
+
 There will be a first draft of this paper here by Thursday, February 25, 2010!
 Otherwise, we will all be dead.  A presentation should also appear at some point
 and it will also be written in LaTeX, obv.  
@@ -52,11 +54,6 @@ the entire thing together, this will be a godsend.
    done.  And then you will be able to show this to all of your friends!
 2. [Working with the repository].  This is an overview of the commands you will
    use to interact with the online version of our paper and presentation.
-
-### Strategy?:
-
-**Master**: Contains final or close-to-final portions of our paper.  
-**Branches**: Contain not-so-final portion of our paper?
 
 ## LaTeX
 
