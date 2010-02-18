@@ -4,18 +4,32 @@
 \documentclass[12pt]{article}
 \usepackage{amsmath}
 \usepackage{multirow}
-\usepackage[hmargin=2cm, vmargin=2cm]{geometry}
+\usepackage[hmargin=3cm, vmargin=3cm]{geometry}
 \begin{document}
+
+    \noindent{\textbf{Status Report for Otter Estimation Project \hfill Feb. 18,
+    2010}
+    
+    \noindent{From: Chrisna Aing, Sarah Halls, Kiva Oken, Carleton College
+    Senior Comps group} \\
+    
+    Recall that our "standard model," contains the following parameters:
+    \(\psi\) (occupancy rate), \(\theta\) (probability of laying down a track,
+    given occupancy), \(p\) (the detection probability for each observer; so \(1
+    - p\) is the false negative rate), and \(E\) (the false positive rate for
+    each observer).  We have also worked with a CAR model using the WinBUGS CAR
+    installation.
 
     Since both our standard model and our CAR model have been working relatively
     well on our simulated data, we moved onto running them on the actual data.
 
     The standard model ran without convergence issues on the 2003 data for all
     rivers, but it did not converge on any of the 2004 data.  We simplified the
-    model by eliminating E in an attempt to improve convergence, which worked
-    for the 402m Whitewater River and 402m Zumbro River data.  Although none of
-    the Mississippi River's 2004 data converged, we are still including
-    estimates for the 402m Mississippi River data.
+    model by eliminating E (assuming no false positives) in an attempt to
+    improve convergence, which worked for the 402m Whitewater River and 402m 
+    Zumbro River data.  Although none of the Mississippi River's 2004 data 
+    converged, we are still including estimates for the 402m Mississippi River 
+    data.
 
     The CAR model did not converge for any of the data.  Although the standard
     model and the CAR model performed similarly in testing when both models
@@ -29,15 +43,15 @@
     seem reasonable.  Therefore, we are not going to include any estimates of
     parameters from the CAR model in this report.
 
-    We decided not to run the models on the alternating plots. In our earlier
+    We decided not to run the models on the alternating plots.  In our earlier
     analysis, we discovered that the main difference between alternating plots
-    and all plots was that the alternating plots were more independent. When
-    testing the standard model on spatially dependent simulated data, we found
-    that the estimates were fairly accurate. The CAR model estimates were also
-    fairly accurate on this simulated data, when it converged. Therefore, we
-    decided to use the data that includes all plots because we feel that having
-    the additional information from all plots is more important to the model
-    than independence is.
+    and all plots was that the alternating plots showed more independence in the
+    data.  When testing the standard model on spatially dependent simulated
+    data, we found that the estimates were fairly accurate.  The CAR model
+    estimates were also fairly accurate on this simulated data, when it
+    converged.  Therefore, we decided to use the data that includes all plots
+    because we feel that having the additional information from all plots is
+    more important to the model than independence is.
 
     All of our estimates are below and are accompanied with some thoughts about
     their convergence.  We are wondering if these estimates seem reasonable,
