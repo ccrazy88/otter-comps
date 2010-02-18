@@ -1,0 +1,253 @@
+% StatusReport.tex
+% Chrisna Aing and Sarah Halls
+
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage[hmargin=2cm, vmargin=2cm]{geometry}
+\begin{document}
+
+    Since both our standard model and our CAR model have been working relatively
+    well on our simulated data, we moved onto running them on the actual data.
+
+    The standard model ran without convergence issues on the 2003 data for all
+    rivers, but it did not converge on any of the 2004 data.  We simplified the
+    model by eliminating E in an attempt to improve convergence, which worked
+    for the 402m Whitewater River and 402m Zumbro River data.  Although none of
+    the Mississippi River's 2004 data converged, we are still including
+    estimates for the 402m Mississippi River data.
+
+    The CAR model did not converge for any of the data.  Although the standard
+    model and the CAR model performed similarly in testing when both models
+    converged, the standard model converged much more often than the CAR model
+    did.  We think this is because the CAR model attempts to estimate too many
+    parameters.  There is a different estimate of \(\theta\) for every site,
+    which adds a considerable amount of complexity to the model.  We also tried
+    to simplify this model by eliminating E, but this did not improve
+    convergence.  Therefore, we are not going to include any estimates of
+    parameters from the CAR model in this report.
+
+    We decided not to run the models on the alternating plots. In our earlier
+    analysis, we discovered that the main difference between alternating plots
+    and all plots was that the alternating plots were more independent. When
+    testing the standard model on spatially dependent simulated data, we found
+    that the estimates were fairly accurate. The CAR model estimates were also
+    fairly accurate on this simulated data, when it converged. Therefore, we
+    decided to use the data that includes all plots because we feel that having
+    the additional information from all plots is more important to the model
+    than independence is.
+
+    All of our estimates are below and are accompanied with some thoughts about
+    their convergence.  We are wondering if these estimates seem reasonable,
+    based upon what you know about the three rivers. \\
+
+    % Mississippi River!
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Mississippi River, 2003}} \\
+        \hline
+            & 402m & 804m & 1608m \\
+        \hline
+        \multirow{2}{*}{E[Danny]}
+            & 0.01954 & 0.04808 & 0.06885 \\
+            & (0.006515, 0.03663) & (0.01874, 0.08187) & (0.01778, 0.1383) \\
+        \hline
+        \multirow{2}{*}{E[John]}
+            & 0.05216 & 0.07771 & 0.13650 \\
+            & (0.027710, 0.07745) & (0.03881, 0.12100) & (0.03449, 0.2330) \\
+        \hline
+        \multirow{2}{*}{E[Tom]}
+            & 0.02668 & 0.06140 & 0.10230 \\
+            & (0.011990, 0.04622) & (0.02789, 0.10390) & (0.04287, 0.1796) \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.65240 & 0.67340 & 0.74960 \\
+            & (0.548300, 0.75990) & (0.56760, 0.78290) & (0.60510, 0.8910) \\
+        \hline
+        \multirow{2}{*}{p[John]}
+            & 0.67770 & 0.77580 & 0.82540 \\
+            & (0.583500, 0.77280) & (0.66060, 0.88690) & (0.71390, 0.9326) \\
+        \hline
+        \multirow{2}{*}{p[Tom]}
+            & 0.53670 & 0.54220 & 0.65330 \\
+            & (0.501200, 0.61300) & (0.50160, 0.62850) & (0.51530, 0.8104) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.59380 & 0.69370 & 0.75820 \\
+            & (0.439000, 0.75990) & (0.51800, 0.87380) & (0.54110, 0.9300) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.15280 & 0.20730 & 0.27690 \\
+            & (0.111900, 0.19780) & (0.14580, 0.27390) & (0.19030, 0.3716) \\
+        \hline
+    \end{tabular}
+    \\
+    
+    This data converged well, for the most part.  At the 1608m plot size, E,
+    \(\psi\), and \(\theta\) did not converge well. \\
+
+    \begin{tabular}{|l|l|}
+        \hline
+        \multicolumn{2}{|l|}{\textbf{Mississippi River, 2004}} \\
+        \hline
+            & 402m \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.3129 \\
+            & (0.2174, 0.8107) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.7613 \\
+            & (0.6609, 0.8833) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.8511 \\
+            & (0.2426, 0.9973) \\
+        \hline
+    \end{tabular}
+    \\
+
+    This data did not converge.  We do not think that these estimates are
+    accurate, but they are included for the sake of completeness. \\
+    
+    % Whitewater River!
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \multicolumn{3}{|l|}{\textbf{Whitewater River, 2003}} \\
+        \hline
+            & 402m & 804m \\
+        \hline
+        \multirow{2}{*}{E[Danny]}
+            & 0.05608 & 0.0555 \\
+            & (0.02474, 0.09554) & (0.002859, 0.1390) \\
+        \hline
+        \multirow{2}{*}{E[John]}
+            & 0.16570 & 0.1931 \\
+            & (0.10130, 0.23510) & (0.065910, 0.3384) \\
+        \hline
+        \multirow{2}{*}{E[Tom]}
+            & 0.15350 & 0.2241 \\
+            & (0.09758, 0.21660) & (0.110000, 0.3623) \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.66990 & 0.6985 \\
+            & (0.56080, 0.79040) & (0.573100, 0.8366) \\
+        \hline
+        \multirow{2}{*}{p[John]}
+            & 0.92040 & 0.9877 \\
+            & (0.84270, 0.97590) & (0.945100, 1.0000) \\
+        \hline
+        \multirow{2}{*}{p[Tom]}
+            & 0.75910 & 0.8575 \\
+            & (0.65060, 0.85800) & (0.745400, 0.9600) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.87590 & 0.9126 \\
+            & (0.72910, 0.98880) & (0.746900, 0.9955) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.24100 & 0.3779 \\
+            & (0.17890, 0.30900) & (0.286500, 0.4721) \\
+        \hline
+    \end{tabular}
+    \\
+
+    While the 402m data converged well, E, \(\psi\), and \(\theta\) did not
+    converge well for the 804m data. \\
+
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        \multicolumn{2}{|l|}{\textbf{Whitewater River, 2004}} \\
+        \hline
+            & 402m \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.8237 \\
+            & (0.5323, 0.9804) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.6066 \\
+            & (0.4246, 0.8382) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.2068 \\
+            & (0.1211, 0.3550) \\
+        \hline
+    \end{tabular}
+    \\
+
+    This data converged well.  However, we feel that the absence of E from the
+    model makes the estimates much less dependable. \\
+
+    % Zumbro River!
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \multicolumn{3}{|l|}{\textbf{Zumbro River, 2003}} \\
+        \hline
+            & 402m & 804m \\
+        \hline
+        \multirow{2}{*}{E[Danny]}
+            & 0.02922 & 0.007066 \\
+            & (0.006786, 0.05994) & (0.0000, 0.03403) \\
+        \hline
+        \multirow{2}{*}{E[John]}
+            & 0.03388 & 0.008312 \\
+            & (0.008584, 0.06880) & (0.0000, 0.04188) \\
+        \hline
+        \multirow{2}{*}{E[Tom]}
+            & 0.02228 & 0.012960 \\
+            & (0.002430, 0.05385) & (0.0000, 0.05642) \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.81890 & 0.837100 \\
+            & (0.749500, 0.88540) & (0.7615, 0.90700) \\
+        \hline
+        \multirow{2}{*}{p[John]}
+            & 0.81770 & 0.852500 \\
+            & (0.740100, 0.88670) & (0.7597, 0.92230) \\
+        \hline
+        \multirow{2}{*}{p[Tom]}
+            & 0.73120 & 0.805400 \\
+            & (0.625400, 0.82440) & (0.6885, 0.89780) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.66550 & 0.651600 \\
+            & (0.549100, 0.78150) & (0.5098, 0.78210) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.29950 & 0.395800 \\
+            & (0.236400, 0.36550) & (0.3100, 0.48520) \\
+        \hline
+    \end{tabular}
+    \\
+
+    Again, the 402m data converged well.  With respect to the 804m data, while
+    \(\psi\) and \(\theta\) converged really well, none of the other parameters
+    did. \\
+
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        \multicolumn{2}{|l|}{\textbf{Zumbro River, 2004}} \\
+        \hline
+            & 402m \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.9166 \\
+            & (0.7739, 0.9918) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.4773 \\
+            & (0.3586, 0.6114) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.4232 \\
+            & (0.3073, 0.5520) \\
+        \hline
+    \end{tabular}
+    \\
+
+    This data converged well.  However, as is the case with all of the 2004
+    data, we feel that the absence of E from the model makes the estimates much
+    less dependable. \\
+
+\end{document}
