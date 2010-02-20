@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[hmargin=3cm, vmargin=3cm]{geometry}
+\begin{document}
+
+    Let \(A = \text{\# of 0-1's}\), \(B = \text{\# of 1-1's}\) and \(r = P(``1")
+    \text{ in the sequence}\).
+
+    \begin{align*}
+        E[A] 
+            &= \sum_{i=1}^{n-1} P(X_i = 0, X_{i+1} = 1) \\
+            &= \sum_{i=1}^{n-1} (1-r)r \\
+            &= (n-1)(1-r)r
+    \end{align*}
+    \begin{align*}
+        E[B]
+            &= \sum_{i=1}^{n-1} P(X_i = 1, X_{i+1} = 1) \\
+            &= \sum_{i=1}^{n-1} r*r \\
+            &= (n-1)r^2
+    \end{align*}
+    \begin{align*}
+        Var[A] 
+            &= \sum_{i=1}^{n-1} Var[A] + 2\sum_{i=1}^{n-2} Cov[I_i = (0, 1),
+               I_{i+1} = (1, 1)] \\
+            &= (n-1)P((0, 1))(1-P((0, 1))) + 2\sum_{i=1}^{n-2}\bigg(E[I_i=(0, 
+               1), I_{i+1} = (0, 1)] - E[I_i = (0, 1)]E[I_{i+1} = (0, 1)]\bigg)
+               \\
+            &= (n-1)(1-r)r(1-(1-r)r) + 2\sum_{i=1}^{n-2}\bigg(0 - (1-r)r(1-r)r
+               \bigg) \\
+            &= (1-r)r(-1+n+5r-3nr-5r^2+3nr^2)
+    \end{align*}
+    \begin{align*}
+        Var[B] 
+            &= \sum_{i=1}^{n-1} Var[B] + 2\sum_{i=1}^{n-2} Cov[I_i = (1, 1),
+               I_{i+1} = (1, 1)] \\
+            &= (n-1)P((1, 1))(1-P((1, 1))) + 2\sum_{i=1}^{n-2}\bigg(E[I_i=(1, 
+               1), I_{i+1} = (1, 1)] - E[I_i = (1, 1)]E[I_{i+1} = (1, 1)]\bigg) 
+               \\
+            &= (n-1)r^2(1-r^2) + 2(n-2)(r^3-r^4) \\
+            &= (1-r)r^2(-1+n-5r+3nr)
+    \end{align*}
+
+    Covariance to come later.
+
+    \begin{align*}
+        E[\hat{s}] 
+            &= E[A] - E[B] \\
+            &= (n-1)(1-r)r - (n-1)r^2
+    \end{align*}
+
+    \begin{align*}
+        Var[\hat{s}] 
+            &= Var[A-B] \\
+            &= Var[A] + Var[B] - 2Cov[A, B] \\
+            &= (1-r)r(-1+n+8r-4nr-20r^2+12nr^2)
+    \end{align*}
+\end{document}
