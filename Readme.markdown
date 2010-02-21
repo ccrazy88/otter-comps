@@ -23,7 +23,7 @@ the entire thing together, this will be a godsend.
 4. Press `Ctrl-x Ctrl-s` to save and then `Ctrl-x Ctrl-c` to exit.
 5. Close and reopen the Terminal application and try executing the command 
    `git`.  If you see a long list of commands, it is installed.
-6. [Generate](http://tinyurl.com/yayaygu) and add a new SSH key.
+6. [Generate](http://help.github.com/mac-key-setup/) and add a new SSH key.
 7. [Set](http://help.github.com/git-email-settings/) your username, e-mail, and
    GitHub token.
 8. Enter the command `git config --global core.autocrlf input`.
