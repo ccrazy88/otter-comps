@@ -1,6 +1,8 @@
 # Rough Outline of Stuff We Can Write
 
-## Overview of occupancy modeling:
+
+
+## Overview of occupancy modeling: -Sarah
 
 ### What is Occupancy Rate?
 
@@ -24,79 +26,19 @@
 * How much should we actually say about this?
 * Maybe just talk about (basic) hierarchical models?
 
-## Theoretical Stuff
+## Actual data/problem from the DNR
 
-### Bayesian Statistics
+* Question of investigation
+* Issues related to their data
+* How their data was collected
+-Kiva
 
-* Bayes' Theorem
-* Useful for hierarchical modeling: look at section 3.3 in book.
-* Can use Markov Chain Monte Carlo (MCMC) to calculate posterior distribution
-
-### BRugs/R
-
-* All of our statistical analysis was performed in R.
-* All of our modeling was performed using BRugs, which allowed us to use WinBUGS
-  commands and stuff in R.
-
-### Adding E to the Model
-
-Hopefully Kiva has something in her notes.  Sarah has something, but she is not
-100% sure that it is correct.
-
-### Other Details About the Standard Hierarchical Model
-
-We assume a different p and E for each observer.  
- 
-1. Normal distribution for p and E
-    * uniform distribution for a and c
-    * b = .1
-    * p from (.6, 1) and E from (0, .4)
-    * uniform distribution for psi
-    * uniform distribution for theta
-    * iterations: 10000, 10000
-2. Beta distribution for p and E
-   * gamma distribution for a, b, c, d
-   * p from (.6, 1) and E from (0, .4)
-   * uniform distribution for psi
-   * uniform distribution for theta
-   * iterations: 10000, 10000
-   
-The beta distribution worked better.  
-Can use chart from status reports to show how well it worked.  
-
-### Some General Information About the CAR Model
-
-* Spatial dependence between sites that are adjacent.  We give every adjacent
-  site a weight of 1.
-* Sarah and Kiva will add more!
-
-### The Actual CAR Model (what parameters we used it on, etc.)
-
-* Our data is not aggregated values and is not quantitative, so we had to make
-  some adjustments.
-* Used a CAR prior on theta.
-* CAR normal distribution for alpha1
-* flat distribution for alpha0
-* gamma distribution for tau
-* uniform distribution for psi
-* beta distribution for p and E, limited to the intervals (.6-1) (0-.3) and
-  a,b,c,d are taken from a gamma distribution
-* iterations: 12000, 10000
-
-## Results
-
-### Descriptive Statistics on the Actual Data
+### Descriptive Statistics on the Actual Data -Kiva
 
 Kiva?
 
-### Standard Model vs. CAR Model Results
 
-We can just look at the most recent status report (StatusReport.tex).  We need
-to add stuff about the difference between the estimates for different plot
-sizes (which makes sense but we didn't actually analyze this).  So, for that,
-look at the most recent e-mail from John F.
-
-### Independence vs. Dependence Between Plots
+### Independence vs. Dependence Between Plots -Sarah
 
 We tried to see if the assumption of independence is viable and whether or not
 there were differences between data with different plot sizes and differences
@@ -128,10 +70,46 @@ between data containing plots and data containing every other plot.
    * CAR model started working once we took s values of simulated data into
      account by increasing dependence.
 
-### Different Ways We Simulated Data
+### Adding E to the Model -Kiva
 
-We gradually increased the complexity of the simulated data until it "matched"
-the actual data with respect to dependence.  
+Hopefully Kiva has something in her notes.  Sarah has something, but she is not
+100% sure that it is correct.
+
+## Theoretical Stuff -Sarah
+
+### Bayesian Statistics
+
+* Bayes' Theorem
+* Useful for hierarchical modeling: look at section 3.3 in book.
+* Can use Markov Chain Monte Carlo (MCMC) to calculate posterior distribution
+
+### BRugs/R
+
+* All of our statistical analysis was performed in R.
+* All of our modeling was performed using BRugs, which allowed us to use WinBUGS
+  commands and stuff in R.
+
+## Standard Hierarchical Model -Chrisna
+
+We assume a different p and E for each observer.  
+
+1. Normal distribution for p and E
+    * uniform distribution for a and c
+    * b = .1
+    * p from (.6, 1) and E from (0, .4)
+    * uniform distribution for psi
+    * uniform distribution for theta
+    * iterations: 10000, 10000
+2. Beta distribution for p and E
+   * gamma distribution for a, b, c, d
+   * p from (.6, 1) and E from (0, .4)
+   * uniform distribution for psi
+   * uniform distribution for theta
+   * iterations: 10000, 10000
+   
+
+
+### Data Simulation
 
 1. Simple simulated data.
    * Variables: # of sites, # of snow events, # of observers, # of snow days,
@@ -143,6 +121,34 @@ the actual data with respect to dependence.
    * Simulates data using simple hierarchical model with E included.
    * Made the way it was made for technical reasons we will probably not bother
      to mention because they aren't important.
+
+     The beta distribution worked better.  
+     Can use chart from status reports to show how well it worked.
+
+## Dealing with the Spatially Correlated Data -Kiva
+### Some General Information About the CAR Model
+
+* Spatial dependence between sites that are adjacent.  We give every adjacent
+  site a weight of 1.
+* Sarah and Kiva will add more!
+
+### The Actual CAR Model (what parameters we used it on, etc.)
+
+* Our data is not aggregated values and is not quantitative, so we had to make
+  some adjustments.
+* Used a CAR prior on theta.
+* CAR normal distribution for alpha1
+* flat distribution for alpha0
+* gamma distribution for tau
+* uniform distribution for psi
+* beta distribution for p and E, limited to the intervals (.6-1) (0-.3) and
+  a,b,c,d are taken from a gamma distribution
+* iterations: 12000, 10000
+
+
+
+### Different Ways We Simulated Data
+
 3. Simulated data spatially correlated on theta.
    * Variables added/changed: theta + alpha (probability of a track being laid 
      given the current site is occupied and the previous site has a track),
@@ -159,7 +165,13 @@ the actual data with respect to dependence.
    * Worked better with the CAR model, but the CAR model was still not great.
    * Data simulated with this model shows similar dependence to the actual data.
 
-## Discussion
+
+   We can just look at the most recent status report (StatusReport.tex).  We need
+   to add stuff about the difference between the estimates for different plot
+   sizes (which makes sense but we didn't actually analyze this).  So, for that,
+   look at the most recent e-mail from John F.
+
+## Discussion -Chrisna
 
 ### Trying to get models to work on the actual data (taking out E?)
 
