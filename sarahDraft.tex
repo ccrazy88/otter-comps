@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section{Overview of Occupancy Modeling}
+	\subsection{What is Occupancy Rate?}
+		"The probability that a randomly selected site or sampling unit in an area 
+			of interest is occupied by a species" [MacKenzie2006] (pg. 11)
+	\subsection{Different Ways of Sampling Data}
+		Measuring rate of occupancy vs. population \\
+		Looking at tracks vs. listening to stuff or acutally looking for the animal
+	\subsection{Assumptions}
+		Independence of detection between sites \\
+		No false positives \\
+		Presence and detection probabilities constant across sites and surveys \\
+		Closed population
+	\subsection{Types of Occupancy Models}
+		Maximum Likelihood \\
+		any other models? \\
+		Hierarchical Bayesian?  is that the name of what we used?
+
+\section{Actual data}
+Stuff by Kiva.
+	\subsection{Testing the Independence Assumption}
+		We tried to see if the assumption of independence is viable and whether or
+			not there were differences between data with different plot sizes and 
+			differences between data containing plots and data containing every 
+			other plot.
+	\begin{enumerate}
+    	\item Using Markov Chains to find r. \\
+          * r = potential long-term probability of detection, based upon the 
+			short-term conditional probabilities p and q acquired from our data 
+			(infinite limit as n approaches infinity of Pn) \\
+          * p = probability that a 0 follows a 0, q = probability that a 1 follows
+			 a 1  \\
+          * If 0->0 and 1->0 (the values of a column, basically) equaled each 
+			other, plots would have been independent?  \\
+          * Ultimately not useful to us because it does not take into account 
+			whether or not a site is occupied, so it doesn't apply to the 
+			hierarchical model that we are using. \\
+   		\item Using s, where s = (\# of 0-1's) - (\# of 1-1's) for a given flight.\\
+          * Decided to use the z-score of s as a measure of independence.  \\
+          * Therefore, needed the expected value and the standard deviation of s. \\
+          * So, we needed the expected value of each term and the variance, which 
+			required finding the variance of each term and the covariance between 
+			the two terms. \\
+          * Expected value is straightforward and we have all of the equations. \\
+          * Variance is fun and we also have all of the relevant equations. \\
+          * Calculated z-score for every flight and box-plotted them for each year
+			and plot size and pitted data with every other plot against data with
+			all plots. \\
+          * Nothing important with respect to plot size. Alternating plots show 
+			more independence than all plots. Look at report for more. \\
+          * CAR model started working once we took s values of simulated data into
+			account by increasing dependence.  \\
+	\end{enumerate}
+
+
+\end{document}
