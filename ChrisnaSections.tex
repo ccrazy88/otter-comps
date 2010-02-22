@@ -1,17 +1,379 @@
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage{multirow}
+\usepackage[dvipsnames, table]{xcolor}
+
 \begin{document}
-    \section{Standard Hierarchical Model}
-        \subsection{Model Parameters}
-        \subsection{Simulated Data}
-    \section{Discussion}
-    \begin{enumerate}
-        \item Trying to get models to work on the actual data.
-        \item What estimates we found for our data, what data didn't work, and
-        why?
-        \item Effect of plot size on parameters.
-        \item Effect of covariates.
-        \item Data with all plots versus data with every other plot.
-        \item Best practices for further data gathering trips.
-    \end{enumerate}
+
+%%% *STANDARD HIERARCHICAL MODEL*:
+\section{Standard Hierarchical Model}
+
+    %% MODEL PARAMETERS:
+    \subsection{Model Parameters}
+
+    %% SIMULATED DATA, PT. 1:
+    \subsection{Simulated Data}
+
+    \noindent{\begin{tabular}{|l|l|l|l|}
+        \hline
+        \multicolumn{4}{|l|}{\textbf{The Model vs. Simulated Data}} \\
+        \hline
+            \(\psi\) & \(\theta\) & Convergence & 95\% CI (\(\psi\)) \\
+        \hline
+        \multirow{5}{*}{0.20}
+            & \cellcolor{Green}0.20 & \cellcolor{Green}Good &
+              \cellcolor{Green}(0.112, 0.305) \\
+            & \cellcolor{Green}0.40 & \cellcolor{Green}Good &
+              \cellcolor{Green}(0.142, 0.341) \\
+            & \cellcolor{Green}0.60 & \cellcolor{Green}Good &
+              \cellcolor{Green}(0.098, 0.284) \\
+            & \cellcolor{Green}0.80 & \cellcolor{Green}Good &
+              \cellcolor{Green}(0.097, 0.281) \\
+            & \cellcolor{Yellow}1.00 & \cellcolor{Yellow}Okay &
+              \cellcolor{Yellow}(0.117, 0.302) \\
+        \hline
+        \multirow{5}{*}{0.40}
+            & \cellcolor{Yellow}0.20 & \cellcolor{Yellow}Okay &
+              \cellcolor{Yellow}(0.388, 0.721) \\
+            & \cellcolor{Green}0.40 & \cellcolor{Green}Good &
+              \cellcolor{Green}(0.270, 0.494) \\
+            & \cellcolor{Green}0.60 & \cellcolor{Green}Good &
+              \cellcolor{Green}(0.287, 0.512) \\
+            & \cellcolor{Red}0.80 & \cellcolor{Red}Bad &
+              \cellcolor{Red}(0.277, 0.507) \\
+            & \cellcolor{Yellow}1.00 & \cellcolor{Yellow}Okay &
+              \cellcolor{Yellow}(0.279, 0.503) \\
+        \hline
+        \multirow{5}{*}{0.60}
+            & \cellcolor{Yellow}0.20 & \cellcolor{Yellow}Good &
+              \cellcolor{Yellow}(0.312, 0.581) \\
+            & \cellcolor{Green}0.40 & \cellcolor{Green}Good &
+              \cellcolor{Green}(0.400, 0.630) \\
+            & \cellcolor{Yellow}0.60 & \cellcolor{Yellow}Okay &
+              \cellcolor{Yellow}(0.462, 0.687) \\
+            & \cellcolor{Yellow}0.80 & \cellcolor{Yellow}Okay &
+              \cellcolor{Yellow}(0.502, 0.727) \\
+            & \cellcolor{Red}1.00 & \cellcolor{Red}Bad &
+              \cellcolor{Red}(0.318, 0.549) \\
+        \hline
+        \multirow{5}{*}{0.80}
+            & \cellcolor{Green}0.20 & \cellcolor{Green}Good &
+              \cellcolor{Green}(0.578, 0.838) \\
+            & \cellcolor{Green}0.40 & \cellcolor{Green}Good &
+              \cellcolor{Green}(0.736, 0.915) \\
+            & \cellcolor{Yellow}0.60 & \cellcolor{Yellow}Okay &
+              \cellcolor{Yellow}(0.587, 0.829) \\
+            & \cellcolor{Yellow}0.80 & \cellcolor{Yellow}Okay &
+              \cellcolor{Yellow}(0.599, 0.811) \\
+            & \cellcolor{Red}1.00 & \cellcolor{Red}Bad &
+              \cellcolor{Red}(0.612, 0.830) \\
+        \hline
+        \multirow{5}{*}{1.00}
+            & \cellcolor{Yellow}0.20 & \cellcolor{Yellow}Good &
+              \cellcolor{Yellow}(0.895, 0.999) \\
+            & \cellcolor{Yellow}0.40 & \cellcolor{Yellow}Okay &
+              \cellcolor{Yellow}(0.927, 0.999) \\
+            & \cellcolor{Green}0.60 & \cellcolor{Green}Good &
+              \cellcolor{Green}(0.949, 1.000) \\
+            & \cellcolor{Yellow}0.80 & \cellcolor{Yellow}Good &
+              \cellcolor{Yellow}(0.802, 0.954) \\
+            & \cellcolor{Red}1.00 & \cellcolor{Red}Bad &
+              \cellcolor{Red}(0.800, 0.955) \\
+        \hline
+    \end{tabular}}
+
+%%% *DISCUSSION*:
+\section{Discussion}
+
+    %% GETTING THE ACTUAL DATA TO CONVERGE:
+    \subsection{Obtaining Convergence on the Actual Data}
+    Recall that our standard hierarchical model contains the following
+    parameters: \(\psi\) (the rate of occupancy), \(\theta\) (the probability
+    of laying down a track given occupancy), \(p\) (the probability of
+    detecting a track given that it is present, which is unique to each
+    observer and makes \(1-p\) the false negative rate of detecting a track),
+    and \(E\) (the false positive rate of detecting a track, which is unique to
+    each observer).
+
+    Once both the standard hierarchical model and the addition of a CAR prior
+    distribution on \(\theta\) to the standard model exhibited convergence on
+    our simulated data, we moved onto running both models on the data given to
+    us by the Minnesota DNR.  Recall that data was gathered during the winters
+    of 2003 and 2004 along the Mississippi, Whitewater, and Zumbro Rivers and
+    aggregated with ArcGIS into vectors containing ones and zeroes representing
+    the detection and non-detection of a track, respectively, within plots of
+    length 402 meters, 804 meters, and 1608 meters.  The covariates recorded
+    were: the observer, the date, and the number of days since the last snow
+    event.  In general, the sparseness of the data gathered in 2004 caused us
+    to simplify the model in order to obtain results.  Unfortunately, the
+    simplification results in estimates of \(\psi\) that do not seem accurate
+    and are not directly comparable to estimates of \(\psi\) on 2003's data.
+
+    The standard model converged reliably on all data gathered in 2003, but it
+    did not converge on any of the data gathered in 2004.  Considering that the
+    amount of data gathered in 2004 pales in comparison to the amount of data
+    gathered in 2003, this result was not surprising.  The vast majority of
+    2004's data consists of just one observer taking observations once after
+    each snow event, which causes \(p\) and \(E\) in particular to not converge,
+    regardless of plot size.
+
+    To obtain convergence on 2004's relatively sparse data, we removed \(E\),
+    which adds to the model the assumption that there are no false positives
+    and, consequently, simplifies it greatly.  Although the model still did not
+    converge on data with plot sizes of 804m and 1608m, both the Whitewater and
+    Zumbro Rivers' data at the 402m plot size converged.  Although none of the
+    Mississippi River's 2004 data converged, we still include estimates of
+    \(p\), \(\psi\), and \(\theta\) at the 402m plot size to accompany the
+    estimates corresponding to the Whitewater and Zumbro Rivers.  For the most
+    part, however, we feel that the absence of \(E\) from the model makes the
+    the estimates of \(\psi\) much less dependable.
+
+    The addition of a CAR prior distribution on \(\theta\) to the standard model
+    caused the model to fail to converge on all of the data.  Although the
+    standard model and the CAR model performed similarly on simulated data
+    whenever both models converged, the standard model converged much more often
+    than did the CAR model.  This is most likely due to the fact that the CAR
+    model attempts to estimate too many parameters.  Whereas the standard model
+    estimates between eight and twelve parameters on the actual data (\(\psi\),
+    \(\theta\), the four parameters of the beta distributions corresponding to
+    \(p\) and \(E\), \(p\) for each observer, and \(E\) for each observer), the
+    CAR model estimates \(\theta\) for each site.  Because there are at least
+    thirty-five sites in each data set (regardless of plot size), the CAR prior
+    distribution adds a considerable amount of complexity to the model.
+
+    We also tried to simplify this model by eliminating \(E\) because this was
+    somewhat successful with respect to convergence with the standard model.
+    We first attempted to fit this model to data from 2003 at the 402m plot
+    size.  Although the model successfully converged on all of this data, its
+    estimates of \(\psi\), all of which were greater than 0.9, did not seem
+    reasonable, especially in comparison to the standard model's estimates when
+    given the same data.  As a result, we did not attempt to fit this model to
+    the rest of the data and do not include this model's estimates within our
+    results.
+
+    %% RESULTS:
+    \subsection{Results}
+    Below, in tables, lie our estimates for all of the Minnesota DNR's data from
+    2003 and 2004.  Below each table is detailed commentary about the ability of
+    the standard hierarchical model to convergence to the corresponding data. \\
+
+    % Mississippi River!
+    \noindent{\begin{tabular}{|l|l|l|l|}
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Mississippi River, 2003}} \\
+        \hline
+            & 402m & 804m & 1608m \\
+        \hline
+        \multirow{2}{*}{E[Danny]}
+            & 0.01954 & 0.04808 & 0.06885 \\
+            & (0.006515, 0.03663) & (0.01874, 0.08187) & (0.01778, 0.1383) \\
+        \hline
+        \multirow{2}{*}{E[John]}
+            & 0.05216 & 0.07771 & 0.13650 \\
+            & (0.027710, 0.07745) & (0.03881, 0.12100) & (0.03449, 0.2330) \\
+        \hline
+        \multirow{2}{*}{E[Tom]}
+            & 0.02668 & 0.06140 & 0.10230 \\
+            & (0.011990, 0.04622) & (0.02789, 0.10390) & (0.04287, 0.1796) \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.65240 & 0.67340 & 0.74960 \\
+            & (0.548300, 0.75990) & (0.56760, 0.78290) & (0.60510, 0.8910) \\
+        \hline
+        \multirow{2}{*}{p[John]}
+            & 0.67770 & 0.77580 & 0.82540 \\
+            & (0.583500, 0.77280) & (0.66060, 0.88690) & (0.71390, 0.9326) \\
+        \hline
+        \multirow{2}{*}{p[Tom]}
+            & 0.53670 & 0.54220 & 0.65330 \\
+            & (0.501200, 0.61300) & (0.50160, 0.62850) & (0.51530, 0.8104) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.59380 & 0.69370 & 0.75820 \\
+            & (0.439000, 0.75990) & (0.51800, 0.87380) & (0.54110, 0.9300) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.15280 & 0.20730 & 0.27690 \\
+            & (0.111900, 0.19780) & (0.14580, 0.27390) & (0.19030, 0.3716) \\
+        \hline
+    \end{tabular}}
+    \\
+    
+    This data converged well at the 402m and 804m plot sizes.  At the 1608m plot
+    size, \(E\), \(\psi\), and \(\theta\) did not converge well. \\
+
+    \noindent{\begin{tabular}{|l|l|}
+        \hline
+        \multicolumn{2}{|l|}{\textbf{Mississippi River, 2004}} \\
+        \hline
+            & 402m \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.3129 \\
+            & (0.2174, 0.8107) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.7613 \\
+            & (0.6609, 0.8833) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.8511 \\
+            & (0.2426, 0.9973) \\
+        \hline
+    \end{tabular}}
+    \\
+
+    This data did not converge.  We do not think that these estimates are
+    accurate, but they are included for the sake of completeness. \\
+    
+    % Whitewater River!
+    \noindent{\begin{tabular}{|l|l|l|}
+        \hline
+        \multicolumn{3}{|l|}{\textbf{Whitewater River, 2003}} \\
+        \hline
+            & 402m & 804m \\
+        \hline
+        \multirow{2}{*}{E[Danny]}
+            & 0.05608 & 0.0555 \\
+            & (0.02474, 0.09554) & (0.002859, 0.1390) \\
+        \hline
+        \multirow{2}{*}{E[John]}
+            & 0.16570 & 0.1931 \\
+            & (0.10130, 0.23510) & (0.065910, 0.3384) \\
+        \hline
+        \multirow{2}{*}{E[Tom]}
+            & 0.15350 & 0.2241 \\
+            & (0.09758, 0.21660) & (0.110000, 0.3623) \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.66990 & 0.6985 \\
+            & (0.56080, 0.79040) & (0.573100, 0.8366) \\
+        \hline
+        \multirow{2}{*}{p[John]}
+            & 0.92040 & 0.9877 \\
+            & (0.84270, 0.97590) & (0.945100, 1.0000) \\
+        \hline
+        \multirow{2}{*}{p[Tom]}
+            & 0.75910 & 0.8575 \\
+            & (0.65060, 0.85800) & (0.745400, 0.9600) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.87590 & 0.9126 \\
+            & (0.72910, 0.98880) & (0.746900, 0.9955) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.24100 & 0.3779 \\
+            & (0.17890, 0.30900) & (0.286500, 0.4721) \\
+        \hline
+    \end{tabular}}
+    \\
+
+    While the 402m data converged well, \(E\), \(\psi\), and \(\theta\) did not
+    converge well for the 804m data. \\
+
+    \noindent{\begin{tabular}{|l|l|l|l|}
+        \hline
+        \multicolumn{2}{|l|}{\textbf{Whitewater River, 2004}} \\
+        \hline
+            & 402m \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.8237 \\
+            & (0.5323, 0.9804) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.6066 \\
+            & (0.4246, 0.8382) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.2068 \\
+            & (0.1211, 0.3550) \\
+        \hline
+    \end{tabular}}
+    \\
+
+    This data converged well.  However, we feel that the absence of \(E\) from
+    the model makes the estimates much less dependable.  The estimates are also
+    much less precise than those from 2003 -- the confidence intervals of
+    \(\psi\) and of \(p[Danny]\) are twice as large as those from 2003. \\
+
+    % Zumbro River!
+    \noindent{\begin{tabular}{|l|l|l|}
+        \hline
+        \multicolumn{3}{|l|}{\textbf{Zumbro River, 2003}} \\
+        \hline
+            & 402m & 804m \\
+        \hline
+        \multirow{2}{*}{E[Danny]}
+            & 0.02922 & 0.007066 \\
+            & (0.006786, 0.05994) & (0.0000, 0.03403) \\
+        \hline
+        \multirow{2}{*}{E[John]}
+            & 0.03388 & 0.008312 \\
+            & (0.008584, 0.06880) & (0.0000, 0.04188) \\
+        \hline
+        \multirow{2}{*}{E[Tom]}
+            & 0.02228 & 0.012960 \\
+            & (0.002430, 0.05385) & (0.0000, 0.05642) \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.81890 & 0.837100 \\
+            & (0.749500, 0.88540) & (0.7615, 0.90700) \\
+        \hline
+        \multirow{2}{*}{p[John]}
+            & 0.81770 & 0.852500 \\
+            & (0.740100, 0.88670) & (0.7597, 0.92230) \\
+        \hline
+        \multirow{2}{*}{p[Tom]}
+            & 0.73120 & 0.805400 \\
+            & (0.625400, 0.82440) & (0.6885, 0.89780) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.66550 & 0.651600 \\
+            & (0.549100, 0.78150) & (0.5098, 0.78210) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.29950 & 0.395800 \\
+            & (0.236400, 0.36550) & (0.3100, 0.48520) \\
+        \hline
+    \end{tabular}}
+    \\
+
+    Again, the 402m data converged well.  With respect to the 804m data, while
+    \(\psi\) and \(\theta\) converged well, none of the other parameters did. \\
+
+    \noindent{\begin{tabular}{|l|l|l|l|}
+        \hline
+        \multicolumn{2}{|l|}{\textbf{Zumbro River, 2004}} \\
+        \hline
+            & 402m \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.9166 \\
+            & (0.7739, 0.9918) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.4773 \\
+            & (0.3586, 0.6114) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.4232 \\
+            & (0.3073, 0.5520) \\
+        \hline
+    \end{tabular}}
+    \\
+
+    This data converged well.  However, as is the case with all of the 2004
+    data, we feel that the absence of \(E\) from the model makes the estimates
+    much less dependable.
+
+    %%
+    \subsection{The Effect of Plot Size}
+    %%
+    \subsection{All Plots vs. Every Other Plot}
+    %%
+    \subsection{How Important Are Our Covariates?}
+    %%
+    \subsection{Best Practices for Measuring Otter Occupancy}
+
 \end{document}
