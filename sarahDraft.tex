@@ -21,11 +21,30 @@
 
 \section{Actual data}
 Stuff by Kiva.
-	\subsection{Testing the Independence Assumption}
-		We tried to see if the assumption of independence is viable and whether or
+	\subsection{Markov Chains and Testing the Independence Assumption}
+		First we considered using Markov Chains to come up with a long term 
+probability of detection, which we called \(r\).  We let \(p\) be the number of 
+\(0\)'s followed by a \(1\) as a fraction of all successive pairs that start with 
+a \(0\).  We let \(q\) be the number of \(1\)'s followed by a \(1\) as a fraction 
+of all successive pairs that start with a \(1\).  
+
+		We wanted to find out if the assumption of independence across sites held
+true for our data from the DNR.  We also wanted to see what sampling techniques 
+led to the greatest independence between plots.  The different techniques that we
+compared were using different plot sizes, and using data that includes all plots
+or data that uses only every other plot. \\
+		(We tried to see if the assumption of independence is viable and whether or
 			not there were differences between data with different plot sizes and 
 			differences between data containing plots and data containing every 
-			other plot.
+			other plot.) \\
+		If the observations at different sites are independent, then the 
+probability that there is a \(1\) at site \(i\)  is independent of site \(i-1\).  
+We let \(p\) be the number of \(0\)'s followed by a \(1\) as a fraction of all 
+successive pairs that start with a \(0\).  We let \(1-q\) be the number of \(1\)'s
+followed by a \(1\) as a fraction of all successive pairs that start with a \(1\).
+The difference of these two proportions \((=p-(1-q)\) is a measure of independence,
+where \(p-(1-q)\) being approximately \(0\) under the null hypothesis of 
+independence.  
 	\begin{enumerate}
     	\item Using Markov Chains to find r. \\
           * r = potential long-term probability of detection, based upon the 
@@ -55,7 +74,7 @@ Stuff by Kiva.
 			account by increasing dependence.  \\
 	\end{enumerate}
 
-\section{Theoretical Stuff} 
+\section{Theoretical Stuff} - CHRISNA??
 	\subsection{Bayesian Statistics}
 	   	Bayes' Theorem \\
     	Useful for hierarchical modeling: look at section 3.3 in book. \\
