@@ -41,12 +41,13 @@
     \end{align*}
 	
 	\begin{align*}
-		2Cov[A, B]
+		2Cov[A, B]  
+			&= 2 \sum_{i=1}^{n-1} \sum_{j=1}^{n-1} Cov[A, B]\\
 			&= 2 \bigg(\sum_{i=1}^{n-2} Cov[AB] + \sum_{i=1}^{n-2} Cov[BA] +
 				\\ \sum_{i=1}^{n-1} Cov[X_i = 0 \text{ or } 1, X_{i+1} = 1]\bigg) \\
 			&= 2 \bigg(\sum_{i=1}^{n-2} E[AB] - E[A]E[B] + 
-				\sum_{i=1}^{n-2} E[BA] - E[B]E[A] + 
-				\sum_{i=1}^{n-1} E[X_i = 0 \text{ or } 1, X_{i+1} = 1] - E[B]E[A]
+				\sum_{i=1}^{n-2} E[BA] - E[B]E[A] + \\
+				\sum_{i=1}^{n-1} E[X_i = 0 \text{ or } 1, X_{i+1} = 1] - E[B]E[A] \\
 			&= 2(n-2)(p-1)^2p^2 - 2(n-2)p^3(1-p) - 2(n-1)p^3(1-p)			
 	\end{align*}
 
