@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage{fullpage}
 \begin{document}
 
 \section{Overview of Occupancy Modeling}
@@ -28,11 +29,11 @@ probability of detection, which we called \(r\).  We let \(p\) be the number of
 \(0\)'s followed by a \(0\) as a fraction of all successive pairs that start with 
 a \(0\).  We let \(q\) be the number of \(1\)'s followed by a \(1\) as a fraction 
 of all successive pairs that start with a \(1\).  These probabilities can be
-represented by the matrix \(M = \begin{bmatrix} p & 1-p \\ 1-q & q \end{bmatrix}\).
-The long term probability of detection can be found from this by finding 
+represented by the matrix \(M = \begin{bmatrix} p & 1-p \\ 1-q & q 
+\end{bmatrix}\). The long term probability of detection can be found from this by finding 
 \(\lim_{n \to \inf} M^n\), which returns \( \begin{bmatrix} 1-r & r \\ 1-r & r 
-\end{bmatrix}\), where \(r\) is the probability of a \(1\), which is the long term 
-probability of detection.  
+\end{bmatrix}\), where \(r\) is the probability of a \(1\), which is the long 
+term probability of detection.  
 
 	We calculated \(p\), \(q\), and \(r\) for every flight in our data, using 
 \(n = 500\).  We then realized that \(r\) does not answer the questions we are 
@@ -45,46 +46,58 @@ behind using Markov Chains did end up being useful, however.
 	Although we rejected the idea of using \(r\) as a way to analyze the data, we
 realized that \(p\) and \(q\) could still be used to test the viability of the 
 independence assumption.  If there is independece between sites, the difference 
-of the proportions \(p\) and \(1-q\) should be approximately \(0\).  Looking at 
-boxplots of \(p - (1-q)\), we see that data from flights that record alternating 
-sites may be more independent than data from flights that record all sites, which
-suggests a possible benefit to using the alternating sampling method.  The
-boxplots for the Whitewater and Zumbro Rivers looked similar to the Mississippi:
-*INSERT BOXPLOT FROM STATUS REPORT HERE
+of the proportions \(p\) and \(1-q\) should be approximately \(0\).  This would 
+mean that the probability that a \(0\) follows a \(0\) is about the same as the 
+probability that a \(1\) follows a \(0\), meaning that it does not depend on what
+the observation is at the previous site.  Looking at boxplots of \(p - (1-q)\), 
+we see that data from flights that record alternating sites may be more 
+independent than data from flights that record all sites, which suggests a 
+possible benefit to using the alternating sampling method.  The boxplots for the 
+Whitewater and Zumbro Rivers looked similar to the Mississippi:  \\
+*INSERT BOXPLOT FROM STATUS REPORT HERE  \\
 We found no obvious trend indicating one site size to be more independent than 
 the others.  
 
 	While this is an interesting observation, we would like to be able to 
-quantify it better by finding the distribution of our statistic.   
+quantify it better by finding the distribution of our statistic.  This would 
+allow us to make statements about how independent the data is, and if the 
+difference in independence between different types of data is significant.   
+This statistic seems hard to get, but we considered a modification.  Let \(S\) be
+the number of successive \(0\),\(1\)'s minus the number of successive \(1\),\(1\)'s
+per flight.  Under the null hypothesis that each site is an independent Bernoulli
+trial with probability \(p\) we were able to compute the mean and standard 
+deviation of \(S\).  
 
+	The mean ...
 
-		We wanted to find out if the assumption of independence across sites held
-true for our data from the DNR.  We also wanted to see what sampling techniques 
-led to the greatest independence between plots.  The different techniques that we
-compared were using different plot sizes, and using data that includes all plots
-or data that uses only every other plot. \\
+	The standard deviation...
 
-		If the observations at different sites are independent, then the 
-probability that there is a \(1\) at site \(i\)  is independent of site \(i-1\).  
-We let \(p\) be the number of \(0\)'s followed by a \(1\) as a fraction of all 
-successive pairs that start with a \(0\).  We let \(1-q\) be the number of \(1\)'s
-followed by a \(1\) as a fraction of all successive pairs that start with a \(1\).
-The difference of these two proportions \((=p-(1-q)\) is a measure of independence,
-where \(p-(1-q)\) being approximately \(0\) under the null hypothesis of 
-independence.  
-	\begin{enumerate}
-    	\item Using Markov Chains to find r. \\
-          * r = potential long-term probability of detection, based upon the 
-			short-term conditional probabilities p and q acquired from our data 
-			(infinite limit as n approaches infinity of Pn) \\
-          * p = probability that a 0 follows a 0, q = probability that a 1 follows
-			 a 1  \\
-          * If 0->0 and 1->0 (the values of a column, basically) equaled each 
-			other, plots would have been independent?  \\
-          * Ultimately not useful to us because it does not take into account 
-			whether or not a site is occupied, so it doesn't apply to the 
-			hierarchical model that we are using. \\
-   		\item Using s, where s = (\# of 0-1's) - (\# of 1-1's) for a given flight.\\
+	Simulations of \(S\) show that the distribution of \(S\) is roughly normal.  
+So using our calculations for the mean and the standard deviation, we computed
+a Z-score for each flight, where we use a plug-in estimate for \(p\) to be the 
+proportion of \(1\)'s per flight.  We said that Z-scores with an absolute value 
+greater than \(2\) suggest that the assumption of independence between sites is 
+violated for that flight.  We found that, in general, alternating sites are more
+"independent" than all sites as measured by this statistic.  However, alternating
+sites do not guarentee independence.  For instance, six of eleven flights along 
+the Zumbro River during 2003 still have significant Z-scores with alternating
+sites.  There were no noticable trends for this statistic with respect to 
+observer, days since snow, or snow event.
+
+*FIGURES OR TABLES??? WHICH ONES?
+
+	We did find interesting trends with regard to sampling method.  We think that 
+the lack of independence results from strings of ones where an otter left a track
+across multiple sites.  When alternating sites are used, the strings are cut in 
+half and the occurrence of \(1\),\(1\)'s is lower while the occurence of \(0\),
+\(1\)'s stays about the same.  It is noteworthy that virtually all the violations
+of independence are in the direction of more \(1\),\(1\)'s than would be expected.
+This reinforces our thoughts about successive \(1\)'s representing the same otter.
+We will discuss later whether this violation of independence actually matters in 
+our model, and how this might affect the estimation of actual occupancy rates.
+ 
+
+   		Using s, where s = (\# of 0-1's) - (\# of 1-1's) for a given flight.\\
           * Decided to use the z-score of s as a measure of independence.  \\
           * Therefore, needed the expected value and the standard deviation of s. \\
           * So, we needed the expected value of each term and the variance, which 
@@ -97,9 +110,7 @@ independence.
 			all plots. \\
           * Nothing important with respect to plot size. Alternating plots show 
 			more independence than all plots. Look at report for more. \\
-          * CAR model started working once we took s values of simulated data into
-			account by increasing dependence.  \\
-	\end{enumerate}
+
 
 \section{Theoretical Stuff} - CHRISNA??
 	\subsection{Bayesian Statistics}
