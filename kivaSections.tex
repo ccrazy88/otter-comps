@@ -1,1 +1,102 @@
-kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+%kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+\documentclass[12pt]{article}
+\usepackage{graphicx,amssymb}
+
+\begin{document}
+\section{Questions of investigation}
+The North American river otter (\textit{Lontra canadensis}) is endemic to all of 
+Minnesota; however, populations declined precipitously in the 19th and 20th 
+centuries due to trapping and habitat degradation. In recent years their 
+populations have significantly rebounded, especially in southeastern Minnesota 
+where hunters would like to be able to trap otters again. In order for that to 
+be possible governmental organizations must be able to monitor the population 
+health. In addition, otter presence can indicate high quality aquatic habitat. 
+Due to these reasons, there is interest in monitoring changes in otter abundance 
+over time. Unfortunately, otters are not easy to observe. Thus, this study 
+investigated the potential of using wintertime aerial surveys of otter tracks on 
+rivers to make inferences about the abundance of otters and how it changes over 
+time. We used the concepts from occupancy theory to develop models to estimate 
+abundance.
+
+\subsection{Data collection}
+During the winters of 2003 and 2004 people flew over the Whitewater, Zumbrow, 
+and Mississippi Rivers. When they saw what looked like an otter track, they 
+pushed a button recording the GPS coordinates. They pushed the button every five 
+seconds until the track ended. Flights occurred one, two, or three days after a 
+snow event. In some cases, multiple observers flew over the same river on the 
+same day. Surveys were conducted during multiple snow events throughout both 
+winters. The rivers were then divided into 400 and 800 meter plots and the 
+presence (1) or absence (0) of a waypoint in a plot on a given flight was 
+determined. The Mississippi River was also divided into 1600 meter plots.
+
+\subsection{Issues related to the data}
+One major issue with respect to the data is that if a track occurred near the 
+boundary between two plots, a person on one flight may have recorded the track 
+in one site whereas someone on a later flight during that same snow event may 
+have seen the same track but recorded it in the neighboring plot. So while the 
+data indicate that the observers on the two flights disagreed in two plots, they 
+saw the same track. Increasing the plot size should decrease the magnitude of 
+this effect.
+
+In addition, there is concern that the probability of an otter laying down a 
+track in one site is not independent of the probability that an otter lays down 
+a track in neighboring sites, violating a principle assumption of occupancy 
+theory. That is, a single track can extend across multiple plots. This leads to 
+dependence among the plots. It was important to quantify this dependence and 
+find an optimum way to handle it.
+
+\subsection{Descriptive statistics}
+
+In 2003, three different observers flew over the rivers. Assuming that no tracks 
+are laid down between individuals’ flights on the same day, all three people 
+should have seen the same tracks. While there is some error in classifying which 
+site the observer saw the actual track in, each observer should at least be 
+seeing the same, or nearly the same, number of sites with tracks. However, we 
+did not find that to be the case. If we look only at days that all three people 
+observed, there appear to be major differences among the proportion of sites in 
+which the scientists detected a track (Figure x). The difference in estimated na
+\"ive occupancy among the observers indicates that the scientists did not always 
+correctly identify the tracks. 
+
+Correlation among the flight sequences is low. For example, average correlation 
+between flights on the Mississippi in 2003 is 0.176 for 400 meter plots. Some of 
+this is due to the difficulties in determining to which site each track belongs. 
+However, we have also found quite a bit of variation in the data not necessarily 
+due to these classification issues. This is difficult to quantify, as an 
+algorithm for finding classification errors would be complicated. Correlation 
+between flights is a bit higher for flights on the same day or flights during 
+the same snow event, but still not as high as one might hope. The proportion of 
+sites with tracks detected generally increases with days since snow, likely 
+because the otters have a longer time to lay down a track as time after the snow 
+event passes.
+
+\subsection{False positive rates}
+The lack of consistency among the flights is strong evidence that the data 
+contain false positives where scientists think they see a track when it does not 
+exist. Not accounting for such a process can lead to major biases; as the number 
+of flights increases, the occupancy rate estimate will approach one (Royle and 
+Link 2006). We introduced a false detection process and used the observer as a 
+covariate (by means of indicator variables) for both the probability of 
+correctly identifying a track that exists ($p$) and the probability of 
+identifying a track that does not exist ($E$). Including false positives 
+introduces a duality whereby $\begin{array}{ccc}(p = x, & E = y, & \psi = z)\end
+{array}$ is as good a solution as $\begin{array}{ccc}(p = y, & E = x, & \psi = 
+1-z)\end{array}$. To address this problem we assumed $p\gg0.5$ and $E\ll0.5$, an 
+approach recommended by Royle and Link (2006).
+
+Figure x caption:
+The box plots show how the proportion of sites in which an observer saw tracks 
+(“occupancy”) differs among the three observers. Only those dates in which all 
+three observers flew are included.
+
+\section{Spatial correlation of the data}
+We found that there is significant correlation between the probability of 
+observing a track in neighboring sites, but this violates of a central 
+assumption of occupancy theory. This issue needed to be addressed. One approach 
+was to make the prior distribution of $\theta$, the probability that an otter 
+lays down a track, spatially correlated using a conditional autoregressive
+(CAR) model.
+
+
+
+\end{document}

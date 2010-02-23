@@ -88,12 +88,11 @@
     %% GETTING THE ACTUAL DATA TO CONVERGE:
     \subsection{Obtaining Convergence on the Actual Data}
     Recall that our standard hierarchical model contains the following
-    parameters: \(\psi\) (the rate of occupancy), \(\theta\) (the probability
-    of laying down a track given occupancy), \(p\) (the probability of
-    detecting a track given that it is present, which is unique to each
-    observer and makes \(1-p\) the false negative rate of detecting a track),
-    and \(E\) (the false positive rate of detecting a track, which is unique to
-    each observer).
+    parameters: \(\psi\) (the rate of occupancy), \(\theta\) (the probability of
+    laying down a track given occupancy), \(p\) (the probability of detecting a
+    track given that it is present, which is unique to each observer and makes
+    \(1-p\) the false negative rate of detecting a track), and \(E\) (the false
+    positive rate of detecting a track, which is unique to each observer).
 
     Once both the standard hierarchical model and the addition of a CAR prior
     distribution on \(\theta\) to the standard model exhibited convergence on
@@ -104,8 +103,8 @@
     the detection and non-detection of a track, respectively, within plots of
     length 402 meters, 804 meters, and 1608 meters.  The covariates recorded
     were: the observer, the date, and the number of days since the last snow
-    event.  In general, the sparseness of the data gathered in 2004 caused us
-    to simplify the model in order to obtain results.  Unfortunately, the
+    event.  In general, the sparseness of the data gathered in 2004 caused us to
+    simplify the model in order to obtain results.  Unfortunately, the
     simplification results in estimates of \(\psi\) that do not seem accurate
     and are not directly comparable to estimates of \(\psi\) on 2003's data.
 
@@ -142,23 +141,43 @@
     distribution adds a considerable amount of complexity to the model.
 
     We also tried to simplify this model by eliminating \(E\) because this was
-    somewhat successful with respect to convergence with the standard model.
-    We first attempted to fit this model to data from 2003 at the 402m plot
-    size.  Although the model successfully converged on all of this data, its
-    estimates of \(\psi\), all of which were greater than 0.9, did not seem
-    reasonable, especially in comparison to the standard model's estimates when
-    given the same data.  As a result, we did not attempt to fit this model to
-    the rest of the data and do not include this model's estimates within our
-    results.
+    somewhat successful with respect to convergence with the standard model.  We
+    first attempted to fit this model to data from 2003 at the 402m plot size.
+    Although the model successfully converged on all of this data, its estimates
+    of \(\psi\), all of which were greater than 0.9, did not seem reasonable,
+    especially in comparison to the standard model's estimates when given the
+    same data.  As a result, we did not attempt to fit this model to the rest of
+    the data and do not include this model's estimates within our results.
 
     %% RESULTS:
     \subsection{Results}
     Below, in tables, lie our estimates for all of the Minnesota DNR's data from
     2003 and 2004.  Below each table is detailed commentary about the ability of
-    the standard hierarchical model to convergence to the corresponding data. \\
+    the standard hierarchical model to convergence to the corresponding data.
+
+    With respect to the model's ability to converge on the actual data, the most
+    important factors are plot size, the number of flights recorded, and the
+    number of estimated parameters.  In general, both plot size and the number
+    of flights recorded must be sufficiently small and large, respectively, for
+    the standard model with \(E\) to converge.  
+
+    2003's data worked relatively well with our model.  The presence of numerous
+    observations that occur in the second and third days since the most recent
+    snow event allows one of the more crucial assumptions of our hierarchical
+    model -- that otter tracks laid on each day after a snow event are visible
+    throughout the entire observation period and therefore, that it is more
+    likely for an observer to detect a track on later days -- to be thoroughly
+    tested.
+
+    2004's data, which suffered from the lack of multiple observers and
+    observations later than one day after each snow event, does not provide
+    enough data with respect to time (measured by the number of days since the
+    last snow event) for the parameters \(p\) and \(E\) to converge, regardless
+    of the number of Markov Chain Monte Carlo (MCMC) iterations performed.
 
     % Mississippi River!
-    \noindent{\begin{tabular}{|l|l|l|l|}
+    \begin{center}
+    \begin{tabular}{|l|l|l|l|}
         \hline
         \multicolumn{4}{|l|}{\textbf{Mississippi River, 2003}} \\
         \hline
@@ -196,13 +215,14 @@
             & 0.15280 & 0.20730 & 0.27690 \\
             & (0.111900, 0.19780) & (0.14580, 0.27390) & (0.19030, 0.3716) \\
         \hline
-    \end{tabular}}
-    \\
+    \end{tabular}
+    \end{center}
     
     This data converged well at the 402m and 804m plot sizes.  At the 1608m plot
-    size, \(E\), \(\psi\), and \(\theta\) did not converge well. \\
+    size, \(E\), \(\psi\), and \(\theta\) did not converge well.
 
-    \noindent{\begin{tabular}{|l|l|}
+    \begin{center}
+    \begin{tabular}{|l|l|}
         \hline
         \multicolumn{2}{|l|}{\textbf{Mississippi River, 2004}} \\
         \hline
@@ -220,14 +240,15 @@
             & 0.8511 \\
             & (0.2426, 0.9973) \\
         \hline
-    \end{tabular}}
-    \\
+    \end{tabular}
+    \end{center}
 
     This data did not converge.  We do not think that these estimates are
-    accurate, but they are included for the sake of completeness. \\
+    accurate, but they are included for the sake of completeness.
     
     % Whitewater River!
-    \noindent{\begin{tabular}{|l|l|l|}
+    \begin{center}
+    \begin{tabular}{|l|l|l|}
         \hline
         \multicolumn{3}{|l|}{\textbf{Whitewater River, 2003}} \\
         \hline
@@ -265,13 +286,14 @@
             & 0.24100 & 0.3779 \\
             & (0.17890, 0.30900) & (0.286500, 0.4721) \\
         \hline
-    \end{tabular}}
-    \\
+    \end{tabular}
+    \end{center}
 
     While the 402m data converged well, \(E\), \(\psi\), and \(\theta\) did not
-    converge well for the 804m data. \\
+    converge well for the 804m data.
 
-    \noindent{\begin{tabular}{|l|l|l|l|}
+    \begin{center}
+    \begin{tabular}{|l|l|l|l|}
         \hline
         \multicolumn{2}{|l|}{\textbf{Whitewater River, 2004}} \\
         \hline
@@ -289,16 +311,17 @@
             & 0.2068 \\
             & (0.1211, 0.3550) \\
         \hline
-    \end{tabular}}
-    \\
+    \end{tabular}
+    \end{center}
 
     This data converged well.  However, we feel that the absence of \(E\) from
     the model makes the estimates much less dependable.  The estimates are also
     much less precise than those from 2003 -- the confidence intervals of
-    \(\psi\) and of \(p[Danny]\) are twice as large as those from 2003. \\
+    \(\psi\) and of \(p[Danny]\) are twice as large as those from 2003.
 
     % Zumbro River!
-    \noindent{\begin{tabular}{|l|l|l|}
+    \begin{center}
+    \begin{tabular}{|l|l|l|}
         \hline
         \multicolumn{3}{|l|}{\textbf{Zumbro River, 2003}} \\
         \hline
@@ -336,13 +359,14 @@
             & 0.29950 & 0.395800 \\
             & (0.236400, 0.36550) & (0.3100, 0.48520) \\
         \hline
-    \end{tabular}}
-    \\
+    \end{tabular}
+    \end{center}
 
     Again, the 402m data converged well.  With respect to the 804m data, while
-    \(\psi\) and \(\theta\) converged well, none of the other parameters did. \\
+    \(\psi\) and \(\theta\) converged well, none of the other parameters did.
 
-    \noindent{\begin{tabular}{|l|l|l|l|}
+    \begin{center}
+    \begin{tabular}{|l|l|l|l|}
         \hline
         \multicolumn{2}{|l|}{\textbf{Zumbro River, 2004}} \\
         \hline
@@ -360,8 +384,8 @@
             & 0.4232 \\
             & (0.3073, 0.5520) \\
         \hline
-    \end{tabular}}
-    \\
+    \end{tabular}
+    \end{center}
 
     This data converged well.  However, as is the case with all of the 2004
     data, we feel that the absence of \(E\) from the model makes the estimates
