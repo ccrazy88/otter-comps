@@ -9,6 +9,7 @@
 \usepackage{multirow}
 \usepackage[dvipsnames, table]{xcolor}
 \usepackage[all]{xy}
+\usepackage{hyperref}
 
 \begin{document}
 
@@ -379,10 +380,37 @@ abundance.
     of \(p\) to the range \(0.6\text{ to }1\), and \(E\) to \(0\text{ to }0.4\).
 
     \subsection{WinBUGS/R}
-    All of our statistical analysis was performed in R.
 
-    All of our modeling was performed using BRugs, which allowed us to use
-    WinBUGS commands and other stuff in R.
+    To implement a Bayesian hierarchical model, we make use of the software
+    packages WinBUGS \cite{Lunn2000}, R \cite{R2009}, BRugs \cite{Thomas2008},
+    and, by extension, OpenBUGS \cite{Thomas2006}, as one can describe the model
+    using an ``intuitive `pseudo-code' representation'' in WinBUGS
+    \cite{MacKenzie2006} and then run the model within the familiar environment
+    of R using the combination of BRugs and OpenBUGS. OpenBUGS, the open source,
+    cross-platform successor to WinBUGS, uses the same syntax. All of the
+    aforementioned software packages are open source and available
+    freely\footnote{WinBUGS: \url{http://www.mrc-bsu.cam.ac.uk/bugs/} and R:
+    \url{http://www.r-project.org/} are available as standalone programs. The
+    BRugs/OpenBUGS package can be installed by typing
+    \texttt{install.packages("BRugs")} in R's interactive shell. Note that while
+    R and OpenBUGS include official support for Mac OS X and Unix/Unix-like
+    operating systems, WinBUGS and the BRugs package are only available for
+    Windows.}.
+
+    WinBUGS requires a representation of a model, data, and initial values on
+    which a predetermined number of iterations of the MCMC algorithm are
+    executed \cite{MacKenzie2006}. Because WinBUGS explicitly estimates missing
+    data that is `padded out' by inserting NA values \cite{Spiegelhalter2003},
+    we implement a nested indexing strategy to prevent this extraneous
+    estimation on the actual data. This is a particularly important
+    implementation detail in this case because the data we received from the
+    Minnesota Department of Natural Resources was not consistent with respect to
+    our covariates. Neither the number of observers nor number of observations
+    after each snow event exhibited consistency. Our simulations, on the other
+    hand, involve balanced data sets that are much less difficult to implement
+    within WinBUGS and R.
+
+    % Should we say anything about making maps/other CAR-related stuff?
 
 \section{Standard Hierarchical Model}
 
