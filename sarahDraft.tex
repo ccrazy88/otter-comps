@@ -2,6 +2,7 @@
 \usepackage{amsmath}
 \usepackage{fullpage}
 \usepackage[hmargin=3cm, vmargin=3cm]{geometry}
+\usepackage[all]{xy}
 \begin{document}
 
 \section{Overview of Occupancy Modeling}
@@ -64,30 +65,36 @@ detection across sites.
 	\subsection{Types of Occupancy Models}
 
 		All of the models that we looked at were single-species, single-season
-models because this is what fit our data, but any of these models can be modified
-to take into account multiple seasons or multiple species.  
+models because this is what fit our data, but these models can be modified to
+be used for multiple seasons or multiple species.  
 
 	The most simple way to measure occupancy is to simply divide the number 
 of sites where an animal was found to be present by the total number of sites.  
 This is called naive occupancy [MacKenzie2006].  It is generally accepted that 
 this estimate is too low because animals are not detected at all sites where they
-are present, which is the issue of false negatives.  The other occupancy models
+are present, which is the issue of false negatives.  Other occupancy models
 attempt to do better than this simple estimate.
 
-	One way to create more accurate models is to use a Hierarchical model to 
-think about the parameters that affect occupancy.  
-			
-	A more complicated model that can be used as a Hierarchical model is Maximum
-Likelihood Estimation (MLE).  This is done by finding the probability 
-distribution of the observed data as a function of the parameters.  This 
-distribution is then said to be the function of the parameters conditional on the
-data, and becomes the likelihood function.  Then, the values of the parameters 
-that maximize the likelihood function are found, which means that we find the 
-parameters that make the data most likely given the underlying model.  
-[MacKenzie2006]
+	One way to create more accurate models is to use a Hierarchical model as a 
+way to think about the parameters that affect occupancy.  This allows us to take
+into account that when an animal is not detected, it could either not be there, 
+or it could be there and just was not detected.  This could either be due to
+a false negative, where the observer did not see the indicator, or it could be 
+due to the fact that the animal does occupy the site but there was no indication
+of the animal at the site- for example, no track, no vocalization, etc.  \\
+Here is a visualization of how the Hierarchical model works:
+	\begin{displaymath}
+		\xymatrix{          	   &                                  		 &                               		&\text{Site} \ar[dl] \ar[dr] & \\
+				            	   &                                  		 & \text{Occupied} \ar[dl] \ar[d]		&                            & \text{Unoccupied} \ar[d] \\
+				            	   & \text{Presence Indicated} \ar[dl] \ar[d]& \text{Presence Not Indicated} \ar[d]&                            & \text{Not Detected} \\
+				   \text{Detected} & \text{Not Detected}              		 & \text{Not Detected}                  &                            &   }
+	\end{displaymath}
 
-	Another way to do this is using a Bayesian model, which we will discuss in 
-more detail below.
+From this diagram, you can see that we need separate parameters for the 
+probability that a site is occupied, the probability that presence is indicated
+given that a site is occupied, and the probability of detection given that 
+presence is indicated and the site is occupied.  We call these \(\psi\),
+\(\theta\), and \(p\), respectively.
 
 \section{Actual data}
 Stuff by Kiva.
@@ -227,7 +234,14 @@ actual occupancy rates.
 \section{Theoretical Stuff} 
 
 	\subsection{Bayesian Statistics}
-	   	Bayes' Theorem \\
+
+	   	Bayes' Theorem: \(P(\theta|X) = P(X|\theta)P(\theta) / P(X)\) \\
+
+	Usually, the mean of the posterior distribution is then used as a point 
+estimate for the parameter.  
+  	
+
+Therefore, the posterior distribution \( \propto \) the likelihood times the prior.
     	Useful for hierarchical modeling: look at section 3.3 in book. \\
     	Can use Markov Chain Monte Carlo (MCMC) to calculate posterior 
 			distribution- bimodal issues.
