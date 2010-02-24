@@ -97,15 +97,10 @@ Population in Southeastern Minnesota}
     of the animal at the site -- for example, no track, no vocalization, etc.
 
     Here is a visualization of how the Hierarchical model works:
-    % Either the margins need to be increased or we need a prettier diagram :(.
-    \begin{displaymath}
-        \xymatrix{
-        & & & \text{Site}\ar[dl]\ar[dr] & \\
-        & & \text{Occupied}\ar[dl]\ar[d] & & \text{Unoccupied}\ar[d] \\
-        & \text{Presence Indicated}\ar[dl]\ar[d] & 
-          \text{Presence Not Indicated}\ar[d] & & \text{Not Detected} \\
-        \text{Detected} & \text{Not Detected} & \text{Not Detected} & &}
-    \end{displaymath}
+
+    \begin{center}
+        \includegraphics[scale=0.75]{SimpleHierarchicalModel}
+    \end{center}
 
     From this diagram, it is apparent that we need separate parameters for the
     probability that a site is occupied, the probability that presence is
