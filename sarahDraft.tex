@@ -9,79 +9,77 @@
 
 	\subsection{What is Occupancy Rate?}
 
-		Occupancy has two similar definitions.  It can be "the probability that a
+		Occupancy has two different definitions.  It can mean "the probability that a
 randomly selected site or sampling unit in an area of interest is occupied by a 
 species" [MacKenzie2006].  It also can be used to describe "the proportion of 
 area, patches, or sample units that is occupied" [MacKenzie2006].  Occupancy is 
 not the same as the abundance, or population size, of a species.  The number of
-members of a species is not important, only whether or not at least one member of
-the species is present in each site.  
+members of a species is not important for either definition of occupancy.  
 	
 	While there is a difference between these two definitions of occupancy, in 
 general the probability is unknown and the observed proportion is used as an 
 estimate of the underlying probability.  Because of this, these two definitions
-of occupancy are oftentimes used interchangably.   
+of occupancy are oftentimes used interchangeably.  
 		
 	The main reasons that people are interested in measuring occupancy are science
 or conservation and management [MacKenzie2006].  This statistic can give insight 
 into the way a system works.  It also can be used to monitor animals habitats 
-and discover trends over time in animal populations.
+and discover trends over time in groups of animals.
 
 	\subsection{Different Ways of Sampling Data}
 
 		In order to determine occupancy rate, the data is often collected in the
  form of a presence-absence survey.  This means that observers visit sites and 
-spend time within each one looking for the animals themselves, tracks, 
-vocalizations, or some other indicator that the animal is present.  In some cases, 
-camera traps and sound recording are used instead of human observers.
+look for the animals themselves, tracks, vocalizations, or some other indicator 
+that the animal is present.  In some cases, camera traps and sound recording are 
+used instead of human observers. [MacKenzie 2006]
 
 	The main problem with these methods of sampling data is that it is possible 
 for an animal to occupy a site, but not be detected by the observer.  This means
-that the site is recorded as absent, but there really is an animal there.  This 
-is called a false negative.  Marking an animal present when there really is no
-animal is also a possible problem, but is thought to be much less likely and is
-often ignored.  We will discuss this more below.
+that the site is recorded as unoccupied, but there really is an animal there.  
+This is called a false negative.  Marking an animal present when there really is
+no animal is also a possible problem, but is thought to be much less likely and 
+is often ignored.  We will discuss this issue more below.
 
 	\subsection{Assumptions}
 
-	There are some assumptions that are made in order to create models of 
-occupancy.  Without these assumptions, the models become much more complicated.
-One common assumption is no false positives, which means if a site is recorded as
-present, this cannot be incorrect.  This is an assumption that we attempted to 
-get rid of in our models.  A second common assumption is that presence and 
-detection probabilties are constant across sites and surveys.  A third common 
-assumption is that there is independence of detection between sites.  A fourth
-common assumption is that the surveys are being conducted on a closed population.
-This means that no animals leave the area or join the area during the time of the
-surveys.  
+	There are some assumptions that are made in most models of occupancy.  [MacKenzie 2006].
+Without these assumptions, the models become much more complicated.  One 
+common assumption is no false positives, which means if a site is recorded as
+occupied we say it must actually be occupied.  A second common assumption is that
+presence and detection probabilities are constant across sites and surveys.  This 
+simplifies the estimation of each parameter.  A third common assumption is that 
+there is independence of detection between sites.  A fourth common assumption is 
+that the surveys are being conducted on a closed population.  This means that no 
+animals leave the area or join the area during the time of the surveys.  
 
-	Obviously, not all of these assumptions are always true.  In some cases, there
-are established ways to deal with getting rid of an assumption in the models, 
-and in others there are no common ways to get rid of the assumption.  Either way, 
-it adds a level of complication to the model, and therefore we will only talk 
-about dealing with the assumption of no false positives, and independence of 
-detection across sites.
+	Obviously, not all of these assumptions are always true, but they are often 
+necessary in order to get a model that is simple enough to use.  There often are
+possible ways to get rid of these assumptions, but it complicates the model.  In
+this paper, we will only talk about attempting to get rid of the assumption of no
+false positives, and the assumption of independence of parameters across sites.
 
 	\subsection{Types of Occupancy Models}
 
-		All of the models that we looked at were single-species, single-season
-models because this is what fit our data, but these models can be modified to
-be used for multiple seasons or multiple species.  
+		All of the models discussed in this paper are single-species, single-season
+models.  It is possible to modify all of these models to be used for multiple-seasons
+or multiple-species, but it would make them more complicated.  
 
 	The most simple way to measure occupancy is to simply divide the number 
 of sites where an animal was found to be present by the total number of sites.  
 This is called naive occupancy [MacKenzie2006].  It is generally accepted that 
 this estimate is too low because animals are not detected at all sites where they
-are present, which is the issue of false negatives.  Other occupancy models
-attempt to do better than this simple estimate.
+are present, which is the issue of false negatives mentioned above.  Other 
+occupancy models attempt to do better than this simple estimate.
 
 	One way to create more accurate models is to use a Hierarchical model as a 
 way to think about the parameters that affect occupancy.  This allows us to take
 into account that when an animal is not detected, it could either not be there, 
 or it could be there and just was not detected.  This could either be due to
-a false negative, where the observer did not see the indicator, or it could be 
-due to the fact that the animal does occupy the site but there was no indication
-of the animal at the site- for example, no track, no vocalization, etc.  \\
+a false negative, where the observer did not see the indication- for example they 
+did not see the animal, track, etc.- or it could be due to the fact that the 
+animal does occupy the site but there was no indication of the animal at the 
+site- for example, no track, no vocalization, etc.  \\
 Here is a visualization of how the Hierarchical model works:
 	\begin{displaymath}
 		\xymatrix{          	   &                                  		 &                               		&\text{Site} \ar[dl] \ar[dr] & \\
@@ -90,10 +88,10 @@ Here is a visualization of how the Hierarchical model works:
 				   \text{Detected} & \text{Not Detected}              		 & \text{Not Detected}                  &                            &   }
 	\end{displaymath}
 
-From this diagram, you can see that we need separate parameters for the 
+From this diagram, it is apparent that we need separate parameters for the 
 probability that a site is occupied, the probability that presence is indicated
 given that a site is occupied, and the probability of detection given that 
-presence is indicated and the site is occupied.  We call these \(\psi\),
+presence is indicated and the site is occupied.  We will call these \(\psi\),
 \(\theta\), and \(p\), respectively.
 
 \section{Actual data}
@@ -113,16 +111,16 @@ by finding \(\lim_{n \to \inf} M^n\), which returns \( \begin{bmatrix} 1-r & r
 the long term probability of detection.  
 
 	We calculated \(p\), \(q\), and \(r\) for every flight in our data, using 
-\(n = 500\).  We then realized that \(r\) does not answer the questions we are 
-asking.  It does not take into account whether or not a site is occupied, or 
+\(n = 500\).  We then realized that \(r\) is actually not so useful in analyzing
+our data.  It does not take into account whether or not a site is occupied, or 
 whether or not a track was laid down on that site, or any of the ideas behind    
 the hierarchical model.  These are the parameters that we eventually want to 
 find out something about, and the value of \(r\) cannot help us get there.  The 
-ideas behind using Markov Chains did end up being useful, however.  
+idea to use Markov Chains was still useful, however.  
 	
 	Although we rejected the idea of using \(r\) as a way to analyze the data, 
-we realized that \(p\) and \(q\) could still be used to test the viability of 
-the independence assumption.  If there is independece between sites, the 
+we realized that \(p\) and \(q\) could be used to test the viability of 
+the independence assumption.  If there is independence between sites, the 
 difference of the proportions \(p\) and \(1-q\) should be approximately \(0\). 
 This would mean that the probability that a \(0\) follows a \(0\) is about the 
 same as the probability that a \(1\) follows a \(0\), meaning that it does not 
@@ -131,7 +129,7 @@ depend on what the observation is at the previous site.  Looking at boxplots of
 be more independent than data from flights that record all sites, which suggests
 a possible benefit to using the alternating sampling method.  The boxplots for 
 the Whitewater and Zumbro Rivers looked similar to the Mississippi:  \\
-*INSERT BOXPLOT FROM STATUS REPORT HERE  \\
+*INSERT BOXPLOT FROM STATUS REPORT HERE OF p-(1-q) Mississippi \\
 We found no obvious trend indicating one site size to be more independent than 
 the others.  
 
@@ -148,7 +146,7 @@ standard deviation of \(S\), which we used to calculate a Z-score.
 variance of each term in \(S\).  We let \(A = \text{\# of 0-1's}\), 
 \(B = \text{\# of 1-1's}\) and \(p = P(``1")\text{ in the sequence}\).
 
-	The mean ...
+In order to find \(E[\hat{s}]\), we first needed to find \(E[A]\) and \(E[B]\).
  	  % E[A]
     \begin{equation*}
         \begin{split}
@@ -175,7 +173,7 @@ variance of each term in \(S\).  We let \(A = \text{\# of 0-1's}\),
         \end{split}
     \end{equation*}
 
-	The standard deviation...
+The standard deviation was a little more difficult.  
     % Var[A]
     \begin{equation*}
         \begin{split}
@@ -233,23 +231,22 @@ proportion of \(1\)'s per flight.  We said that Z-scores with an absolute value
 greater than \(2\) suggest that the assumption of independence between sites is 
 violated for that flight.  We found that, in general, alternating sites are more
 "independent" than all sites as measured by this statistic.  However, alternating
-sites do not guarentee independence.  For instance, six of eleven flights along 
+sites do not guarantee independence.  For instance, six of eleven flights along 
 the Zumbro River during 2003 still have significant Z-scores with alternating
-sites.  There were no noticable trends for this statistic with respect to 
-observer, days since snow, snow event, or plot size.
+sites.  There were no noticeable trends for this statistic with respect to 
+observer, days since snow, snow event, or plot size.  
 
-*FIGURES OR TABLES??? WHICH ONES?
+*FIGURES OR TABLES??? WHICH ONES? from status report compilation
 
-	We did find interesting trends with regard to sampling method.  We think 
-that the lack of independence results from strings of ones where an otter left a
-track across multiple sites.  When alternating sites are used, the strings are 
-cut in half and the occurrence of \(1\),\(1\)'s is lower while the occurence of 
-\(0\),\(1\)'s stays about the same.  It is noteworthy that virtually all the 
-violations of independence are in the direction of more \(1\),\(1\)'s than would
-be expected.  This reinforces our thoughts about successive \(1\)'s representing
-the same otter.  We will discuss later whether this violation of independence 
-actually matters in our model, and how this might affect the estimation of 
-actual occupancy rates.
+	We think that the lack of independence results from strings of ones where an 
+otter left a track across multiple sites.  When alternating sites are used, the 
+strings are cut in half and the occurrence of \(1\),\(1\)'s is lower while the 
+occurrence of \(0\),\(1\)'s stays about the same.  It is noteworthy that 
+virtually all the violations of independence are in the direction of more 
+\(1\),\(1\)'s than would be expected.  This reinforces our thoughts about 
+successive \(1\)'s representing the same otter.  We will discuss later whether 
+this violation of independence actually matters in our model, and how this might
+affect the estimation of actual occupancy rates.
 
 \section{Theoretical Stuff} 
 
@@ -257,15 +254,19 @@ actual occupancy rates.
 
 	   	Bayes' Theorem: \(P(\theta|X) = P(X|\theta)P(\theta) / P(X)\) \\
 
+	This states that the posterior distribution \( \propto \) the likelihood 
+\(\times\) the prior.
 	Usually, the mean of the posterior distribution is then used as a point 
 estimate for the parameter.  
   	
-
-Therefore, the posterior distribution \( \propto \) the likelihood times the prior.
-    	Useful for hierarchical modeling: look at section 3.3 in book. \\
-    	Can use Markov Chain Monte Carlo (MCMC) to calculate posterior 
-			distribution- bimodal issues.
-	
-	\subsection{BRugs/R} - Chrisna
+	We can use Bayesian statistics in the Hierarchical model as long as we set a
+prior for every parameter that we include.  We can then use Markov Chain Monte 
+Carlo (MCMC) to find a posterior distributions for every parameter.  We run into 
+a problem of duality with the probability of correct detection \(p\), and the 
+probability of false detection \(E\).  These two variables have bimodal posterior
+distributions, because \(p = x, E = y, \psi = z\) is the same as \(p = y, E = x, 
+\psi = 1 - z\).  Since we know that is reasonable for \(p\) to be greater than \(E\),
+we solved this problem by restricting the distribution of \(p\) to the range
+\(0.6 \text{ to } 1\), and \(E\) to \(0 \text{ to } 0.4\).  
 
 \end{document}
