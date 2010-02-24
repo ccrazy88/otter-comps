@@ -1,59 +1,92 @@
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{fullpage}
+\usepackage[hmargin=3cm, vmargin=3cm]{geometry}
 \begin{document}
 
 \section{Overview of Occupancy Modeling}
+
 	\subsection{What is Occupancy Rate?}
-		"The probability that a randomly selected site or sampling unit in an area 
-			of interest is occupied by a species" [MacKenzie2006] (pg. 11)
+
+		Occupancy is "The probability that a randomly selected site or sampling 
+unit in an area of interest is occupied by a species" [MacKenzie2006] This is 
+not the same as the abundance, or population size, of a species.  Instead of 
+measuring the number of animals present in a species, occupancy measures the 
+proportion of land that is used as the habitat of at least one member of the 
+species. 
+	is either the probability or the proportion 25-  note importance of the 
+distinction although they can be considered the same thing in most cases 
+		
+		*What is it used for?
+
 	\subsection{Different Ways of Sampling Data}
-		Measuring rate of occupancy vs. population \\
-		Looking at tracks vs. listening to stuff or acutally looking for the animal
+		Most common way of sampling:  visit sites and spend time within each one 
+looking for either individuals of the species or for evidence the species is 
+present- "presence-absence survey"(26).  can use visual observation of animals,
+capture animals, ovserve tracks, detect vocalizations, camera traps, sound 
+recording.  leads to naive occupancy rate.  PROBLEM: false negatives.
+		
+		*Measuring rate of occupancy vs. population \\
+		*Looking at tracks vs. listening to stuff or acutally looking for the 
+			animal
+
 	\subsection{Assumptions}
-		Independence of detection between sites \\
-		No false positives \\
-		Presence and detection probabilities constant across sites and surveys \\
-		Closed population
+		*Independence of detection between sites \\
+		*No false positives \\
+		*Presence and detection probabilities constant across sites and surveys \\
+		*Closed population
+
 	\subsection{Types of Occupancy Models}
-		Maximum Likelihood \\
-		any other models? \\
-		Hierarchical Bayesian?  is that the name of what we used?
+		We only considered single-season, single-species models because this is 
+the data we had, but any of these models can be extended to take into account
+multiple seasons or multiple species.  
+		Naive Occupancy pg 11- this is when you just divide the number of sites
+			that are indicated as occupied by the total number of sites.  it is
+			generally accepted that this is too low because not all animals are 
+			detected.
+		Hierarchical Models:
+		Maximum Likelihood \\  Give the simple model, then say it can be 
+			modified in many different ways.  give some examples possibly 
+			without going into detail.
+		Any other models? \\
+		Bayesian?  is that the name of what we used?  should save most of this 
+			for theoretical section?
 
 \section{Actual data}
 Stuff by Kiva.
+
 	\subsection{Markov Chains and Testing the Independence Assumption}
 
 		First we considered using Markov Chains to come up with a long term 
 probability of detection, which we called \(r\).  We let \(p\) be the number of 
-\(0\)'s followed by a \(0\) as a fraction of all successive pairs that start with 
-a \(0\).  We let \(q\) be the number of \(1\)'s followed by a \(1\) as a fraction 
-of all successive pairs that start with a \(1\).  These probabilities can be
-represented by the matrix \(M = \begin{bmatrix} p & 1-p \\ 1-q & q 
-\end{bmatrix}\). The long term probability of detection can be found from this by finding 
-\(\lim_{n \to \inf} M^n\), which returns \( \begin{bmatrix} 1-r & r \\ 1-r & r 
-\end{bmatrix}\), where \(r\) is the probability of a \(1\), which is the long 
-term probability of detection.  
+\(0\)'s followed by a \(0\) as a fraction of all successive pairs that start 
+with a \(0\).  We let \(q\) be the number of \(1\)'s followed by a \(1\) as a 
+fraction of all successive pairs that start with a \(1\).  These probabilities 
+can be represented by the matrix \(M = \begin{bmatrix} p & 1-p \\ 1-q & q 
+\end{bmatrix}\). The long term probability of detection can be found from this 
+by finding \(\lim_{n \to \inf} M^n\), which returns \( \begin{bmatrix} 1-r & r 
+\\ 1-r & r\end{bmatrix}\), where \(r\) is the probability of a \(1\), which is 
+the long term probability of detection.  
 
 	We calculated \(p\), \(q\), and \(r\) for every flight in our data, using 
 \(n = 500\).  We then realized that \(r\) does not answer the questions we are 
 asking.  It does not take into account whether or not a site is occupied, or 
-whether or not a track was laid down on that site, or any of the ideas behind the
-hierarchical model.  Thesse are the parameters that we eventually want to find 
-out something about, and the value of \(r\) cannot help us get there.  The ideas 
-behind using Markov Chains did end up being useful, however.  
+whether or not a track was laid down on that site, or any of the ideas behind    
+the hierarchical model.  These are the parameters that we eventually want to 
+find out something about, and the value of \(r\) cannot help us get there.  The 
+ideas behind using Markov Chains did end up being useful, however.  
 	
-	Although we rejected the idea of using \(r\) as a way to analyze the data, we
-realized that \(p\) and \(q\) could still be used to test the viability of the 
-independence assumption.  If there is independece between sites, the difference 
-of the proportions \(p\) and \(1-q\) should be approximately \(0\).  This would 
-mean that the probability that a \(0\) follows a \(0\) is about the same as the 
-probability that a \(1\) follows a \(0\), meaning that it does not depend on what
-the observation is at the previous site.  Looking at boxplots of \(p - (1-q)\), 
-we see that data from flights that record alternating sites may be more 
-independent than data from flights that record all sites, which suggests a 
-possible benefit to using the alternating sampling method.  The boxplots for the 
-Whitewater and Zumbro Rivers looked similar to the Mississippi:  \\
+	Although we rejected the idea of using \(r\) as a way to analyze the data, 
+we realized that \(p\) and \(q\) could still be used to test the viability of 
+the independence assumption.  If there is independece between sites, the 
+difference of the proportions \(p\) and \(1-q\) should be approximately \(0\). 
+This would mean that the probability that a \(0\) follows a \(0\) is about the 
+same as the probability that a \(1\) follows a \(0\), meaning that it does not 
+depend on what the observation is at the previous site.  Looking at boxplots of 
+\(p - (1-q)\), we see that data from flights that record alternating sites may 
+be more independent than data from flights that record all sites, which suggests
+a possible benefit to using the alternating sampling method.  The boxplots for 
+the Whitewater and Zumbro Rivers looked similar to the Mississippi:  \\
 *INSERT BOXPLOT FROM STATUS REPORT HERE  \\
 We found no obvious trend indicating one site size to be more independent than 
 the others.  
@@ -62,15 +95,72 @@ the others.
 quantify it better by finding the distribution of our statistic.  This would 
 allow us to make statements about how independent the data is, and if the 
 difference in independence between different types of data is significant.   
-This statistic seems hard to get, but we considered a modification.  Let \(S\) be
-the number of successive \(0\),\(1\)'s minus the number of successive \(1\),\(1\)'s
-per flight.  Under the null hypothesis that each site is an independent Bernoulli
-trial with probability \(p\) we were able to compute the mean and standard 
-deviation of \(S\).  
+This statistic seems hard to get, but we considered a modification.  Let \(S\) 
+be the number of successive \(0\),\(1\)'s minus the number of successive \(1\),
+\(1\)'s per flight.  Under the null hypothesis that each site is an independent 
+Bernoulli trial with probability \(p\) we were able to compute the mean and 
+standard deviation of \(S\), which we used to calculate a Z-score.
+	In order to compute these values, we needed to find the expected value and
+variance of each term in \(S\).  We let \(A = \text{\# of 0-1's}\), 
+\(B = \text{\# of 1-1's}\) and \(p = P(``1")\text{ in the sequence}\).
 
 	The mean ...
+ 	\begin{align*}
+        E[A] 
+            &= \sum_{i=1}^{n-1} P(X_i = 0, X_{i+1} = 1) \\
+            &= \sum_{i=1}^{n-1} (1-p)p \\
+            &= (n-1)(1-p)p
+    \end{align*}
+    \begin{align*}
+        E[B]
+            &= \sum_{i=1}^{n-1} P(X_i = 1, X_{i+1} = 1) \\
+            &= \sum_{i=1}^{n-1} p*p \\
+            &= (n-1)p^2
+    \end{align*}
+	\begin{align*}
+        E[\hat{s}] 
+            &= E[A] - E[B] \\
+            &= (n-1)\bigg((1-p)p - p^2\bigg)
+    \end{align*}
 
 	The standard deviation...
+	\begin{align*}
+        Var[A] 
+            &= \sum_{i=1}^{n-1} Var[A] + 2\sum_{i=1}^{n-2} Cov[I_i = (0, 1),
+               I_{i+1} = (1, 1)] \\
+            &= (n-1)P((0, 1))(1-P((0, 1))) + 2\sum_{i=1}^{n-2}\bigg(E[I_i=(0, 
+               1), I_{i+1} = (0, 1)] - E[I_i = (0, 1)]E[I_{i+1} = (0, 1)]\bigg)
+               \\
+            &= (n-1)(1-p)p(1-(1-p)p) + 2\sum_{i=1}^{n-2}\bigg(0 - (1-p)p(1-p)p
+               \bigg) \\
+            &= (1-p)p(-1+n+5p-3np-5p^2+3np^2)
+    \end{align*}
+    \begin{align*}
+        Var[B] 
+            &= \sum_{i=1}^{n-1} Var[B] + 2\sum_{i=1}^{n-2} Cov[I_i = (1, 1),
+               I_{i+1} = (1, 1)] \\
+            &= (n-1)P((1, 1))(1-P((1, 1))) + 2\sum_{i=1}^{n-2}\bigg(E[I_i=(1,   
+               1), I_{i+1} = (1, 1)] - E[I_i = (1, 1)]E[I_{i+1} = (1, 1)]\bigg) 
+               \\
+            &= (n-1)p^2(1-p^2) + 2(n-2)(p^3-p^4) \\
+            &= (1-p)p^2(-1+n-5p+3np)
+    \end{align*}
+	\begin{align*}
+		2Cov[A, B]  
+			&= 2 \sum_{i=1}^{n-1} \sum_{j=1}^{n-1} Cov[A, B]\\
+			&= 2 \bigg(\sum_{i=1}^{n-2} Cov[AB] + \sum_{i=1}^{n-2} Cov[BA] +
+				\\ \sum_{i=1}^{n-1} Cov[X_i = 0 \text{ or } 1, X_{i+1} = 1]\bigg) \\
+			&= 2 \bigg(\sum_{i=1}^{n-2} E[AB] - E[A]E[B] + 
+				\sum_{i=1}^{n-2} E[BA] - E[B]E[A] + \\
+				\sum_{i=1}^{n-1} E[X_i = 0 \text{ or } 1, X_{i+1} = 1] - E[B]E[A] \\
+			&= 2(n-2)(p-1)^2p^2 - 2(n-2)p^3(1-p) - 2(n-1)p^3(1-p)			
+	\end{align*}	
+    \begin{align*}
+        Var[\hat{s}] 
+            &= Var[A-B] \\
+            &= Var[A] + Var[B] - 2Cov[A, B] \\
+            &= (1-p)p(-1+n+8p-4np-20p^2+12np^2)
+    \end{align*}
 
 	Simulations of \(S\) show that the distribution of \(S\) is roughly normal.  
 So using our calculations for the mean and the standard deviation, we computed
@@ -82,46 +172,29 @@ violated for that flight.  We found that, in general, alternating sites are more
 sites do not guarentee independence.  For instance, six of eleven flights along 
 the Zumbro River during 2003 still have significant Z-scores with alternating
 sites.  There were no noticable trends for this statistic with respect to 
-observer, days since snow, or snow event.
+observer, days since snow, snow event, or plot size.
 
 *FIGURES OR TABLES??? WHICH ONES?
 
-	We did find interesting trends with regard to sampling method.  We think that 
-the lack of independence results from strings of ones where an otter left a track
-across multiple sites.  When alternating sites are used, the strings are cut in 
-half and the occurrence of \(1\),\(1\)'s is lower while the occurence of \(0\),
-\(1\)'s stays about the same.  It is noteworthy that virtually all the violations
-of independence are in the direction of more \(1\),\(1\)'s than would be expected.
-This reinforces our thoughts about successive \(1\)'s representing the same otter.
-We will discuss later whether this violation of independence actually matters in 
-our model, and how this might affect the estimation of actual occupancy rates.
- 
+	We did find interesting trends with regard to sampling method.  We think 
+that the lack of independence results from strings of ones where an otter left a
+track across multiple sites.  When alternating sites are used, the strings are 
+cut in half and the occurrence of \(1\),\(1\)'s is lower while the occurence of 
+\(0\),\(1\)'s stays about the same.  It is noteworthy that virtually all the 
+violations of independence are in the direction of more \(1\),\(1\)'s than would
+be expected.  This reinforces our thoughts about successive \(1\)'s representing
+the same otter.  We will discuss later whether this violation of independence 
+actually matters in our model, and how this might affect the estimation of 
+actual occupancy rates.
 
-   		Using s, where s = (\# of 0-1's) - (\# of 1-1's) for a given flight.\\
-          * Decided to use the z-score of s as a measure of independence.  \\
-          * Therefore, needed the expected value and the standard deviation of s. \\
-          * So, we needed the expected value of each term and the variance, which 
-			required finding the variance of each term and the covariance between 
-			the two terms. \\
-          * Expected value is straightforward and we have all of the equations. \\
-          * Variance is fun and we also have all of the relevant equations. \\
-          * Calculated z-score for every flight and box-plotted them for each year
-			and plot size and pitted data with every other plot against data with
-			all plots. \\
-          * Nothing important with respect to plot size. Alternating plots show 
-			more independence than all plots. Look at report for more. \\
+\section{Theoretical Stuff} 
 
-
-\section{Theoretical Stuff} - CHRISNA??
 	\subsection{Bayesian Statistics}
 	   	Bayes' Theorem \\
     	Useful for hierarchical modeling: look at section 3.3 in book. \\
     	Can use Markov Chain Monte Carlo (MCMC) to calculate posterior 
 			distribution- bimodal issues.
-	\subsection{BRugs/R}
-    	All of our statistical analysis was performed in R.  \\
-    	All of our modeling was performed using BRugs, which allowed us to use 
-			WinBUGS commands and stuff in R.
-
+	
+	\subsection{BRugs/R} - Chrisna
 
 \end{document}
