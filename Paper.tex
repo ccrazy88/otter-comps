@@ -474,8 +474,8 @@ track in a site on a given day.
     where $N_s$ is the set of neighbors of area $s$ (in this case, the two
     bordering sites), $E(\theta_s)=\mu_s$, $\tau_s^2$ is the conditional
     variance, $c_{si}$ is the weight defining how strong the correlation is
-    between sites $s$ and $i$, and $c_{ii}=0$ for all sites $i$ (Arab et al.,
-    year?). Essentially, this model means that if site $s$'s neighbor has a
+    between sites $s$ and $i$, and $c_{ii}=0$ for all sites $i$ \cite{Arab2008}.
+    Essentially, this model means that if site $s$'s neighbor has a
     particularly high or low track-laying probability, that will increase or
     decrease the track-laying probability for site $s$. This makes it more
     likely to have strings of tracks that cross over multiple sites.
@@ -486,7 +486,7 @@ track in a site on a given day.
     site $s$ is unknown, we followed convention and used the same value of
     $\tau$ for all sites and placed a prior distribution on it. We chose a
     $\gamma(0.5,0.0005)$ prior distribution for $(\tau^2)^{-1}$, a common choice
-    (GeoBUGS manual). In our model we define $\text{logit}(\theta_s)=\alpha_0+
+    \cite{Thomas2004}. In our model we define $\text{logit}(\theta_s)=\alpha_0+
     \alpha_{1_s}$ where $\alpha_0$ has an improper uniform distribution and
     $\alpha_1$ has a Gaussian CAR distribution. We again used a uniform prior
     distribution on $\psi$ and the same beta prior distributions on $p$ and $E$.
