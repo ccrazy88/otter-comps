@@ -1,5 +1,5 @@
 \documentclass[12pt]{article}
-\usepackage{graphicx,amssymb}
+\usepackage{graphicx,amssymb,amsmath}
 
 \begin{document}
 \section{Questions of investigation}
@@ -45,7 +45,6 @@ dependence among the plots. It was important to quantify this dependence and
 find an optimum way to handle it.
 
 \subsection{Descriptive statistics}
-
 In 2003, three different observers flew over the rivers. Assuming that no tracks 
 are laid down between individuals' flights on the same day, all three people 
 should have seen the same tracks. While there is some error in classifying which 
@@ -78,23 +77,89 @@ Link 2006). We introduced a false detection process and used the observer as a
 covariate (by means of indicator variables) for both the probability of 
 correctly identifying a track that exists ($p$) and the probability of 
 identifying a track that does not exist ($E$). Including false positives 
-introduces a duality whereby $\begin{array}{ccc}(p = x, & E = y, & \psi = z)\end
-{array}$ is as good a solution as $\begin{array}{ccc}(p = y, & E = x, & \psi = 
-1-z)\end{array}$. To address this problem we assumed $p\gg0.5$ and $E\ll0.5$, an 
-approach recommended by Royle and Link (2006).
+introduces a duality whereby 
+$\begin{array}{ccc}(p = x, & E = y, & \psi = z)\end{array}$ 
+is as good a solution as 
+$\begin{array}{ccc}(p = y, & E = x, & \psi = 1-z)\end{array}$. 
+To address this problem we assumed $p\gg0.5$ and $E\ll0.5$, an approach 
+recommended by Royle and Link (2006).
 
 \section{Spatial correlation of the data}
-We found that there is significant correlation between the probability of 
-observing a track in neighboring sites, but this violates of a central 
-assumption of occupancy theory. This issue needed to be addressed. One approach 
-was to make the prior distribution of $\theta$, the probability that an otter 
-lays down a track, spatially correlated using a conditional autoregressive
-(CAR) model.
+One approach to dealing with the significant correlation in the probability of 
+observing a track in neighboring sites was to use a conditional autogregressive 
+(CAR) prior distribution for $\theta$, the probability that an otter lays down a 
+track in a site on a given day.
 
+\subsection{Conditional autoregressive (CAR) models}
+Let $\theta_s$ be the probability of a track being laid down in site $s$ on a 
+given day. Then the Gaussian CAR model can be defined using the following 
+conditional distributions:
+\begin{equation}\theta_s|\theta_i,\tau_s^2 \sim N(\mu_s+\sum_{i\in N_s}c_{si}
+(y_i-\mu_i),\tau_s^2)\end{equation}
+where $N_s$ is the set of neighbors of area $s$ (in this case, the two bordering 
+sites), $E(\theta_s)=\mu_s$, $\tau_s^2$ is the conditional variance, $c_{si}$ is 
+the weight defining how strong the correlation is between sites $s$ and $i$, and 
+$c_{ii}=0$ for all sites $i$ (Arab et al., year?). Essentially, this model means 
+that if site $s$'s neighbor has a particularly high or low track-laying 
+probability, that will increase or decrease the track-laying probability for 
+site $s$. This makes it more likely to have strings of tracks that cross over 
+multiple sites.
+
+\subsection{Our CAR model}\label{car model}
+For our model, both neighbors are weighted equally. Since $\tau_s$ for any site 
+$s$ is unknown, we followed convention and used the same value of $\tau$ for all 
+sites and placed a prior distribution on it. We chose a $\gamma(0.5,0.0005)$ 
+prior distribution for $(\tau^2)^{-1}$, a common choice (GeoBUGS manual). In our 
+model we define $\text{logit}(\theta_s)=\alpha_0+\alpha_{1_s}$ where $\alpha_0$ 
+has an improper uniform distribution and $\alpha_1$ has a Gaussian CAR 
+distribution. We again used a uniform prior distribution on $\psi$ and the same 
+beta prior distributions on $p$ and $E$. In this case, we limited the range of 
+$p$ to the interval $(0.7,1)$ and the range of $E$ to $(0,0.3)$. We increased 
+the burn-in time to 12,000 iterations. With this model, instead of a single 
+estimate for $\theta$ there are now $S$ estimates for $\theta$ where $S$ is the 
+total number of sites. While ideally we would estimate an overall value for $
+\theta$, it seems more important for the purposes of this investigation to 
+estimate $\psi$.
+
+\subsection{Simulating spatially correlated data}
+Because we modeled spatial correlation in $\theta$, we began by simulating 
+spatial correlation in the track-laying process. To do this, we added an 
+additional variable to the simulated data, $\alpha$. Under the new simulation 
+method, $\theta$ is the probability of an otter laying down a track in site $i$ 
+given site $i$ is occupied and site $i-1$ does \textit{not} have a track. If 
+site $i$ is occupied and site $i-1$ does have a track, then the probability of 
+an otter laying down a track in site $i$ is equal to $\theta+\alpha$. This means 
+if there is a track in one site, there is more likely to be a track in the next site. However, when we ran data simulated using this new method on the model 
+described in \ref{car model}, the model almost never converged. We tested 
+independence of the data using the $\hat{s}$ statistic we developed (section %
+\ref{shat}
+) and found that the simulated data displayed much more independence than the 
+actual data. We tried simulating spatial correlation only in $\psi$ with similar 
+results.
+
+To increase the correlation of the tracks we simulated data with spatial 
+correlation in both $\theta$ and $\psi$. Under this simulation method we again 
+had the variables $\theta$ and $\alpha$, but we also had analogous variables $
+\psi$ and $\beta$. In this case, $\psi$ is the probability an otter occupies 
+site $i$ given that site $i-1$ is not occupied and $\psi+\beta$ is the 
+probability that an otter occupies site $i$ given that site $i-1$ is occupied. 
+With this increased spatial correlation we were able to more closely match the $
+\hat{s}$ $z$-scores found in the actual data. In addition, the CAR model 
+converged more often with data simulated using this method, but it still did not 
+converge consistently. 
+
+When we ran the data with spatial correlation in the occupancy process on the 
+CAR model, we could no longer compare the model estimate for $\psi$ to the 
+simulated value of $\psi$ because they had different meanings. To get a sense of 
+the overall occupancy rate in the simulated data we counted the number of sites 
+that were occupied (known because the data are simulated) and divided that by 
+the total number of sites. This proportion is the value we compared to the $\psi
+$ estimate from both hierarchical models.
 
 Figure x caption:
 The box plots show how the proportion of sites in which an observer saw tracks 
 (``occupancy'') differs among the three observers. Only those dates in which all 
 three observers flew are included.
+
 
 \end{document}
