@@ -4,5 +4,12 @@
 *.pdf
 *.synctex.gz
 
+# BibTeX Stuff:
+*.bbl
+*.blg
+
 # OS X Stuff:
 .DS_Store
+
+# Emacs Stuff:
+*~
