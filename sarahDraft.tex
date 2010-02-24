@@ -8,49 +8,86 @@
 
 	\subsection{What is Occupancy Rate?}
 
-		Occupancy is "The probability that a randomly selected site or sampling 
-unit in an area of interest is occupied by a species" [MacKenzie2006] This is 
-not the same as the abundance, or population size, of a species.  Instead of 
-measuring the number of animals present in a species, occupancy measures the 
-proportion of land that is used as the habitat of at least one member of the 
-species. 
-	is either the probability or the proportion 25-  note importance of the 
-distinction although they can be considered the same thing in most cases 
+		Occupancy has two similar definitions.  It can be "the probability that a
+randomly selected site or sampling unit in an area of interest is occupied by a 
+species" [MacKenzie2006].  It also can be used to describe "the proportion of 
+area, patches, or sample units that is occupied" [MacKenzie2006].  Occupancy is 
+not the same as the abundance, or population size, of a species.  The number of
+members of a species is not important, only whether or not at least one member of
+the species is present in each site.  
+	
+	While there is a difference between these two definitions of occupancy, in 
+general the probability is unknown and the observed proportion is used as an 
+estimate of the underlying probability.  Because of this, these two definitions
+of occupancy are oftentimes used interchangably.   
 		
-		*What is it used for?
+	The main reasons that people are interested in measuring occupancy are science
+or conservation and management [MacKenzie2006].  This statistic can give insight 
+into the way a system works.  It also can be used to monitor animals habitats 
+and discover trends over time in animal populations.
 
 	\subsection{Different Ways of Sampling Data}
-		Most common way of sampling:  visit sites and spend time within each one 
-looking for either individuals of the species or for evidence the species is 
-present- "presence-absence survey"(26).  can use visual observation of animals,
-capture animals, ovserve tracks, detect vocalizations, camera traps, sound 
-recording.  leads to naive occupancy rate.  PROBLEM: false negatives.
-		
-		*Measuring rate of occupancy vs. population \\
-		*Looking at tracks vs. listening to stuff or acutally looking for the 
-			animal
+
+		In order to determine occupancy rate, the data is often collected in the
+ form of a presence-absence survey.  This means that observers visit sites and 
+spend time within each one looking for the animals themselves, tracks, 
+vocalizations, or some other indicator that the animal is present.  In some cases, 
+camera traps and sound recording are used instead of human observers.
+
+	The main problem with these methods of sampling data is that it is possible 
+for an animal to occupy a site, but not be detected by the observer.  This means
+that the site is recorded as absent, but there really is an animal there.  This 
+is called a false negative.  Marking an animal present when there really is no
+animal is also a possible problem, but is thought to be much less likely and is
+often ignored.  We will discuss this more below.
 
 	\subsection{Assumptions}
-		*Independence of detection between sites \\
-		*No false positives \\
-		*Presence and detection probabilities constant across sites and surveys \\
-		*Closed population
+
+	There are some assumptions that are made in order to create models of 
+occupancy.  Without these assumptions, the models become much more complicated.
+One common assumption is no false positives, which means if a site is recorded as
+present, this cannot be incorrect.  This is an assumption that we attempted to 
+get rid of in our models.  A second common assumption is that presence and 
+detection probabilties are constant across sites and surveys.  A third common 
+assumption is that there is independence of detection between sites.  A fourth
+common assumption is that the surveys are being conducted on a closed population.
+This means that no animals leave the area or join the area during the time of the
+surveys.  
+
+	Obviously, not all of these assumptions are always true.  In some cases, there
+are established ways to deal with getting rid of an assumption in the models, 
+and in others there are no common ways to get rid of the assumption.  Either way, 
+it adds a level of complication to the model, and therefore we will only talk 
+about dealing with the assumption of no false positives, and independence of 
+detection across sites.
 
 	\subsection{Types of Occupancy Models}
-		We only considered single-season, single-species models because this is 
-the data we had, but any of these models can be extended to take into account
-multiple seasons or multiple species.  
-		Naive Occupancy pg 11- this is when you just divide the number of sites
-			that are indicated as occupied by the total number of sites.  it is
-			generally accepted that this is too low because not all animals are 
-			detected.
-		Hierarchical Models:
-		Maximum Likelihood \\  Give the simple model, then say it can be 
-			modified in many different ways.  give some examples possibly 
-			without going into detail.
-		Any other models? \\
-		Bayesian?  is that the name of what we used?  should save most of this 
-			for theoretical section?
+
+		All of the models that we looked at were single-species, single-season
+models because this is what fit our data, but any of these models can be modified
+to take into account multiple seasons or multiple species.  
+
+	The most simple way to measure occupancy is to simply divide the number 
+of sites where an animal was found to be present by the total number of sites.  
+This is called naive occupancy [MacKenzie2006].  It is generally accepted that 
+this estimate is too low because animals are not detected at all sites where they
+are present, which is the issue of false negatives.  The other occupancy models
+attempt to do better than this simple estimate.
+
+	One way to create more accurate models is to use a Hierarchical model to 
+think about the parameters that affect occupancy.  
+			
+	A more complicated model that can be used as a Hierarchical model is Maximum
+Likelihood Estimation (MLE).  This is done by finding the probability 
+distribution of the observed data as a function of the parameters.  This 
+distribution is then said to be the function of the parameters conditional on the
+data, and becomes the likelihood function.  Then, the values of the parameters 
+that maximize the likelihood function are found, which means that we find the 
+parameters that make the data most likely given the underlying model.  
+[MacKenzie2006]
+
+	Another way to do this is using a Bayesian model, which we will discuss in 
+more detail below.
 
 \section{Actual data}
 Stuff by Kiva.
