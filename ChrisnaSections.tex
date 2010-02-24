@@ -153,27 +153,66 @@
     \subsection{Results}
     Below, in tables, lie our estimates for all of the Minnesota DNR's data from
     2003 and 2004.  Below each table is detailed commentary about the ability of
-    the standard hierarchical model to convergence to the corresponding data.
+    the standard hierarchical model to converge, given the corresponding data.
 
     With respect to the model's ability to converge on the actual data, the most
     important factors are plot size, the number of flights recorded, and the
     number of estimated parameters.  In general, both plot size and the number
     of flights recorded must be sufficiently small and large, respectively, for
-    the standard model with \(E\) to converge.  
+    the standard model with \(E\) to converge.
 
-    2003's data worked relatively well with our model.  The presence of numerous
+    2003's data worked relatively well with the model.  The presence of numerous
     observations that occur in the second and third days since the most recent
     snow event allows one of the more crucial assumptions of our hierarchical
     model -- that otter tracks laid on each day after a snow event are visible
     throughout the entire observation period and therefore, that it is more
     likely for an observer to detect a track on later days -- to be thoroughly
-    tested.
+    tested.  Most of the \(\psi\) and \(\theta\) estimates of 2003's data fall
+    into ranges where our model is at its best, both with respect to convergence
+    and to accurately estimating \(\psi\).
 
     2004's data, which suffered from the lack of multiple observers and
     observations later than one day after each snow event, does not provide
     enough data with respect to time (measured by the number of days since the
     last snow event) for the parameters \(p\) and \(E\) to converge, regardless
     of the number of Markov Chain Monte Carlo (MCMC) iterations performed.
+
+    % Wow, this stuff SUCKS.
+    As plot size increases, every estimated parameter tends to increase as well.
+    Although the vast majority of these increases, even at the 1608m plot size,
+    lie well within the 95\% confidence interval of the accompanying estimate at
+    the 402m plot size, we believe that this trend makes sense.  Only one track
+    detection within a plot is necessary to assign it a 1.  Therefore, once 402m
+    plots are aggregated into 1608m plots, only one of the four 402m plots needs
+    to be assigned a 1 in order for the entire 1608m plot to receive a 1.  The
+    amount of correlation between 1's determines the increase in the proportion
+    of 1's to the number of plots -- as the amount of correlation increases, the
+    increase in the proportion decreases.
+
+    We believe that this increase leads to higher \(\psi\) and \(\theta\)
+    estimates because the potential for multiple otters to lay tracks within the
+    same plot increases.  In southeastern Minnesota, most otters tolerate the
+    presence of other otters in the areas they use most frequently, suggesting
+    that they are neither solitary nor territorial \cite{Gorman2006}.  This is
+    consistent with the noticeable but modest increase in \(\theta\) across plot
+    % I have no idea how to explain this... :(.
+    sizes for all three rivers.  However, estimates of \(\psi\) along the
+    Whitewater and Zumbro Rivers remain constant, despite large increases in
+    \(\theta\).
+
+    % More detail, maybe?
+    Similarly, the increases in estimates of \(p\) and \(E\) seem to result from
+    the general increase of tracks laid per plot as the plot size grows.  As
+    plot size grows, the influence of a 1 increases, regardless of whether an
+    otter track or a track from a different animal was observed.
+
+    Lastly, we decided to use the data from every plot even though we believe
+    that, as a result, our data violates the assumption of independence between
+    sites.  However, the model remains effective with spatially correlated data.
+    Since the actual data is relatively sparse as it is, we consider the removal
+    of half of it in order to preserve independence to be more harmful to the
+    model than supplying it with correlated data.  Therefore, all estimates come
+    from all of the data that we were given.
 
     % Mississippi River!
     \begin{center}
@@ -391,13 +430,17 @@
     data, we feel that the absence of \(E\) from the model makes the estimates
     much less dependable.
 
-    %%
-    \subsection{The Effect of Plot Size}
-    %%
-    \subsection{All Plots vs. Every Other Plot}
-    %%
-    \subsection{How Important Are Our Covariates?}
-    %%
+    %% COVARIATES:
+    \subsection{Covariates}
+    To determine the relative importance of our covariates (the observer, the
+    date, and the number of days since the most recent snow event), we ran the
+    standard hierarchical model with \(E\) on simulated data with values of
+    \(\psi\) and \(\theta\) similar to our estimates of \(\psi\) and \(\theta\)
+    on 2003's data with varying numbers of observers, snow events, and
+    observations after each snow event.
+
     \subsection{Best Practices for Measuring Otter Occupancy}
 
+\bibliographystyle{alpha}
+\bibliography{Bibliography}
 \end{document}
