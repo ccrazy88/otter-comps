@@ -20,9 +20,9 @@ Population in Southeastern Minnesota}
 \author{Chrisna Aing, Sarah Halls, Kiva Oken}
 \maketitle
 
-\section{Overview of Occupancy Modeling}
+\section{Overview of occupancy modeling}
 
-    \subsection{What is Occupancy Rate?}
+    \subsection{What is occupancy rate?}
     Occupancy has two different definitions. It can mean ``the probability that
     a randomly selected site or sampling unit in an area of interest is occupied
     by a species'' \cite{MacKenzie2006}. It also can be used to describe ``the
@@ -41,7 +41,7 @@ Population in Southeastern Minnesota}
     can give insight into the way a system works. It also can be used to monitor
     animals habitats and discover trends over time in groups of animals.
 
-    \subsection{Different Ways of Sampling Data}
+    \subsection{Different ways of sampling data}
     In order to determine occupancy rate, the data is often collected in the
     form of a presence-absence survey. This means that observers visit sites and
     look for the animals themselves, tracks, vocalizations, or some other
@@ -74,7 +74,7 @@ Population in Southeastern Minnesota}
     assumption of no false positives, and the assumption of independence of
     parameters across sites.
 
-    \subsection{Types of Occupancy Models}
+    \subsection{Types of occupancy models}
     All of the models discussed in this paper are single-species, single-season
     models. It is possible to modify all of these models to be used for multiple
     seasons or multiple species, but it would make them more complicated.
@@ -198,7 +198,7 @@ abundance.
     false detection process can occur as long as there is no track, whether or 
     not the site is occupied.
 
-    \subsection{Markov Chains and Testing the Independence Assumption}
+    \subsection{Testing the independence assumption}
     \label{shat}
     First we considered using Markov Chains to come up with a long term
     probability of detection, which we called \(r\). We let \(p\) be the number
@@ -438,9 +438,9 @@ abundance.
     discuss later whether this violation of independence actually matters in our
     model, and how this might affect the estimation of actual occupancy rates.
 
-\section{Theoretical Stuff} 
+\section{Bayesian modeling theory and practice}
 
-    \subsection{Bayesian Statistics}
+    \subsection{Bayesian statistics}
     Bayes' Theorem: \(P(\theta|X) = P(X|\theta)P(\theta) / P(X)\) \\
 
     This states that the posterior distribution \(\propto\) the likelihood
@@ -488,9 +488,9 @@ abundance.
     hand, involve balanced data sets that are much less difficult to implement
     within WinBUGS and R.
 
-\section{Standard Hierarchical Model}
+\section{Standard hierarchical model}
 
-    \subsection{Our Hierarchical Model}
+    \subsection{Our hierarchical model}
     For our model, we specified uniform \((0, 1)\) prior distributions for
     parameters \(\psi\) and \(\theta\), a common, natural choice given a lack of
     formal information about the prior or expert consensus \cite{MacKenzie2006}.
@@ -501,7 +501,7 @@ abundance.
     parameters are tracked and therefore are estimated. The covariates of this
     model are: observer, date, and the number of days since the last snow event.
 
-    \subsection{Simulated Data}
+    \subsection{Simulated data}
     We simulated both balanced and unbalanced datasets meant for the standard
     hierarchical model with given values of \(\psi\), \(\theta\), \(p\) for each
     observer, and \(E\) for each observer.  Balanced data sets, in this context,
@@ -701,7 +701,7 @@ track in a site on a given day.
 
 \section{Discussion}
 
-    \subsection{Obtaining Convergence on the Actual Data}
+    \subsection{Obtaining convergence on the data}
     Recall that our standard hierarchical model contains the following
     parameters: \(\psi\) (the rate of occupancy), \(\theta\) (the probability of
     laying down a track given occupancy), \(p\) (the probability of detecting a
@@ -1081,7 +1081,7 @@ track in a site on a given day.
     the model converge more quickly, but the estimates become only slightly more
     accurate.
 
-    \subsection{Future Work}
+    \subsection{Future work}
     Additional observations are more helpful than additional snow events at
     first, although both are much more helpful than the addition of an observer.
     Once the numbers of snow events and observations after each snow event both
