@@ -232,7 +232,10 @@ abundance.
     sampling method. The boxplots for the Whitewater and Zumbro Rivers looked
     similar to the Mississippi:
 
-    % INSERT BOXPLOT FROM STATUS REPORT HERE OF p-(1-q) Mississippi
+    \begin{center}
+        \includegraphics[scale=0.55]{PQBoxPlots}
+    \end{center}
+
     We found no obvious trend indicating one site size to be more independent
     than the others.
 
@@ -375,10 +378,9 @@ abundance.
     of \(p\) to the range \(0.6\text{ to }1\), and \(E\) to \(0\text{ to }0.4\).
 
     \subsection{WinBUGS/R}
-
     To implement a Bayesian hierarchical model, we make use of the software
     packages WinBUGS \cite{Lunn2000}, R \cite{R2009}, BRugs \cite{Thomas2008},
-    and, by extension, OpenBUGS \cite{Thomas2006}, as one can describe the model
+    and, by extension, OpenBUGS \cite{Thomas2006}. One can describe the model
     using an ``intuitive `pseudo-code' representation'' in WinBUGS
     \cite{MacKenzie2006} and then run the model within the familiar environment
     of R using the combination of BRugs and OpenBUGS. OpenBUGS, the open source,
@@ -405,8 +407,6 @@ abundance.
     hand, involve balanced data sets that are much less difficult to implement
     within WinBUGS and R.
 
-    % Should we say anything about making maps/other CAR-related stuff?
-
 \section{Standard Hierarchical Model}
 
     \subsection{Our Hierarchical Model}
@@ -432,10 +432,28 @@ abundance.
     all that are required to allow us to generate data in which each snow event
     receives the same number of flights by the same number of observers, which
     greatly simplifies the accompanying hierarchical model. First, the
-    simulation assigns a site a 0 (not occupied) or 1 (occupied) based upon the
-    given \(psi\) value.
+    simulation determines a site's occupancy based upon the given \(psi\) value.
+    Then, for each day after each snow event, the simulation decides whether or
+    not an otter laid down a track. For a given day after a snow event, a track
+    is considered to be present if an otter lays a track down on any of the days
+    after the snow event up to and including the given day.  Once that has been
+    decided, the given \(p\) and \(E\) values are used to assign a 0 (not
+    detected) or 1 (detected).
 
-    \noindent{\begin{tabular}{|l|l|l|l|}
+    Because of limitations with respect to WinBUGS' syntax, simulating
+    unbalanced data requires much more additional information and a reformatting
+    of the data as well as the corresponding hierarchical model. While the
+    resulting code's structure differs significantly from that used for balanced
+    data, the underlying model remains the same.
+
+    To determine the efficacy of the standard model over the range of possible
+    \(\psi\) and \(\theta\) values, we ran simulations with several combinations
+    of \(\psi\) and \(\theta\), ran the model on each simulation, and compared
+    the model's estimates to the simulation's parameters. A table detailing the
+    model's performance lies below:
+
+    \begin{center}
+    \begin{tabular}{|l|l|l|l|}
         \hline
         \multicolumn{4}{|l|}{\textbf{The Model vs. Simulated Data}} \\
         \hline
@@ -501,7 +519,27 @@ abundance.
             & \cellcolor{Red}1.00 & \cellcolor{Red}Bad &
               \cellcolor{Red}(0.800, 0.955) \\
         \hline
-    \end{tabular}}
+    \end{tabular}
+    \end{center}
+
+    Each of the simulations represented in the table above ran with the
+    following parameters: seventy sites, five snow events, three observers, and
+    three observations after each snow event. The three observers had \(p\)
+    values of 0.70, 0.80, 0.90 and \(E\) values of 0.05, 0.20, and 0.30,
+    respectively.
+
+    Green rows represent values of \(\psi\) and \(\theta\) for which our
+    standard hierarchical model exhibits good convergence and provides a 95\%
+    confidence interval for \(\psi\) that includes the simulated data's actual
+    \(\psi\) value.  Yellow rows represent values of \(\psi\) and \(\theta\) for
+    which our model exhibits either mediocre convergence with a good confidence
+    interval or good convergence with a bad confidence interval.  Red rows
+    represent values of \(\psi\) and \(\theta\) for which our model does not
+    converge.  The 95\% confidence interval is ignored in these cases.
+
+    Generally, the model is most effective for lower values of \(\psi\) and
+    \(\theta\) but will either converge well or provide useful estimates for the
+    vast majority of combinations of \(\psi\) and \(\theta\) values.
 
 \section{Spatial correlation of the data}
 One approach to dealing with the significant correlation in the probability of
