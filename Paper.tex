@@ -160,9 +160,19 @@ abundance.
     tracks. However, we did not find that to be the case. If we look only at
     days that all three people observed, there appear to be major differences
     among the proportion of sites in which the scientists detected a track
-    (Figure x). The difference in estimated na\"ive occupancy among the
+    (Figure \ref{obsPlots}). The difference in estimated na\"ive occupancy among 
+    the
     observers indicates that the scientists did not always correctly identify
     the tracks.
+
+    \begin{figure}
+        	\centering
+	    \includegraphics[width=5in]{observerPlots.pdf}
+	    \caption{The box plots show how the proportion of sites in which an 
+	    observer saw tracks (``occupancy'') differs among the three observers in 
+	    2003. Only those dates on which all three observers flew are included.}
+	    \label{obsPlots}
+    \end{figure}
 
     Correlation among the flight sequences is low. For example, average
     correlation between flights on the Mississippi in 2003 is 0.176 for 400
@@ -181,13 +191,12 @@ abundance.
     contain false positives where scientists think they see a track when it does
     not exist. Not accounting for such a process can lead to major biases; as
     the number of flights increases, the occupancy rate estimate will approach
-    one (Royle and Link 2006). We introduced a false detection process and used
-    the observer as a covariate (by means of indicator variables) for both the
-    probability of correctly identifying a track that exists ($p$) and the
-    probability of identifying a track that does not exist ($E$). Including
-    false positives introduces a duality whereby $(p=x,E=y,\psi=z)$ is as good a
-    solution as $(p=y,E=x,\psi=1-z)$. To address this problem we assumed
-    $p\gg0.5$ and $E\ll0.5$, an approach recommended by Royle and Link (2006).
+    1 \cite{Royle2006}. Unlike most occupancy models where scientists assume 
+    that detection of the species in question guarantees its presence \cite
+    {MacKenzie2006}, we introduced a false detection process whereby an observer 
+    can mark down the existence of a track when in reality there is none. This 
+    false detection process can occur as long as there is no track, whether or 
+    not the site is occupied.
 
     \subsection{Markov Chains and Testing the Independence Assumption}
     \label{shat}
@@ -446,7 +455,8 @@ abundance.
     have bimodal posterior distributions, because \(p=x,E=y,\psi=z\) is the same
     as \(p=y,E=x,\psi=1-z\). Since we know that is reasonable for \(p\) to be
     greater than \(E\), we solved this problem by restricting the distribution
-    of \(p\) to the range \(0.6\text{ to }1\), and \(E\) to \(0\text{ to }0.4\).
+    of \(p\) to the range \(0.6\text{ to }1\), and \(E\) to \(0\text{ to }0.4\),  
+    an approach recommended by Royle and Link \cite{Royle2006}. 
 
     \subsection{WinBUGS/R}
     To implement a Bayesian hierarchical model, we make use of the software
@@ -688,11 +698,6 @@ track in a site on a given day.
     number of sites that were occupied (known because the data are simulated)
     and divided that by the total number of sites. This proportion is the value
     we compared to the $\psi$ estimate from both hierarchical models.
-
-    Figure x caption:
-    The box plots show how the proportion of sites in which an observer saw
-    tracks (``occupancy'') differs among the three observers. Only those dates
-    in which all three observers flew are included.
 
 \section{Discussion}
 
