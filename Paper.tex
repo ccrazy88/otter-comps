@@ -121,7 +121,7 @@ over time. Unfortunately, otters are not easy to observe. Thus, this study
 investigated the potential of using wintertime aerial surveys of otter tracks on
 rivers to make inferences about the abundance of otters and how it changes over
 time. We used the concepts from occupancy theory to develop models to estimate
-abundance.
+the occupancy rate in order to get a sense of otter abundance.
 
     \subsection{Data collection}
     During the winters of 2003 and 2004 people flew over the Whitewater, Zumbro,
@@ -155,7 +155,7 @@ abundance.
     In 2003, three different observers flew over the rivers. Assuming that no
     tracks are laid down between individuals' flights on the same day, all three
     people should have seen the same tracks. While there is some error in
-    classifying which site the observer saw the actual track in, each observer
+    classifying in which plot the observer saw the actual track, each observer
     should at least be seeing the same, or nearly the same, number of sites with
     tracks. However, we did not find that to be the case. If we look only at
     days that all three people observed, there appear to be major differences
@@ -179,10 +179,11 @@ abundance.
     meter plots. Some of this is due to the difficulties in determining to which
     site each track belongs. However, we have also found quite a bit of
     variation in the data not necessarily due to these classification issues.
-    This is difficult to quantify, as an algorithm for finding classification
-    errors would be complicated. Correlation between flights is a bit higher for
+    This is difficult to quantify. Correlation between flights is a bit higher 
+    for
     flights on the same day or flights during the same snow event, but still not
-    as high as one might hope. The proportion of sites with tracks detected
+    as high as one might hope. Correlation rarely exceeds 0.5. The proportion of 
+    sites with tracks detected
     generally increases with days since snow, likely because the otters have a
     longer time to lay down a track as time after the snow event passes.
 
@@ -197,7 +198,6 @@ abundance.
     can mark down the existence of a track when in reality there is none. This 
     false detection process can occur as long as there is no track, whether or 
     not the site is occupied.
-
     \subsection{Testing the independence assumption}
     \label{shat}
     First we considered using Markov Chains to come up with a long term
@@ -675,12 +675,13 @@ track in a site on a given day.
     is more likely to be a track in the next site. However, when we ran data
     simulated using this new method on the model described in section \ref{car
     model}, the model almost never converged. We tested independence of the data
-    using the $\hat{s}$ statistic we developed in section \ref{shat} and found
+    using the $\hat{s}$ statistic we developed (section \ref{shat}) and found
     that the simulated data displayed much more independence than the actual
     data. We tried simulating spatial correlation only in $\psi$ with similar
     results.
 
-    To increase the correlation of the tracks we simulated data with spatial
+    To increase the correlation of the observed tracks we simulated data with 
+    spatial
     correlation in both $\theta$ and $\psi$. Under this simulation method we
     again had the variables $\theta$ and $\alpha$, but we also had analogous
     variables $ \psi$ and $\beta$. In this case, $\psi$ is the probability an
