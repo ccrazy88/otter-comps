@@ -344,9 +344,80 @@ abundance.
     For instance, six of eleven flights along the Zumbro River during 2003 still
     have significant Z-scores with alternating sites. There were no noticeable
     trends for this statistic with respect to observer, days since snow, snow
-    event, or plot size.
+    event, or site size.
 
-    % FIGURES OR TABLES??? WHICH ONES? from status report compilation
+    % Mississippi River!
+    \begin{center}
+    \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+        \multicolumn{6}{|l|}{\textbf{Mississippi River}} \\
+        \hline
+        \multirow{2}{*}{Year} & \multirow{2}{*}{Size} & \multirow{2}{*}{Flights}
+        & \multicolumn{2}{|l|}{\# Sig. Z-Scores} &
+        \multirow{2}{*}{\(E[|z_{all}|-|z_{alt}|]\)} \\
+        \cline{4-5}
+        & & & All Plots & Alt. Plots & \\
+        \hline
+        \multirow{3}{*}{2003} & 402m & \multirow{3}{*}{20} & 7 & 0 & 0.915 \\
+        \cline{2-2} \cline{4-6}
+        & 804m & & 5 & 0 & 0.651 \\
+        \cline{2-2} \cline{4-6}
+        & 1608m & & 1 & 0 & 0.383 \\
+        \hline
+        \multirow{3}{*}{2004} & 402m & \multirow{3}{*}{6} & 5 & 3 & 0.625 \\
+        \cline{2-2} \cline{4-6}
+        & 804m & & 3 & 0 & 1.428 \\
+        \cline{2-2} \cline{4-6}
+        & 1608m & & 2 & 0 & 0.053 \\
+        \hline
+    \end{tabular}
+    \end{center}
+
+    % Whitewater River!
+    \begin{center}
+    \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+        \multicolumn{6}{|l|}{\textbf{Whitewater River}} \\
+        \hline
+        \multirow{2}{*}{Year} & \multirow{2}{*}{Size} & \multirow{2}{*}{Flights}
+        & \multicolumn{2}{|l|}{\# Sig. Z-Scores} &
+        \multirow{2}{*}{\(E[|z_{all}|-|z_{alt}|]\)} \\
+        \cline{4-5}
+        & & & All Plots & Alt. Plots & \\
+        \hline
+        \multirow{2}{*}{2003} & 402m & \multirow{2}{*}{15} & 6 & 2 & 0.722 \\
+        \cline{2-2} \cline{4-6}
+        & 804m & & 4 & 1 & 0.634 \\
+        \hline
+        \multirow{2}{*}{2004} & 402m & \multirow{2}{*}{6} & 3 & 1 & 1.189 \\
+        \cline{2-2} \cline{4-6}
+        & 804m & & 2 & 2 & 0.612 \\
+        \hline
+    \end{tabular}
+    \end{center}
+
+    % Zumbro River!
+    \begin{center}
+    \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+        \multicolumn{6}{|l|}{\textbf{Zumbro River}} \\
+        \hline
+        \multirow{2}{*}{Year} & \multirow{2}{*}{Size} & \multirow{2}{*}{Flights}
+        & \multicolumn{2}{|l|}{\# Sig. Z-Scores} &
+        \multirow{2}{*}{\(E[|z_{all}|-|z_{alt}|]\)} \\
+        \cline{4-5}
+        & & & All Plots & Alt. Plots & \\
+        \hline
+        \multirow{2}{*}{2003} & 402m & \multirow{2}{*}{11} & 10 & 6 & 1.883 \\
+        \cline{2-2} \cline{4-6}
+        & 804m & & 8 & 5 & 1.287 \\
+        \hline
+        \multirow{2}{*}{2004} & 402m & \multirow{2}{*}{4} & 3 & 3 & 2.425 \\
+        \cline{2-2} \cline{4-6}
+        & 804m & & 3 & 1 & 2.343 \\
+        \hline
+    \end{tabular}
+    \end{center}
 
     We think that the lack of independence results from strings of ones where an
     otter left a track across multiple sites. When alternating sites are used,
@@ -415,9 +486,10 @@ abundance.
     formal information about the prior or expert consensus \cite{MacKenzie2006}.
     We implemented models with normal and beta prior distributions on \(p\) and
     \(E\) and limited the range of \(p\) to the interval \((0.6, 1)\) and the
-    range of \(E\) to the interval \((0, 0.3)\) in both models. We set the
+    range of \(E\) to the interval \((0, 0.4)\) in both models. We set the
     burn-in time for the MCMC simulation to 10,000 iterations. Each of these
-    parameters are tracked and therefore are estimated.
+    parameters are tracked and therefore are estimated. The covariates of this
+    model are: observer, date, and the number of days since the last snow event.
 
     \subsection{Simulated Data}
     We simulated both balanced and unbalanced datasets meant for the standard
