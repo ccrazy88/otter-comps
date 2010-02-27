@@ -6,6 +6,11 @@
 *.fdb_latexmk
 *.out
 
+# Beamer Stuff:
+*.nav
+*.snm
+*.toc
+
 # BibTeX Stuff:
 *.bbl
 *.blg
