@@ -41,6 +41,7 @@ Population in Southeastern Minnesota}
     can give insight into the way a system works. It also can be used to monitor
     animals habitats and discover trends over time in groups of animals.
 
+	
     \subsection{Different ways of sampling data}
     In order to determine occupancy rate, the data is often collected in the
     form of a presence-absence survey. This means that observers visit sites and
@@ -53,41 +54,39 @@ Population in Southeastern Minnesota}
     means that the site is recorded as unoccupied, but there really is an animal
     there. This is called a false negative. Marking an animal present when there
     really is no animal is also a possible problem, but is thought to be much
-    less likely and is often ignored. We will discuss this issue more below.
+    less likely and is often ignored. We will discuss this issue more in later sections.
 
     \subsection{Assumptions}
-    There are some assumptions that are made in most models of occupancy.
-    \cite{MacKenzie2006}. Without these assumptions, the models become much more
-    complicated. One common assumption is no false positives, which means if a
+    As is true for all modeling, there are some assumptions made in most models of occupancy 
+in order to create simple enough models \cite{MacKenzie2006}. One common assumption is no false positives, which means if a
     site is recorded as occupied we say it must actually be occupied. A second
     common assumption is that presence and detection probabilities are constant
     across sites and surveys. This simplifies the estimation of each parameter.
     A third common assumption is that there is independence of detection between
     sites. A fourth common assumption is that the surveys are being conducted on
-    a closed population. This means that no animals leave the area or join the
+    a closed population. This means that no animals leave the area or joins the
     area during the time of the surveys.
 
-    Obviously, not all of these assumptions are always true, but they are often
-    necessary in order to get a model that is simple enough to use. There often
-    are possible ways to get rid of these assumptions, but it complicates the
-    model. In this paper, we will only talk about attempting to get rid of the
-    assumption of no false positives, and the assumption of independence of
+    There are different methods for dealing with violations of these assumptions, some 
+more developed than others.  In this paper, we will only talk about attempting to get rid of the
+    assumption of no false positives and the assumption of independence of
     parameters across sites.
 
     \subsection{Types of occupancy models}
     All of the models discussed in this paper are single-species, single-season
     models. It is possible to modify all of these models to be used for multiple
-    seasons or multiple species, but it would make them more complicated.
+    seasons or multiple species, at the cost of added complexity.
 
     The most simple way to measure occupancy is to simply divide the number of
     sites where an animal was found to be present by the total number of sites.
     This is called na\"ive occupancy \cite{MacKenzie2006}. It is generally
     accepted that this estimate is too low because animals are not detected at
-    all sites where they are present, which is the issue of false negatives
+    all sites where they are present, due to the issue of false negatives
     mentioned above. Other occupancy models attempt to do better than this
     simple estimate.
 
-    One way to create more accurate models is to use a Hierarchical model as a
+    One way to create a more accurate model is to attempt to model the biological 
+proccess that is occuring.  In order to do this, we can use a Hierarchical model as a
     way to think about the parameters that affect occupancy. This allows us to
     take into account that when an animal is not detected, it could either not
     be there, or it could be there and just was not detected. This could either
@@ -198,162 +197,33 @@ the occupancy rate in order to get a sense of otter abundance.
     can mark down the existence of a track when in reality there is none. This 
     false detection process can occur as long as there is no track, whether or 
     not the site is occupied.
+
     \subsection{Testing the independence assumption}
     \label{shat}
-    First we considered using Markov Chains to come up with a long term
-    probability of detection, which we called \(r\). We let \(p\) be the number
-    of \(0\)'s followed by a \(0\) as a fraction of all successive pairs that
-    start with a \(0\). We let \(q\) be the number of \(1\)'s followed by a
-    \(1\) as a fraction of all successive pairs that start with a \(1\). These
-    probabilities can be represented by the matrix:
-    \[M=\begin{bmatrix}
-        p & 1-p \\
-        1-q & q
-    \end{bmatrix}\text{.}\]
-
-    The long term probability of detection can be found from this by finding
-    \(\lim_{n \to \inf}M^n\), which returns
-    \[\begin{bmatrix}
-        1-r & r \\
-        1-r & r
-    \end{bmatrix}\text{,}\]
-    where \(r\) is the probability of a \(1\), which is the long term
-    probability of detection.
-
-    We calculated \(p\), \(q\), and \(r\) for every flight in our data, using
-    \(n = 500\). We then realized that \(r\) is actually not so useful in
-    analyzing our data. It does not take into account whether or not a site is
-    occupied, or whether or not a track was laid down on that site, or any of
-    the ideas behind the hierarchical model. These are the parameters that we
-    eventually want to find out something about, and the value of \(r\) cannot
-    help us get there. The idea to use Markov Chains was still useful, however.
-
-    Although we rejected the idea of using \(r\) as a way to analyze the data,
-    we realized that \(p\) and \(q\) could be used to test the viability of the
-    independence assumption. If there is independence between sites, the
-    difference of the proportions \(p\) and \(1-q\) should be approximately
-    \(0\). This would mean that the probability that a \(0\) follows a \(0\) is
-    about the same as the probability that a \(1\) follows a \(0\), meaning that
-    it does not depend on what the observation is at the previous site. Looking
-    at boxplots of \(p-(1-q)\), we see that data from flights that record
-    alternating sites may be more independent than data from flights that record
-    all sites, which suggests a possible benefit to using the alternating
-    sampling method. The boxplots for the Whitewater and Zumbro Rivers looked
-    similar to the Mississippi:
-
-    \begin{center}
-        \includegraphics[scale=0.55]{PQBoxPlots}
-    \end{center}
-
-    We found no obvious trend indicating one site size to be more independent
-    than the others.
-
-    While this is an interesting observation, we would like to be able to
-    quantify it better by finding the distribution of our statistic. This would
-    allow us to make statements about how independent the data is, and if the
-    difference in independence between different types of data is significant.
-    This statistic seems hard to get, but we considered a modification. Let
-    \(S\) be the number of successive \(0\), \(1\)'s minus the number of
+    Since one of the assumptions of occupancy modeling is that there is 
+	independence between sites, we wanted to see if this assumption held true 
+	for our data.  In order to do this, we calculated the statistic \(S\), which
+	we define as the number of successive \(0\), \(1\)'s minus the number of
     successive \(1\), \(1\)'s per flight. Under the null hypothesis that each
-    site is an independent Bernoulli trial with probability \(p\) we were able
+    site is an independent Bernoulli trial with probability of a \(1 = p\) we were able
     to compute the mean and standard deviation of \(S\), which we used to
-    calculate a Z-score. In order to compute these values, we needed to find the
-    expected value and variance of each term in \(S\). We let \(A = \text{\# of
-    0-1's}\), \(B=\text{\# of 1-1's}\) and \(p=P(``1")\text{ in the sequence}\).
-
-    In order to find \(E[\hat{s}]\), we first needed to find \(E[A]\) and
-    \(E[B]\).
-
-    % E[A]
-    \begin{equation*}
-        \begin{split}
-        E[A]& =\sum_{i=1}^{n-1}P(X_i=0,X_{i+1}=1) \\
-            & =\sum_{i=1}^{n-1}(1-p)p \\
-            & =(n-1)(1-p)p \\
-        \end{split}
-    \end{equation*}
-
-    % E[B]
-    \begin{equation*}
-        \begin{split}
-        E[B]& =\sum_{i=1}^{n-1}P(X_i=1,X_{i+1}=1) \\
-            & =\sum_{i=1}^{n-1}p*p \\
-            & =(n-1)p^2
-        \end{split}
-    \end{equation*}
-
-    % E[s-hat]
-    \begin{equation*}
-        \begin{split}
-        E[\hat{s}]& =E[A]-E[B] \\
-                  & =(n-1)\left((1-p)p-p^2\right)
-        \end{split}
-    \end{equation*}
-
-    The standard deviation was a little more difficult.  
-
-    % Var[A]
-    \begin{equation*}
-        \begin{split}
-        Var[A]& =\sum_{i=1}^{n-1}Var[A]+2\sum_{i=1}^{n-2}Cov[I_i=(0,1),I_{i+1}=
-                 (1,1)] \\
-              & =(n-1)P((0,1))(1-P((0,1))) \\
-              & \quad +2\sum_{i=1}^{n-2}\bigg(E[I_i=(0,1),I_{i+1}=(0,1)]-E[I_i=
-                (0,1)]E[I_{i+1}=(0,1)]\bigg) \\
-              & =(n-1)(1-p)p(1-(1-p)p)+2\sum_{i=1}^{n-2}\bigg(0-(1-p)p(1-p)p
-                \bigg) \\
-              & =(1-p)p(-1+n+5p-3np-5p^2+3np^2)
-        \end{split}
-    \end{equation*}
-
-    % Var[B]
-    \begin{equation*}
-        \begin{split}
-        Var[B]& =\sum_{i=1}^{n-1}Var[B]+2\sum_{i=1}^{n-2}Cov[I_i=(1,1),I_{i+1}=
-                (1,1)] \\
-              & =(n-1)P((1, 1))(1-P((1, 1))) \\
-              & \quad +2\sum_{i=1}^{n-2}\bigg(E[I_i=(1,1),I_{i+1}=(1,1)]-E[I_i=
-                (1,1)]E[I_{i+1}=(1,1)]\bigg) \\
-              & =(n-1)p^2(1-p^2)+2(n-2)(p^3-p^4) \\
-              & =(1-p)p^2(-1+n-5p+3np)
-        \end{split}
-    \end{equation*}
-
-    % Cov[A, B]
-    \begin{equation*}
-        \begin{split}
-        Cov[A,B]& =\sum_{i=1}^{n-1}\sum_{j=1}^{n-1}Cov[A,B] \\
-                & =\sum_{i=1}^{n-2}Cov[A,B]+\sum_{i=1}^{n-2}Cov[B,A] \\
-                & \quad +\sum_{i=1}^{n-1}Cov[X_i=0\text{ or }1,X_{i+1}=1] \\
-                & =\sum_{i=1}^{n-2}E[AB]-E[A]E[B]+\sum_{i=1}^{n-2}E[BA]-
-                  E[B]E[A] \\
-                & \quad +\sum_{i=1}^{n-1}E[X_i=0\text{ or }1,X_{i+1}=1]-
-                  E[B]E[A] \\
-                & =(n-2)(p-1)^2p^2-(n-2)p^3(1-p)-(n-1)p^3(1-p)
-        \end{split}
-    \end{equation*}
-
-    % Var[s-hat]
-    \begin{equation*}
-        \begin{split}
-        Var[\hat{s}]& =Var[A-B] \\
-                    & =Var[A]+Var[B]-2Cov[A,B] \\
-                    & =(1-p)p(-1+n+8p-4np-20p^2+12np^2)
-        \end{split}
-    \end{equation*}
+    calculate a Z-score, where \(Z = (S – E[S])/SD[S]\). In order to compute these values, we needed to find the
+    expected value and variance of each term in \(S\). These caclulations can be
+	found in the appendix.  
 
     Simulations of \(S\) show that the distribution of \(S\) is roughly normal.
     So using our calculations for the mean and the standard deviation, we
     computed a Z-score for each flight, where we use a plug-in estimate for
-    \(p\) to be the proportion of \(1\)'s per flight. We said that Z-scores with
-    an absolute value greater than \(2\) suggest that the assumption of
+    \(p\) to be the proportion of \(1\)'s per flight. We said that \(|Z| > 2\) suggests that the assumption of
     independence between sites is violated for that flight. We found that, in
     general, alternating sites are more "independent" than all sites as measured
     by this statistic. However, alternating sites do not guarantee independence.
     For instance, six of eleven flights along the Zumbro River during 2003 still
-    have significant Z-scores with alternating sites. There were no noticeable
-    trends for this statistic with respect to observer, days since snow, snow
-    event, or site size.
+    have significant Z-scores with alternating sites. It also appears that there 
+	may be slightly more independence when larger site sizes are used, although it is
+not clear if this trend is significant.  There 
+	were no noticable trends for this statistic with respect to observer, days 
+	since snow, or snow event.
 
     % Mississippi River!
     \begin{center}
@@ -1106,5 +976,90 @@ track in a site on a given day.
 
 \bibliographystyle{amsplain}
 \bibliography{Bibliography}
+
+%Needs to be fixed/formatted better... I didn't know how to make an appendix
+\appendix
+	We let \(A = \text{\# of
+    0-1's}\), \(B=\text{\# of 1-1's}\) and \(p=P(``1")\text{ in the sequence}\).
+    In order to find \(E[s]\), we first needed to find \(E[A]\) and
+    \(E[B]\).
+
+    % E[A]
+    \begin{equation*}
+        \begin{split}
+        E[A]& =\sum_{i=1}^{n-1}P(X_i=0,X_{i+1}=1) \\
+            & =\sum_{i=1}^{n-1}(1-p)p \\
+            & =(n-1)(1-p)p \\
+        \end{split}
+    \end{equation*}
+
+    % E[B]
+    \begin{equation*}
+        \begin{split}
+        E[B]& =\sum_{i=1}^{n-1}P(X_i=1,X_{i+1}=1) \\
+            & =\sum_{i=1}^{n-1}p*p \\
+            & =(n-1)p^2
+        \end{split}
+    \end{equation*}
+
+    % E[s]
+    \begin{equation*}
+        \begin{split}
+        E[s]& =E[A]-E[B] \\
+                  & =(n-1)\left((1-p)p-p^2\right)
+        \end{split}
+    \end{equation*}
+
+    The standard deviation was a little more difficult.  
+
+    % Var[A]
+    \begin{equation*}
+        \begin{split}
+        Var[A]& =\sum_{i=1}^{n-1}Var[A]+2\sum_{i=1}^{n-2}Cov[I_i=(0,1),I_{i+1}=
+                 (1,1)] \\
+              & =(n-1)P((0,1))(1-P((0,1))) \\
+              & \quad +2\sum_{i=1}^{n-2}\bigg(E[I_i=(0,1),I_{i+1}=(0,1)]-E[I_i=
+                (0,1)]E[I_{i+1}=(0,1)]\bigg) \\
+              & =(n-1)(1-p)p(1-(1-p)p)+2\sum_{i=1}^{n-2}\bigg(0-(1-p)p(1-p)p
+                \bigg) \\
+              & =(1-p)p(-1+n+5p-3np-5p^2+3np^2)
+        \end{split}
+    \end{equation*}
+
+    % Var[B]
+    \begin{equation*}
+        \begin{split}
+        Var[B]& =\sum_{i=1}^{n-1}Var[B]+2\sum_{i=1}^{n-2}Cov[I_i=(1,1),I_{i+1}=
+                (1,1)] \\
+              & =(n-1)P((1, 1))(1-P((1, 1))) \\
+              & \quad +2\sum_{i=1}^{n-2}\bigg(E[I_i=(1,1),I_{i+1}=(1,1)]-E[I_i=
+                (1,1)]E[I_{i+1}=(1,1)]\bigg) \\
+              & =(n-1)p^2(1-p^2)+2(n-2)(p^3-p^4) \\
+              & =(1-p)p^2(-1+n-5p+3np)
+        \end{split}
+    \end{equation*}
+
+    % Cov[A, B]
+    \begin{equation*}
+        \begin{split}
+        Cov[A,B]& =\sum_{i=1}^{n-1}\sum_{j=1}^{n-1}Cov[A,B] \\
+                & =\sum_{i=1}^{n-2}Cov[A,B]+\sum_{i=1}^{n-2}Cov[B,A] \\
+                & \quad +\sum_{i=1}^{n-1}Cov[X_i=0\text{ or }1,X_{i+1}=1] \\
+                & =\sum_{i=1}^{n-2}E[AB]-E[A]E[B]+\sum_{i=1}^{n-2}E[BA]-
+                  E[B]E[A] \\
+                & \quad +\sum_{i=1}^{n-1}E[X_i=0\text{ or }1,X_{i+1}=1]-
+                  E[B]E[A] \\
+                & =(n-2)(p-1)^2p^2-(n-2)p^3(1-p)-(n-1)p^3(1-p)
+        \end{split}
+    \end{equation*}
+
+    % Var[s]
+    \begin{equation*}
+        \begin{split}
+        Var[s]& =Var[A-B] \\
+                    & =Var[A]+Var[B]-2Cov[A,B] \\
+                    & =(1-p)p(-1+n+8p-4np-20p^2+12np^2)
+        \end{split}
+    \end{equation*}
 
 \end{document}
