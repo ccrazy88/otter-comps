@@ -159,10 +159,10 @@ the occupancy rate in order to get a sense of otter abundance.
     should at least be seeing the same, or nearly the same, number of sites with
     tracks. However, we did not find that to be the case. If we look only at
     days that all three people observed, there appear to be major differences
-    among the proportion of sites in which the scientists detected a track
+    among the proportion of sites in which the observers detected a track
     (Figure \ref{obsPlots}). The difference in estimated na\"ive occupancy among 
     the
-    observers indicates that the scientists did not always correctly identify
+    observers indicates that the observers did not always correctly identify
     the tracks.
 
     \begin{figure}
@@ -189,10 +189,10 @@ the occupancy rate in order to get a sense of otter abundance.
 
     \subsection{False positive rates}
     The lack of consistency among the flights is strong evidence that the data
-    contain false positives where scientists think they see a track when it does
+    contain false positives where observers think they see a track when it does
     not exist. Not accounting for such a process can lead to major biases; as
     the number of flights increases, the occupancy rate estimate will approach
-    1 \cite{Royle2006}. Unlike most occupancy models where scientists assume 
+    1 \cite{Royle2006}. Unlike most occupancy models where observers assume 
     that detection of the species in question guarantees its presence \cite
     {MacKenzie2006}, we introduced a false detection process whereby an observer 
     can mark down the existence of a track when in reality there is none. This 
@@ -624,7 +624,7 @@ the occupancy rate in order to get a sense of otter abundance.
     vast majority of combinations of \(\psi\) and \(\theta\) values.
 
 \section{Spatial correlation of the data}
-One approach to dealing with the significant correlation in the probability of
+One approach to dealing with the correlation in the probability of
 observing a track in neighboring sites was to use a conditional autoregressive
 (CAR) prior distribution for $\theta$, the probability that an otter lays down a
 track in a site on a given day.
@@ -677,12 +677,13 @@ track in a site on a given day.
     model}, the model almost never converged. We tested independence of the data
     using the $\hat{s}$ statistic we developed (section \ref{shat}) and found
     that the simulated data displayed much more independence than the actual
-    data. We tried simulating spatial correlation only in $\psi$ with similar
-    results.
+    data. We tried modeling spatial correlation in the occupancy process, $\psi
+    $, instead of in the track-laying process, but the simulated data were again 
+    more independent than the real data.
 
-    To increase the correlation of the observed tracks we simulated data with 
-    spatial
-    correlation in both $\theta$ and $\psi$. Under this simulation method we
+    To increase the correlation between sites we simulated data
+    correlated in both the track-laying and occupancy processes. Under this 
+    simulation method we
     again had the variables $\theta$ and $\alpha$, but we also had analogous
     variables $ \psi$ and $\beta$. In this case, $\psi$ is the probability an
     otter occupies site $i$ given that site $i-1$ is not occupied and $\psi+
@@ -1103,6 +1104,9 @@ track in a site on a given day.
     with one flight's worth of experience observing the given river, the
     observer's \(p\) and \(E\) would change due to their newfound familiarity
     with the river.
+
+\section{Acknowledgments}
+We would like to thank our adviser, Bob Dobrow, for all of his help and advice and John Fieberg and John Erb from the Minnesota Department of Natural Resources for collecting and sharing the data as well as for offering their specific knowledge of the subject.
 
 \bibliographystyle{amsplain}
 \bibliography{Bibliography}
