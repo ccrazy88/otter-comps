@@ -1,10 +1,10 @@
 \documentclass{beamer}
-\usetheme{Warsaw}
+\usetheme{}
 \title{Using occupancy theory and Bayesian models to estimate otter populations in southeastern Minnesota}
 \author[Aing, Halls, Oken]{Chrisna Aing, Sarah Halls, Kiva Oken}
 \institute{Carleton College}
 \usepackage{graphpap,graphics}
-%\includeonlyframes{}
+\includeonlyframes{currentslide}
 
 \begin{document}
 	{
@@ -71,8 +71,11 @@
 \section{Occupancy Theory}
 \begin{frame}{Definitions of occupancy}
 	\begin{itemize}
-		\item The probability that a randomly selected site or sampling unit in an area of interest is occupied by a species
-		\item The proportion of area, patches, or sampling units that is occupied 	\end{itemize}
+		\item The probability that a randomly selected site or sampling unit in 
+		an area of interest is occupied by a species
+		\item The proportion of area, patches, or sampling units that is 
+		occupied 	
+	\end{itemize}
 	(MacKenzie, et al. 2006) 
 \end{frame}
 
@@ -84,14 +87,16 @@
 			\item The species does not occupy the area
 			\item The species went undetected during surveying
 		\end{itemize}
-		\item Need to be able to estimate probability of observing the species given its presence
+		\item Need to be able to estimate probability of observing the species 
+		given its presence
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Assumptions of occupancy models}
 	\begin{itemize}
 		\item No false positives
-		\item Presence and detection probabilities are constant across sites and surveys (or can be modeled by covariates)
+		\item Presence and detection probabilities are constant across sites 
+		and surveys (or can be modeled by covariates)
 		\item Independence of detection between sites
 		\item Survey is conducted on a closed population	\end{itemize}
 \end{frame}
@@ -110,8 +115,10 @@
 \begin{frame}{Parameters}
 	\begin{itemize}
 		\item $\psi=$ The probability a track is occupied
-		\item $\theta=$ The probability a track is laid down in a site on a given day, given that the site is occupied
-		\item $p= $ The probability an observer sees a track given that a track has been made
+		\item $\theta=$ The probability a track is laid down in a site on a 
+		given day, given that the site is occupied
+		\item $p= $ The probability an observer sees a track given that a track 
+		has been made
 	\end{itemize}
 \end{frame}
 
@@ -121,13 +128,15 @@
 		\item In 2003, three different observers
 		\item Detection rates varied among the observers
 		%include graph here
-		\item Solution: use observer indicators as covariates for detection probability
+		\item Solution: use observer indicators as covariates for detection 
+		probability
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Correlation between flights}
 	\begin{itemize}
-		\item Two observers on same day should have the same na\"ive occupancy rates; not the case
+		\item Two observers on same day should have the same na\"ive occupancy 
+		rates; not the case
 		\item Also looked at correlation between flights
 		\begin{itemize}
 			\item Very low, overall
@@ -137,18 +146,43 @@
 	\end{itemize}
 \end{frame}
 
-%Include frame with new hierarchical diagram
+\begin{frame}{Hierarchical model with false detection}
+	\begin{center}
+		\resizebox{10cm}{!}{\includegraphics{../ModelWithE.pdf}}
+	\end{center}
+\end{frame}
 
 \begin{frame}{Independence between plots}
 	\begin{itemize}
 		\item Assumption: independence between plots
-		\item %Sarah going to review
+		\item $S=(\text{\# of successive 0-1s})-(\text{\# of successive 1-1s})$
+		\item Calculated $Z$-scores for each flight
+			\begin{itemize}
+				\item $Z=\frac{\hat{S}-E[S]}{SD[S]}$
+				\item $|Z_i|>2$ suggests assumption violated for flight $i$.
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[label=currentslide]{Independence, continued}
+
+	\begin{itemize}
+		\item Looking at alternating plots increases the independence
+		\item Also saw trends with respect to plot size
 		\item Solution: kept issue in mind, explored spatially explicit models
 	\end{itemize}
 \end{frame}
 
 \section{Modeling the data}
-\begin{frame}{Bayesian statistics}
+\begin{frame}{Introduction to Bayesian statistics}
+	\begin{itemize}
+		\item Under Bayesian statistics, parameters are random variables
+		\item According to Bayes' theorem
+		\begin{itemize}
+			\item $\text{posterior distribution} \propto \text{prior 
+			distribution}\times \text{likelihood}$
+		\end{itemize}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Our model}
