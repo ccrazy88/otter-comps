@@ -207,9 +207,9 @@ proccess that is occuring.  In order to do this, we can use a Hierarchical model
     successive \(1\), \(1\)'s per flight. Under the null hypothesis that each
     site is an independent Bernoulli trial with probability of a \(1 = p\) we were able
     to compute the mean and standard deviation of \(S\), which we used to
-    calculate a Z-score, where \(Z = (S – E[S])/SD[S]\). In order to compute these values, we needed to find the
+    calculate a Z-score, where \(Z = (\hat{S} - E[S])/SD[S]\). In order to compute these values, we needed to find the
     expected value and variance of each term in \(S\). These caclulations can be
-	found in the appendix.  
+	found in the appendix \ref{math}.  
 
     Simulations of \(S\) show that the distribution of \(S\) is roughly normal.
     So using our calculations for the mean and the standard deviation, we
@@ -227,73 +227,70 @@ not clear if this trend is significant.  There
 
     % Mississippi River!
     \begin{center}
-    \begin{tabular}{|l|l|l|l|l|l|}
+    \begin{tabular}{|l|l|l|l|l|}
         \hline
-        \multicolumn{6}{|l|}{\textbf{Mississippi River}} \\
+        \multicolumn{5}{|l|}{\textbf{Mississippi River}} \\
         \hline
         \multirow{2}{*}{Year} & \multirow{2}{*}{Size} & \multirow{2}{*}{Flights}
-        & \multicolumn{2}{|l|}{\# Sig. Z-Scores} &
-        \multirow{2}{*}{\(E[|z_{all}|-|z_{alt}|]\)} \\
+        & \multicolumn{2}{|l|}{\# Sig. Z-Scores} \\
         \cline{4-5}
-        & & & All Plots & Alt. Plots & \\
+        & & & All Plots & Alt. Plots \\
         \hline
-        \multirow{3}{*}{2003} & 402m & \multirow{3}{*}{20} & 7 & 0 & 0.915 \\
-        \cline{2-2} \cline{4-6}
-        & 804m & & 5 & 0 & 0.651 \\
-        \cline{2-2} \cline{4-6}
-        & 1608m & & 1 & 0 & 0.383 \\
+        \multirow{3}{*}{2003} & 402m & \multirow{3}{*}{20} & 7 & 0 \\
+        \cline{2-2} \cline{4-5}
+        & 804m & & 5 & 0 \\
+        \cline{2-2} \cline{4-5}
+        & 1608m & & 1 & 0 \\
         \hline
-        \multirow{3}{*}{2004} & 402m & \multirow{3}{*}{6} & 5 & 3 & 0.625 \\
-        \cline{2-2} \cline{4-6}
-        & 804m & & 3 & 0 & 1.428 \\
-        \cline{2-2} \cline{4-6}
-        & 1608m & & 2 & 0 & 0.053 \\
+        \multirow{3}{*}{2004} & 402m & \multirow{3}{*}{6} & 5 & 3 \\
+        \cline{2-2} \cline{4-5}
+        & 804m & & 3 & 0 \\
+        \cline{2-2} \cline{4-5}
+        & 1608m & & 2 & 0 \\
         \hline
     \end{tabular}
     \end{center}
 
     % Whitewater River!
     \begin{center}
-    \begin{tabular}{|l|l|l|l|l|l|}
+    \begin{tabular}{|l|l|l|l|l|}
         \hline
-        \multicolumn{6}{|l|}{\textbf{Whitewater River}} \\
+        \multicolumn{5}{|l|}{\textbf{Whitewater River}} \\
         \hline
         \multirow{2}{*}{Year} & \multirow{2}{*}{Size} & \multirow{2}{*}{Flights}
-        & \multicolumn{2}{|l|}{\# Sig. Z-Scores} &
-        \multirow{2}{*}{\(E[|z_{all}|-|z_{alt}|]\)} \\
+        & \multicolumn{2}{|l|}{\# Sig. Z-Scores} \\
         \cline{4-5}
-        & & & All Plots & Alt. Plots & \\
+        & & & All Plots & Alt. Plots \\
         \hline
-        \multirow{2}{*}{2003} & 402m & \multirow{2}{*}{15} & 6 & 2 & 0.722 \\
-        \cline{2-2} \cline{4-6}
-        & 804m & & 4 & 1 & 0.634 \\
+        \multirow{2}{*}{2003} & 402m & \multirow{2}{*}{15} & 6 & 2 \\
+        \cline{2-2} \cline{4-5}
+        & 804m & & 4 & 1 \\
         \hline
-        \multirow{2}{*}{2004} & 402m & \multirow{2}{*}{6} & 3 & 1 & 1.189 \\
-        \cline{2-2} \cline{4-6}
-        & 804m & & 2 & 2 & 0.612 \\
+        \multirow{2}{*}{2004} & 402m & \multirow{2}{*}{6} & 3 & 1 \\
+        \cline{2-2} \cline{4-5}
+        & 804m & & 2 & 2 \\
         \hline
     \end{tabular}
     \end{center}
 
     % Zumbro River!
     \begin{center}
-    \begin{tabular}{|l|l|l|l|l|l|}
+    \begin{tabular}{|l|l|l|l|l|}
         \hline
-        \multicolumn{6}{|l|}{\textbf{Zumbro River}} \\
+        \multicolumn{5}{|l|}{\textbf{Zumbro River}} \\
         \hline
         \multirow{2}{*}{Year} & \multirow{2}{*}{Size} & \multirow{2}{*}{Flights}
-        & \multicolumn{2}{|l|}{\# Sig. Z-Scores} &
-        \multirow{2}{*}{\(E[|z_{all}|-|z_{alt}|]\)} \\
+        & \multicolumn{2}{|l|}{\# Sig. Z-Scores} \\
         \cline{4-5}
-        & & & All Plots & Alt. Plots & \\
+        & & & All Plots & Alt. Plots \\
         \hline
-        \multirow{2}{*}{2003} & 402m & \multirow{2}{*}{11} & 10 & 6 & 1.883 \\
-        \cline{2-2} \cline{4-6}
-        & 804m & & 8 & 5 & 1.287 \\
+        \multirow{2}{*}{2003} & 402m & \multirow{2}{*}{11} & 10 & 6 \\
+        \cline{2-2} \cline{4-5}
+        & 804m & & 8 & 5 \\
         \hline
-        \multirow{2}{*}{2004} & 402m & \multirow{2}{*}{4} & 3 & 3 & 2.425 \\
-        \cline{2-2} \cline{4-6}
-        & 804m & & 3 & 1 & 2.343 \\
+        \multirow{2}{*}{2004} & 402m & \multirow{2}{*}{4} & 3 & 3 \\
+        \cline{2-2} \cline{4-5}
+        & 804m & & 3 & 1 \\
         \hline
     \end{tabular}
     \end{center}
@@ -995,6 +992,8 @@ knowledge of the subject.
 
 %Needs to be fixed/formatted better... I didn't know how to make an appendix
 \appendix
+	\section{Deriving \(E[S]\) and \(SD[S]\)}
+	\label{math}
 	We let \(A = \text{\# of
     0-1's}\), \(B=\text{\# of 1-1's}\) and \(p=P(``1")\text{ in the sequence}\).
     In order to find \(E[s]\), we first needed to find \(E[A]\) and
