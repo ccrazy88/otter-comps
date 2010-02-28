@@ -20,6 +20,49 @@ Population in Southeastern Minnesota}
 \author{Chrisna Aing, Sarah Halls, Kiva Oken}
 \maketitle
 
+\section{Questions of investigation}
+The North American river otter (\textit{Lontra canadensis}) is endemic to all of
+Minnesota; however, populations declined precipitously in the 19th and 20th
+centuries due to trapping and habitat degradation. In recent years their
+populations have significantly rebounded, especially in southeastern Minnesota
+where hunters would like to be able to trap otters again. In order for that to
+be possible governmental organizations must be able to monitor the population
+health. In addition, otter presence can indicate high quality aquatic habitat.
+Due to these reasons, there is interest in monitoring changes in otter abundance
+over time. Unfortunately, otters are not easy to observe. Thus, this study
+investigated the potential of using wintertime aerial surveys of otter tracks on
+rivers to make inferences about the abundance of otters and how it changes over
+time. We used the concepts from occupancy theory to develop models to estimate
+the occupancy rate in order to get a sense of otter abundance.
+
+    \subsection{Data collection}
+    During the winters of 2003 and 2004 people flew over the Whitewater, Zumbro,
+    and Mississippi Rivers. When they saw what looked like an otter track, they
+    pushed a button recording the GPS coordinates. They pushed the button every
+    five seconds until the track ended. Flights occurred one, two, or three days
+    after a snow event. In some cases, multiple observers flew over the same
+    river on the same day. Surveys were conducted during multiple snow events
+    throughout both winters. The rivers were then divided into 400 and 800 meter
+    plots and the presence (1) or absence (0) of a waypoint in a plot on a given
+    flight was determined. The Mississippi River was also divided into 1600
+    meter plots.
+
+    \subsection{Issues related to the data}
+    One major issue with respect to the data is that if a track occurred near
+    the boundary between two plots, a person on one flight may have recorded the
+    track in one site whereas someone on a later flight during that same snow
+    event may have seen the same track but recorded it in the neighboring plot.
+    So while the data indicate that the observers on the two flights disagreed
+    in two plots, they saw the same track. Increasing the plot size should
+    decrease the magnitude of this effect.
+
+    In addition, there is concern that the probability of an otter laying down a
+    track in one site is not independent of the probability that an otter lays
+    down a track in neighboring sites, violating a principle assumption of
+    occupancy theory. That is, a single track can extend across multiple plots.
+    This leads to dependence among the plots. It was important to quantify this
+    dependence and find an optimum way to handle it.
+
 \section{Overview of occupancy modeling}
 
     \subsection{What is occupancy rate?}
@@ -106,49 +149,6 @@ proccess that is occuring.  In order to do this, we can use a Hierarchical model
     indicated given that a site is occupied, and the probability of detection
     given that presence is indicated and the site is occupied. We will call
     these \(\psi\), \(\theta\), and \(p\), respectively.
-
-\section{Questions of investigation}
-The North American river otter (\textit{Lontra canadensis}) is endemic to all of
-Minnesota; however, populations declined precipitously in the 19th and 20th
-centuries due to trapping and habitat degradation. In recent years their
-populations have significantly rebounded, especially in southeastern Minnesota
-where hunters would like to be able to trap otters again. In order for that to
-be possible governmental organizations must be able to monitor the population
-health. In addition, otter presence can indicate high quality aquatic habitat.
-Due to these reasons, there is interest in monitoring changes in otter abundance
-over time. Unfortunately, otters are not easy to observe. Thus, this study
-investigated the potential of using wintertime aerial surveys of otter tracks on
-rivers to make inferences about the abundance of otters and how it changes over
-time. We used the concepts from occupancy theory to develop models to estimate
-the occupancy rate in order to get a sense of otter abundance.
-
-    \subsection{Data collection}
-    During the winters of 2003 and 2004 people flew over the Whitewater, Zumbro,
-    and Mississippi Rivers. When they saw what looked like an otter track, they
-    pushed a button recording the GPS coordinates. They pushed the button every
-    five seconds until the track ended. Flights occurred one, two, or three days
-    after a snow event. In some cases, multiple observers flew over the same
-    river on the same day. Surveys were conducted during multiple snow events
-    throughout both winters. The rivers were then divided into 400 and 800 meter
-    plots and the presence (1) or absence (0) of a waypoint in a plot on a given
-    flight was determined. The Mississippi River was also divided into 1600
-    meter plots.
-
-    \subsection{Issues related to the data}
-    One major issue with respect to the data is that if a track occurred near
-    the boundary between two plots, a person on one flight may have recorded the
-    track in one site whereas someone on a later flight during that same snow
-    event may have seen the same track but recorded it in the neighboring plot.
-    So while the data indicate that the observers on the two flights disagreed
-    in two plots, they saw the same track. Increasing the plot size should
-    decrease the magnitude of this effect.
-
-    In addition, there is concern that the probability of an otter laying down a
-    track in one site is not independent of the probability that an otter lays
-    down a track in neighboring sites, violating a principle assumption of
-    occupancy theory. That is, a single track can extend across multiple plots.
-    This leads to dependence among the plots. It was important to quantify this
-    dependence and find an optimum way to handle it.
 
     \subsection{Descriptive statistics}
     In 2003, three different observers flew over the rivers. Assuming that no
@@ -311,22 +311,30 @@ not clear if this trend is significant.  There
 \section{Bayesian modeling theory and practice}
 
     \subsection{Bayesian statistics}
-    Bayes' Theorem: \(P(\theta|X) = P(X|\theta)P(\theta) / P(X)\) \\
+	Most occupancy models utitlize maximum likelihood estimation, but we chose 
+	to use a Bayesian approach to model the data for several reasons. 
+	First, the occupancy models developed using maximum likelihood methods 
+	assume that the sampled locations are a random sample from a large, 
+	theoretically infinite, population.  In this study, the entire area of 
+	interest was observed, so this assumption does not hold true.  Bayesian 
+	models do not make such an assumption.  Second, because our model added extra
+	parameters, formulating the likelihood function was cumbersome and maximizing
+	it would have been difficult.  We added an additional random process, track 
+	laying, and also included the possibility of false detection.  A Bayesian
+	model seems much more intuitive and natural. 
 
-    This states that the posterior distribution \(\propto\) the likelihood
-    \(\times\) the prior. Usually, the mean of the posterior distribution is
-    then used as a point estimate for the parameter.
-
-    We can use Bayesian statistics in the Hierarchical model as long as we set a
-    prior for every parameter that we include. We can then use Markov Chain
-    Monte Carlo (MCMC) to find a posterior distributions for every parameter. We
-    run into a problem of duality with the probability of correct detection
+    Once we had a model formulated, we could then use Markov Chain Monte Carlo 
+	(MCMC) to find a posterior distributions for every parameter. Due to the 
+	nature of occupancy models, certain models can have multiple interpretations.
+	We run into a problem of duality with the probability of correct detection
     \(p\), and the probability of false detection \(E\). These two variables
-    have bimodal posterior distributions, because \(p=x,E=y,\psi=z\) is the same
-    as \(p=y,E=x,\psi=1-z\). Since we know that is reasonable for \(p\) to be
-    greater than \(E\), we solved this problem by restricting the distribution
-    of \(p\) to the range \(0.6\text{ to }1\), and \(E\) to \(0\text{ to }0.4\),  
-    an approach recommended by Royle and Link \cite{Royle2006}. 
+    have bimodal posterior distributions, because \(p=x,E=y,\psi=z\) is 
+	equivalent in terms of likelihood to \(p=y,E=x,\psi=1-z\) due to the 
+	symmetry of the model \cite{Royle2006}.  Since we know that is reasonable 
+	for \(p\) to be greater than \(E\), we solved this problem by restricting 
+	the distribution of \(p\) to the range \(0.6\text{ to }1\), and \(E\) to 
+	\(0\text{ to }0.4\), an adaptation of the approach recommended by Royle and 
+	Link \cite{Royle2006}. 
 
     \subsection{WinBUGS/R}
     To implement a Bayesian hierarchical model, we make use of the software
@@ -557,9 +565,10 @@ track in a site on a given day.
     model}, the model almost never converged. We tested independence of the data
     using the $\hat{s}$ statistic we developed (section \ref{shat}) and found
     that the simulated data displayed much more independence than the actual
-    data. We tried modeling spatial correlation in the occupancy process, $\psi
-    $, instead of in the track-laying process, but the simulated data were again 
-    more independent than the real data.
+    data. We would like our simulated data to have the same level of independence 
+	as our actual data.  We tried modeling spatial correlation in the occupancy 
+	process, $\psi$, instead of in the track-laying process, but the simulated 
+	data were again more independent than the real data.
 
     To increase the correlation between sites we simulated data
     correlated in both the track-laying and occupancy processes. Under this 
@@ -986,7 +995,10 @@ track in a site on a given day.
     with the river.
 
 \section{Acknowledgments}
-We would like to thank our adviser, Bob Dobrow, for all of his help and advice and John Fieberg and John Erb from the Minnesota Department of Natural Resources for collecting and sharing the data as well as for offering their specific knowledge of the subject.
+We would like to thank our adviser, Bob Dobrow, for all of his help and advice 
+and John Fieberg and John Erb from the Minnesota Department of Natural Resources
+for collecting and sharing the data as well as for offering their specific 
+knowledge of the subject.
 
 \bibliographystyle{amsplain}
 \bibliography{Bibliography}
