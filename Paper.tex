@@ -352,21 +352,21 @@ not clear if this trend is significant.  There
 
     WinBUGS requires a representation of a model, data, and initial values on
     which a predetermined number of iterations of the MCMC algorithm are
-    executed \cite{MacKenzie2006}. Because WinBUGS explicitly estimates missing
-    data that is `padded out' by inserting NA values \cite{Spiegelhalter2003},
-    we implement a nested indexing strategy to prevent this extraneous
-    estimation on the actual data. This is a particularly important
-    implementation detail in this case because the data we received from the
-    Minnesota Department of Natural Resources was not consistent with respect to
-    our covariates. Neither the number of observers nor number of observations
-    after each snow event exhibited consistency. Our simulations, on the other
-    hand, involve balanced data sets that are much less difficult to implement
+    executed \cite{MacKenzie2006}.
+    The data we received from the
+    Minnesota Department of Natural Resources was not fixed with respect to
+    our covariates and required us to implement one of the three common
+    strategies used to deal with irregular datasets \cite{Spiegelhalter2003}.
+    Our simulations, on the other
+    hand, ran on datasets with a fixed number of observers, snow events, and
+    observations after each snow event, which are much easier to implement
     within WinBUGS and R.
 
 \section{Standard hierarchical model}
 
     \subsection{Our hierarchical model}
-    For our model, we specified uniform \((0, 1)\) prior distributions for
+    For our model, we specified noninformative uniform \((0, 1)\) prior
+    distributions for
     parameters \(\psi\) and \(\theta\), a common, natural choice given a lack of
     formal information about the prior or expert consensus \cite{MacKenzie2006}.
     We implemented models with normal and beta prior distributions on \(p\) and
@@ -375,6 +375,8 @@ not clear if this trend is significant.  There
     burn-in time for the MCMC simulation to 10,000 iterations. Each of these
     parameters are tracked and therefore are estimated. The covariates of this
     model are: observer, date, and the number of days since the last snow event.
+    It was necessary to preprocess the Minnesota DNR's data to account for its
+    irregularities.
 
     \subsection{Simulated data}
     We simulated both balanced and unbalanced datasets meant for the standard
@@ -406,8 +408,10 @@ not clear if this trend is significant.  There
     To determine the efficacy of the standard model over the range of possible
     \(\psi\) and \(\theta\) values, we ran simulations with several combinations
     of \(\psi\) and \(\theta\), ran the model on each simulation, and compared
-    the model's estimates to the simulation's parameters. A table detailing the
-    model's performance lies below:
+    the model's estimates to the simulation's parameters. The model with beta
+    prior distributions on \(p\) and \(E\) performed better than the model with
+    normal prior distributions on the same parameters. A table detailing the
+    model's performance with the beta prior distributions lies below:
 
     \begin{center}
     \begin{tabular}{|l|l|l|l|}
@@ -496,7 +500,13 @@ not clear if this trend is significant.  There
 
     Generally, the model is most effective for lower values of \(\psi\) and
     \(\theta\) but will either converge well or provide useful estimates for the
-    vast majority of combinations of \(\psi\) and \(\theta\) values.
+    vast majority of combinations of \(\psi\) and \(\theta\) values. 21 of the
+    model's 25 confidence intervals for \(\psi\) include its actual value. With
+    respect to \(p\), all of the model's confidence intervals for each of the
+    three values of \(p\) include its actual value for all \(\psi\) and
+    \(\theta\) values. On the other hand, the model accurately estimates \(E\)
+    for low values of \(\theta\), but consistently overestimates \(E\) when
+    \(\psi\geq0.4\) and \(\theta\geq0.6\) regardless of \(E\)'s actual value.
 
 \section{Spatial correlation of the data}
 One approach to dealing with the correlation in the probability of
@@ -642,7 +652,7 @@ track in a site on a given day.
     same data. As a result, we did not attempt to fit this model to the rest of
     the data and do not include this model's estimates within our results.
 
-    \subsection{Results}
+    \subsection{Our estimates}
     Below, in tables, lie our estimates for all of the Minnesota DNR's data from
     2003 and 2004. Below each table is detailed commentary about the ability of
     the standard hierarchical model to converge, given the corresponding data.
