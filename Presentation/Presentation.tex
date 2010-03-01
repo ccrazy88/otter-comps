@@ -164,10 +164,13 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[label=currentslide]{Independence, continued}
-	\begin{center}
-		\resizebox{9cm}{!}{\includegraphics{independenceBoxplots.pdf}}
-	\end{center}
+\begin{frame}{Independence, continued}
+
+	\begin{itemize}
+		\item Looking at alternating plots increases the independence
+		\item Also saw trends with respect to plot size
+		\item Solution: kept issue in mind, explored spatially explicit models
+	\end{itemize}
 \end{frame}
 
 \section{Modeling the data}
@@ -182,17 +185,103 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Our model}
+\begin{frame}{Bayesian vs. likelihood occupancy models}
+	\begin{itemize}
+		\item Maximum likelihood assumes random sample from large population
+		\begin{itemize}
+			\item Entire section of river was sampled
+		\end{itemize}
+		\item Most occupancy models have two random processes- occupancy and 
+		detection
+		\begin{itemize}
+			\item We added false detection and track-laying
+			\item Extra parameters made likelihood model complicated
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Issue with false detection}
+	\begin{itemize}
+		\item $(p=x, E=y, \psi=z)$ equivalent in terms of likelihood to 
+		$(p=y,E=x,\psi=1-z)$.
+		\item Leads to bimodal posterior distributions for $p$ and $E$.
+		\item Solution: restrict $p$ to interval $(0.6,1)$, $E$ to interval 
+		$(0,0.4)$.
+	\end{itemize}
+\end{frame}
+
+%This slide for DNR only
+\begin{frame}{Bayesian model specifics}
+	\begin{itemize}
+		\item $\psi,\theta \sim \text{Uniform}(0,1)$
+		\item $p_{\text{obs}} \sim \text{Beta}(a,b)$
+		\begin{itemize}
+			\item $a, b \sim \text{Gamma}(1,0.1)$
+			\item E similar
+			\item $p$ and $E$ had restricted distributions
+		\end{itemize}
+		\item Burn-in period 10,000 iterations
+		\item Covariates: observer, days since snow
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Testing the model- data simulations}
+	\begin{itemize}
+		\item Simulated data with known $\psi$, $\theta$, $p$, $E$.
+		\item To simplify, every observer flew every day, flights ran all 
+		three days after a snow event
+		\item Ran data on our model
+		\item When regularity restriction lifted, similar results
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Results from simulated data}
+	\begin{itemize}
+		\item Lower values for $\psi$ and $\theta$ had better convergence and 
+		estimates
+		\item 95\% confidence interval about 0.2 units wide
+		\item Estimates usually within 0.1 of actual value
+		\item Overall, model estimates parameters well
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Modeling spatial correlation}
+	\begin{itemize}
+		\item Conditional autoregressive (CAR) models
+		\item Allows extreme values to influence estimates for neighboring sites
+		\item Placed CAR prior on $\theta$, track-laying probability
+		\item With CAR model, each site has a unique estimate of $\theta$
+	\end{itemize}
 \end{frame}
 
-\begin{frame}{Testing the CAR model}
+%DNR only slide
+\begin{frame}{CAR model specifics}
+	\begin{itemize}
+		\item $\tau^2 =$ conditional variance
+		\item $(\tau^2)^{-1} \sim \text{Gamma}(0.5,0.0005)$
+		\item $\text{logit}(\theta_s)=\alpha_0+\alpha_{1_s}$
+		\item $\alpha_0 \sim$ Improper uniform, $\alpha_1 \sim$ Gaussian CAR
+	\end{itemize}
 \end{frame}
 
-
+%DNR slide
+\begin{frame}[label=currentslide]{Testing the CAR model}
+	\begin{itemize}
+		\item Simulated data with correlation in $\theta$
+		\begin{itemize} 
+			\item $P(\text{track in site }i|\text{no track in site }i-1)=\theta$
+			\item $P(\text{track in site }i|\text{track in site }i-1)=\theta+
+			\alpha$
+		\end{itemize}
+		\item CAR model did not converge
+		\item Simulated data more independent than actual data (from $\hat{S}$)
+		\item Added similar correlation in $\psi$
+		\begin{itemize}
+			\item Data converged more often
+			\item Independence more similar to that of actual data
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+		 
+%Carleton slide
 \end{document}
