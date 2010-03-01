@@ -358,10 +358,9 @@ the occupancy rate in order to get a sense of otter population.
     which a predetermined number of iterations of the MCMC algorithm are
     executed \cite{MacKenzie2006}.
     The data we received from the
-    Minnesota Department of Natural Resources was not fixed with respect to
-    our covariates and required us to implement one of the three common
-    strategies used to deal with irregular data sets \cite{Spiegelhalter2003}.
-    Our simulations, on the other
+    Minnesota Department of Natural Resources was unbalanced with regard to
+    covariates.
+    Our initial simulations, on the other
     hand, ran on data sets with a fixed number of observers, snow events, and
     observations after each snow event, which are much easier to implement
     within WinBUGS and R.
@@ -376,7 +375,8 @@ the occupancy rate in order to get a sense of otter population.
     We implemented models with normal and beta prior distributions on \(p\) and
     \(E\) and limited the range of \(p\) to the interval \((0.6, 1)\) and the
     range of \(E\) to the interval \((0, 0.4)\) in both models. We set the
-    burn-in time for the MCMC simulation to 10,000 iterations. Each of these
+    burn-in time for the MCMC simulation to 10,000 iterations, which seemed
+    necessary to handle convergence. Each of these
     parameters are tracked for 10,000 additional iterations and are estimated
     by the mean of the posterior distribution. The covariates of this
     model are the observer and the number of days since the last snow event.
@@ -388,16 +388,16 @@ the occupancy rate in order to get a sense of otter population.
     hierarchical model with given values of \(\psi\), \(\theta\), \(p\) for each
     observer, and \(E\) for each observer.  Balanced data sets, in this context,
     contain the same number of flights by the same observers after each snow
-    event.  Naturally, unbalanced data sets do not.
+    event.
 
     To simulate balanced data, we provided the following additional variables:
     the number of plots, the number of snow events, the number of observers, and
     the number of observations following each snow event. These variables are
     all that are required to allow us to generate data in which each snow event
     receives the same number of flights by the same number of observers, which
-    greatly simplifies the accompanying hierarchical model. First, the
-    simulation determines a plot's occupancy based upon the given \(\psi\)
-    value.
+    greatly simplifies the accompanying hierarchical model. For the simulation,
+    we first determine each plot's occupancy status based
+    based upon the given \(\psi\) value.
     Then, for each day after each snow event, the simulation decides whether or
     not an otter laid down a track. For a given day after a snow event, a track
     is considered to be present if an otter lays a track down on any of the days
@@ -406,9 +406,9 @@ the occupancy rate in order to get a sense of otter population.
     detected) or 1 (detected).
 
     Because of limitations with respect to WinBUGS' syntax, simulating
-    unbalanced data requires much more additional information and a reformatting
+    unbalanced data requires additional information and a reformatting
     of the data as well as the corresponding hierarchical model. While the
-    resulting code's structure differs significantly from that used for balanced
+    resulting code's structure differs from that used for balanced
     data, the underlying model remains the same.
 
     To determine the efficacy of the standard model over the range of possible
@@ -417,11 +417,14 @@ the occupancy rate in order to get a sense of otter population.
     the model's estimates to the simulation's parameters (Table \ref{Simulated
     data}). The model with beta
     prior distributions on \(p\) and \(E\) performed better than the model with
-    normal prior distributions on the same parameters.  Therefore, we limit
-    further discussion to the beta model.
+    normal prior distributions on the same parameters. The beta distribution
+    gives a flexible two-parameter family of distributions on \((0,1)\). We
+    included two hyper-parameters (\(\alpha\) and \(\beta\)) on the beta
+    distribution as part of our hierarchical modeling, which seemed to work
+    well.
 
     \begin{table}
-    \caption{Beta model estimates from simulated data. All simulations
+    \caption{Model estimates from simulated data. All simulations
     ran with 70 plots, 5 snow events, 3 observers, and for 3 days after each
     snow event. The 3 observers had \(p\) values of 0.70, 0.80, 0.90 and \(E\)
     values of 0.05, 0.20, and 0.30, respectively. Green rows represent values of
@@ -504,7 +507,7 @@ the occupancy rate in order to get a sense of otter population.
     \(\theta\) but will either converge well or provide useful estimates for the
     vast majority of combinations of \(\psi\) and \(\theta\) values. Twenty-one
     of the
-    model's 25 confidence intervals for \(\psi\) include its actual value.
+    model's 25 confidence intervals for \(\psi\) capture the actual value.
     The model's confidence intervals for each of the
     three values of \(p\) include its actual value for all \(\psi\) and
     \(\theta\) values. On the other hand, the model accurately estimates \(E\)
@@ -601,7 +604,7 @@ track in a plot on a given day.
     \subsection{Obtaining convergence on the data}
     Once both the standard hierarchical model and the addition of a CAR prior
     distribution on \(\theta\) to the standard model exhibited convergence on
-    our simulated data, we moved onto running both models on the data.
+    our simulated data, we moved on to running both models on the actual data.
     In general, the sparseness of the data gathered in 2004 caused us to
     simplify the model in order to obtain results. Unfortunately, the
     simplification results in estimates of \(\psi\) that do not seem accurate
@@ -611,27 +614,26 @@ track in a plot on a given day.
     did not converge on any of the data gathered in 2004. Considering that the
     amount of data gathered in 2004 pales in comparison to the amount of data
     gathered in 2003, this result was not surprising. The vast majority of
-    2004's data consists of just one observer taking observations once after
+    2004 data consists of just one observer taking observations once after
     each snow event, which causes \(p\) and \(E\) in particular to not converge,
     regardless of plot size.
 
-    To obtain convergence on 2004's relatively sparse data, we removed \(E\),
-    which adds to the model the assumption that there are no false positives
-    and, consequently, simplifies it greatly. Although the model still did not
+    To obtain convergence on 2004 data, we removed \(E\), thus disallowing false
+    positives. Although the model still did not
     converge on data with plot sizes of 804m and 1608m, both the Whitewater and
     Zumbro Rivers' data at the 402m plot size converged. Although none of the
     Mississippi River's 2004 data converged, we still include estimates of
     \(p\), \(\psi\), and \(\theta\) at the 402m plot size to accompany the
     estimates corresponding to the Whitewater and Zumbro Rivers. For the most
     part, however, we feel that the absence of \(E\) from the model makes the
-    the estimates of \(\psi\) much less dependable.
+    the estimates of \(\psi\) less dependable.
 
     The addition of a CAR prior distribution on \(\theta\) to the standard model
     caused the model to fail to converge on all of the data. Although the
     standard model and the CAR model performed similarly on simulated data
     whenever both models converged, the standard model converged much more often
     than did the CAR model. This is most likely due to the fact that the CAR
-    model attempts to estimate too many parameters. Whereas the standard model
+    model attempts to estimate many more parameters. Whereas the standard model
     estimates between eight and twelve parameters on the actual data (\(\psi\),
     \(\theta\), the four parameters of the beta distributions corresponding to
     \(p\) and \(E\), \(p\) for each observer, and \(E\) for each observer), the
@@ -868,7 +870,7 @@ track in a plot on a given day.
     \end{table}
 
     \subsection{Summary and interpretation of estimates}
-    In Tables \ref{Mississippi}, \ref{Whitewater}, and \ref{Zumbro} lie our
+    Tables \ref{Mississippi}, \ref{Whitewater}, and \ref{Zumbro} contain our
     estimates for all of the data from
     2003 and 2004.
     With respect to the model's ability to converge on the actual data, the most
@@ -951,12 +953,13 @@ track in a plot on a given day.
     after
     each snow event. We assumed that observations after each snow event will
     occur on consecutive days, starting from the first day after the snow event.
-    This information helped us to find the most efficient ways (with respect to
+    This information helped us to find more efficient ways (with respect to
     number of flights) to gather aerial occupancy data given one, two, and three
     observers while still obtaining useful estimates from the model.
 
-    The number of observers proved to be the least important of the three
-    sampling variables. We were able to obtain accurate estimates regardless of
+    \textbf{The number of observers appears to be the least important of the
+    three
+    sampling variables.} We were able to obtain accurate estimates regardless of
     the
     number of observers, as long as there were sufficient numbers of snow events
     and observations after each snow event. For one observer, at least three
@@ -968,14 +971,17 @@ track in a plot on a given day.
     three observers, respectively. Surprisingly, the most cost-effective method
     (as measured by the number of flights required) only requires one observer.
 
-    The number of snow events proved to be the second-most important of the
-    three sampling variables. Although two snow events are required, only with
+    \textbf{The number of snow events appears to be the second-most important of
+    the
+    three sampling variables.} Although two snow events are required, only with
     one
     observer does the addition of a third snow event noticeably affect the
     model's estimates.
 
-    The number of observations after each snow event proved to be the most
-    important of the three sampling variables. Because the model relies upon the
+    \textbf{The number of observations after each snow event appears to be the
+    most
+    important of the three sampling variables.} Because the model relies upon
+    the
     assumption that the probability of seeing a track increases each day because
     tracks made on previous days within the same snow event can still be seen,
     this is not surprising. At least two observations after each snow event on
@@ -992,7 +998,7 @@ track in a plot on a given day.
     less challenging than increasing the number of observations after each snow
     event at that point.
 
-    In summary, for future data gathering trips, we strongly suggest using one
+    In summary, for future data gathering trips, we suggest using one
     observer, as long as they are relatively confident that they can correctly
     identify an otter track and distinguish an otter track from the tracks of
     other animals in the immediate area, since the model most accurately
