@@ -10,13 +10,14 @@
 \usepackage[dvipsnames, table]{xcolor}
 \usepackage[all]{xy}
 \usepackage{hyperref}
+\usepackage{moreverb}
 
 \begin{document}
 
 % This should be a lot prettier.
 \title{Using Occupancy Theory and Hierarchical Models to Estimate Otter
 Population in Southeastern Minnesota \\
-{\large Senior Comps Project}}
+{\large Senior Comprehensive Exercise: Carleton College}}
 \author{Chrisna Aing, Sarah Halls, Kiva Oken}
 \maketitle
 
@@ -35,20 +36,24 @@ over time. Unfortunately, otters are not easy to observe. Thus, this study
 investigated the potential of using wintertime aerial surveys of otter tracks on
 rivers to make inferences about the population of otters and how it changes over
 time. We used concepts from occupancy theory to develop models to estimate
-the occupancy rate in order to get a sense of otter population.
+the occupancy rate for the otter population.
 
     \subsection{Data collection}
-    During the winters of 2003 and 2004 people flew over the Whitewater, Zumbro,
-    and Mississippi Rivers. When they saw what looked like an otter track, they
-    pushed a button recording the GPS coordinates. They pushed the button every
+    During the winters of 2003 and 2004 The Minnesota Department of Natural 
+    Resources (MDNR) sponsored flights over the Whitewater, Zumbro,
+    and Mississippi Rivers to survey otters. When observers saw what looked like 
+    an otter track, they
+    pushed a button recording on a handheld GPS unit to record the GPS 
+    coordinates (waypoint). They pushed the button every
     five seconds until the track ended. Flights occurred one, two, or three days
     after a snow event. In some cases, multiple observers flew over the same
     river on the same day. Surveys were conducted during multiple snow events
     throughout both winters. The rivers were then divided into 402 and 804 meter
     plots and the presence (1) or absence (0) of a waypoint in a plot on a given
     flight was determined. The Mississippi River was also divided into 1608
-    meter plots.  For each river and plot size, the data set with every other
-    plot removed was considered.  We refer to this as ``alternating plots''.
+    meter plots.  In addition, for each river and plot size, a data set with 
+    every other
+    plot removed was considered.  We refer to these as ``alternating plots''.
 
     \subsection{Issues related to the data}
     One major issue with respect to the data is that if a track occurred near
@@ -61,10 +66,11 @@ the occupancy rate in order to get a sense of otter population.
 
     In addition, there is concern that the probability of an otter laying down a
     track in one plot is not independent of the probability that an otter lays
-    down a track in neighboring plots, violating a principle assumption of
-    occupancy theory. That is, a single track can extend across multiple plots.
-    This leads to dependence among the plots. It was important to quantify this
-    dependence and find an optimum way to handle it.
+    down a track in neighboring plots. That is, a single track can extend across 
+    multiple plots. This leads to dependence among the plots, violating a 
+    principle assumption of many
+    occupancy models. We tried to quantify this
+    dependence and find a way to handle it.
 
 \section{Overview of occupancy modeling}
 
@@ -182,9 +188,8 @@ the occupancy rate in order to get a sense of otter population.
     contain false positives where observers think they see a track when it does
     not exist. Not accounting for such a process can lead to major biases; as
     the number of flights increases, the occupancy rate estimate will approach
-    1 \cite{Royle2006}. Unlike most occupancy models where observers assume
-    that detection of the species in question guarantees its presence \cite
-    {MacKenzie2006}, we introduced a false detection process whereby an observer
+    1 \cite{Royle2006}. We thus introduced a false detection process whereby an 
+    observer
     can mark down the existence of a track when in reality there is none. This
     false detection process can occur as long as there is no track, whether or
     not the plot is occupied.
@@ -517,8 +522,8 @@ the occupancy rate in order to get a sense of otter population.
     successfully for higher values of \(\psi\) and \(\theta\).
 
 \section{Spatial correlation of the data}
-One approach to dealing with the correlation in the probability of
-observing a track in neighboring plots is to use a conditional autoregressive
+One approach to dealing with the correlation in the
+observed tracks in neighboring plots is to use a conditional autoregressive
 (CAR) prior distribution for $\theta$, the probability that an otter lays down a
 track in a plot on a given day.
 
@@ -552,15 +557,15 @@ track in a plot on a given day.
     In this case, we limited the range of $p$ to the interval $(0.6,1)$ and the
     range of $E$ to $(0,0.3)$. We increased the burn-in time to 12,000
     iterations. With this model, instead of a single estimate for $\theta$ there
-    are now $S$ estimates for $\theta$ where $S$ is the total number of plots.
+    are now $n$ estimates for $\theta$ where $n$ is the total number of plots.
     While ideally we would estimate an overall value for $\theta$, it seems more
     important for the purposes of this investigation to estimate $\psi$.
 
     \subsection{Simulating spatially correlated data}
     \label{spatial simulation}
-    Because we modeled spatial correlation in $\theta$, we began by simulating
+    We began by simulating
     spatial correlation in the track-laying process. To do this, we added an
-    additional variable to the simulated data, $\alpha$. Under the new
+    additional variable, $\alpha$, to the simulated data. Under the new
     simulation method, $\theta$ is the probability of an otter laying down a
     track in plot $i$ given plot $i$ is occupied and plot $i-1$ does
     \textit{not} have a track. If plot $i$ is occupied and plot $i-1$ does have
@@ -569,23 +574,22 @@ track in a plot on a given day.
     is more likely to be a track in the next plot. However, when we ran data
     simulated using this new method on the model described in Section \ref{car
     model}, the model almost never converged. We tested independence of the data
-    using the $\hat{S}$ statistic we developed (Section \ref{shat}) and found
-    that the simulated data displayed much more independence than the actual
-    data. We would like our simulated data to have the same level of
-    independence
+    using the $S$ statistic we developed (Section \ref{shat}) and found
+    that the simulated data displayed much less dependence than the actual
+    data. We would like our simulated data to have the same level of dependence
     as our actual data.  We tried modeling spatial correlation in the occupancy
     process, $\psi$, instead of in the track-laying process, but the simulated
     data were again more independent than the real data.
 
-    To increase the correlation between plots we simulated data
-    correlated in both the track-laying and occupancy processes. Under this 
+    To increase the correlation between plots we simulated the correlation
+    in both the track-laying and occupancy processes. Under this 
     simulation method we
     again had the variables $\theta$ and $\alpha$, but we also had analogous
     variables $ \psi$ and $\beta$. In this case, $\psi$ is the probability an
     otter occupies plot $i$ given that plot $i-1$ is not occupied and $\psi+
     \beta$ is the probability that an otter occupies plot $i$ given that plot
     $i-1$ is occupied. With this increased spatial correlation we were able to
-    more closely match the $\hat{S}$ Z-scores found in the actual data. In
+    more closely match the $S$-related Z-scores found in the actual data. In
     addition, the CAR model converged more often with data simulated using this
     method, but it still did not converge consistently. When it did converge,
     estimates were comparable to those found using the standard model on the
@@ -1106,4 +1110,288 @@ knowledge of the subject.
         \end{split}
     \end{equation*}
 
+\section{Standard hierarchical model}
+\scriptsize
+\begin{verbatimtab}
+otterModel <- function() {
+    # Initialization of variables to estimate.
+    psi ~ dunif(0,1)
+    theta ~ dunif(0,1)
+    a ~ dgamma(1,.1)
+    b ~ dgamma(1,.1)
+    c ~ dgamma(1,.1)
+    d ~ dgamma(1,.1)
+    for (observer in 1:observers) {
+        #p[observer] ~ dbeta(a,b)
+        p[observer] ~ dbeta(a,b) %_% I(.5, 1)
+        E[observer] ~ dbeta(c,d) %_% I(0, .5)
+    }
+
+    # Execution of all site- and track-related work.
+    for (site in 1:sites) {
+        z[site] ~ dbern(psi)
+        lambda[site] <- theta * z[site]
+        for (event in 1:snowEvents) {
+            for (day in 1:daysAfterTotal) {
+                track[site, event, day] ~ dbern(lambda[site])
+                trackSum[site, event, day] <- sum(track[site, event, 1:day])
+            }
+        }
+    }
+
+    # Super difficult stuff.  (Not really.)
+    for (i in 1:numDataPts) {
+        # equals(track.count[...], 0) == 1 when there is no track to observe.
+        mu[i] <- 
+            p[obsV[i]] * (1 - equals(trackSum[siteV[i], eventV[i], dayV[i]], 0))
+        # probability of false detection, given track and occupancy state
+        nu[i] <- E[obsV[i]] * equals(trackSum[siteV[i], eventV[i], dayV[i]], 0)
+        prob[i] <- mu[i] + nu[i]
+        #prob[i] <- mu[i]
+        y[i] ~ dbern(prob[i])
+    }
+}
+
+writeModel(otterModel, "irregularHierarchicalModel.txt")
+modelCheck("irregularHierarchicalModel.txt")
+bugsData(c("y", "siteV", "eventV", "dayV", "obsV", "sites", "observers",
+           "numDataPts", "snowEvents", "daysAfterTotal"), 
+         "irregularOtterData.txt")
+modelData("irregularOtterData.txt")
+modelCompile(numChains=2)
+modelGenInits()
+
+modelUpdate(10000)
+samplesSet(c("a", "b", "c", "d", "p[]", "E[]", "psi", "theta"))
+#samplesSet(c("a", "b", "p[]", "psi", "theta"))
+modelUpdate(10000)
+\end{verbatimtab}
+%}
+
+\section{CAR model}
+\scriptsize
+\begin{verbatimtab}
+otterModel <- function() {
+    for (site in 1:sites) {
+        logit(theta[site]) <- alpha1[site] + alpha0
+    }
+    for (i in 1:sumNumNeigh) {
+        weights[i] <- 1
+    }
+    alpha1[1:sites] ~ car.normal(adj[], weights[], num[], tau)
+    alpha0 ~ dflat()
+    tau ~ dgamma(.5,.0005)
+    psi ~ dunif(0,1) 
+    a ~ dgamma(1,.1)
+    b ~ dgamma(1,.1)
+    #c ~ dgamma(1,.1)
+    #d ~ dgamma(1,.1)
+    for (observer in 1:observers) {
+        p[observer] ~ dbeta (a,b)
+	  #p[observer] ~ dbeta(a,b) %_% I(.6, 1)
+        #E[observer] ~ dbeta(c,d) %_% I(0, .3)
+    }
+
+    # Execution of all site- and track-related work.
+    for (site in 1:sites) {
+        z[site] ~ dbern(psi)
+        lambda[site] <- theta[site] * z[site]
+        for (event in 1:snowEvents) {
+            for (day in 1:daysAfterTotal) {
+                track[site, event, day] ~ dbern(lambda[site])
+                trackSum[site, event, day] <- sum(track[site, event, 1:day])
+            }
+        }
+    }
+
+    # Super difficult stuff.  (Not really.)
+    for (i in 1:numDataPts) {
+        # equals(track.count[...], 0) == 1 when there is no track to observe.
+        mu[i] <- 
+            p[obsV[i]] * (1 - equals(trackSum[siteV[i], eventV[i], dayV[i]], 0))
+        # probability of false detection, given track and occupancy state
+        #nu[i] <- E[obsV[i]] * equals(trackSum[siteV[i], eventV[i], dayV[i]], 0)
+        #prob[i] <- mu[i] + nu[i]
+        prob[i] <- mu[i]
+	  y[i] ~ dbern(prob[i])
+    }
+}
+
+writeModel(otterModel, "irregularHierarchicalModel.txt")
+modelCheck("irregularHierarchicalModel.txt")
+bugsData(c("y", "siteV", "eventV", "dayV", "obsV", "sites", "observers",
+           "numDataPts", "snowEvents", "daysAfterTotal", "num", "adj",
+           "sumNumNeigh"), 
+         "irregularOtterData.txt")
+modelData("irregularOtterData.txt")
+modelCompile(numChains=2)
+
+init.val <- function(){
+	list(
+		alpha1=runif(sites,-100,100),
+		alpha0=runif(1,-100,100),
+		tau=rgamma(1,.5,.0005),
+		psi=runif(1),
+		a=rgamma(1,1,.1),
+		b=rgamma(1,1,.1)
+		#,c=rgamma(1,1,.1),
+		#d=rgamma(1,1,.1)
+	) 
+}
+bugsInits(init.val,numChains=2,fileName=c('init1.txt','init2.txt'))
+modelInits(c('init1.txt','init2.txt'))
+
+modelGenInits()
+
+modelUpdate(12000)
+#samplesSet(c("a", "b", "c", "d", "p[]", "E[]", "psi"))
+samplesSet(c("a", "b", "p[]", "psi"))
+modelUpdate(10000)
+\end{verbatimtab}
+
+\section{Simulated data, independent plots}
+\scriptsize
+\begin{verbatimtab}
+# Setting up the environment and results matrix.
+sites <- 100
+snowEvents <- 2
+daysAfterTotal <- 2
+observers <- 3
+
+eventsToDaysBegin <- c(1, 3, 5, 7, 9, 11)
+eventsToDaysEnd   <- c(2, 4, 6, 8, 10, 12)
+curDaySinceSnow <- c(1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2)
+daysToObsBegin <- c(1, 4, 7, 10, 13, 16, 19, 22, 25, 28, 31, 34)
+daysToObsEnd   <- c(3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36)
+curObserver <- c(1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3,
+                 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3)
+
+# Setting up the parameters.
+psi <- .7
+beta <- .4
+condlOcc <- psi + beta
+condlUnocc <- psi
+
+theta <- .5
+alpha <- .3
+condlTrack <- theta + alpha
+condlNoTrack <- theta
+p <- c(.70, .80, .90)
+E <- c(.05, .02, .03)
+
+# Retaining necessary information.
+occupancy <- NULL
+
+# Vectors; employing a nested index strategy to deal with WinBUGS and its lack
+# of if-then statements.
+y <- NULL
+siteV <- NULL
+eventV <- NULL
+dayV <- NULL
+obsV <- NULL
+numDataPts <- 0
+
+# Simulating the data!
+for (site in 1:sites) {
+    # TRUE == 1, FALSE == 0.
+	if (site == 1) {
+		occupancy[site] <- 1 * (runif(1) < (condlOcc + condlUnocc/2))
+	} else if (occupancy[i-1] == 1) {
+		occupancy[site] <- 1 * (runif(1) < condlOcc)
+	} else
+		occupancy[site] <- 1 * (runif(1) < condlUnocc)
+	}
+    for (event in 1:snowEvents) {
+        otterTrackLaid <- 0
+        currentDay <- 0
+        # Haha, this is awful.
+        for (day in 1:curDaySinceSnow[eventsToDaysBegin[event]]) {
+            if (day != 1) {
+                currentDay <- currentDay + 1
+                otterTrackLaid <- max(otterTrackLaid,
+                    occupancy[site] * (runif(1) < theta))
+            }
+        }
+        for (day in eventsToDaysBegin[event]:eventsToDaysEnd[event]) {
+            currentDay <- currentDay + 1
+            otterTrackLaid <- max(otterTrackLaid,
+                occupancy[site] * (runif(1) < theta))
+            for (colIndex in daysToObsBegin[day]:daysToObsEnd[day]) {
+                numDataPts <- numDataPts + 1
+                sawOtterTrack <- otterTrackLaid * 
+                    (runif(1) < p[curObserver[colIndex]])
+                sawOtherTrack <- (1 - otterTrackLaid) * 
+                    (runif(1) < E[curObserver[colIndex]])
+                y[numDataPts] <- sawOtterTrack + sawOtherTrack
+                siteV[numDataPts] <- site
+                eventV[numDataPts] <- event
+                dayV[numDataPts] <- currentDay
+                obsV[numDataPts] <- curObserver[colIndex]
+            }
+        }
+    }
+}
+\end{verbatimtab}
+
+\section{Simulated regular data, dependent in $\psi$, $\theta$}
+\scriptsize
+\begin{verbatimtab}
+#Define structure
+sites <- 60
+events <- 5
+snowdays <- 3
+obs <- 3
+I1 <- rep(c(1,0,0), events*snowdays)
+I2 <- rep(c(0,1,0), events*snowdays)
+
+#Define parameters
+psi <- .4
+beta <- .4
+condl.occ <- psi + beta
+condl.unocc <- psi
+theta <-.3
+alpha <-.5
+condl.track <- theta + alpha
+condl.notrack <- theta
+p <- c(.7,.7,.7)
+E <- c(.05,.05,.05)
+
+#Initialize variables
+occupancy <- NULL
+tracks <- matrix(nrow=sites, ncol=events*snowdays)
+y <- matrix(nrow=sites, ncol=events*snowdays*obs)
+
+for(i in 1:sites) {
+	#Determine occupancy of site. 1*(runif(1)<psi) is 1 around psi*100 percent of the time.
+	#Use conditional rates depending on occupancy of site i-1
+	if (i==1) 
+		{occupancy[i] <- 1*(runif(1)<(condl.occ+condl.unocc)/2)}	
+	else if (occupancy[i-1]==1) 
+		{occupancy[i] <- 1*(runif(1)<condl.occ)}
+	else 
+		{occupancy[i] <- 1*(runif(1)<condl.unocc)}
+	for(j in 1:events) {
+		is.track <- 0
+		for(k in 1:snowdays) {
+			index <- k + snowdays*(j-1)
+			#Decide if a track is laid down on day k of event j, given the occupancy state
+			if(i==1) {
+				tracks[i,index] <- (runif(1)<(condl.track+condl.notrack)/2)*occupancy[i]
+			}else if(tracks[i-1,index]==1) 
+				{tracks[i,index] <- (runif(1)<condl.track)*occupancy[i]
+			}else 
+				{tracks[i,index] <- (runif(1)<condl.notrack)*occupancy[i]}
+
+			#Determine if any tracks have been laid down for event j.
+			is.track <- max(is.track, tracks[i,index])
+			for(m in 1:obs) {
+				index <- m + obs*(k-1) + snowdays*obs*(j-1)
+				#Determine if the observer saw a track.
+				y[i,index] <- (runif(1)<p[m])*is.track + (runif(1)<E[m])*(1-is.track)
+			}
+		}
+	}
+}
+\end{verbatimtab}
+Note: This needs some more processing before it will run on either model.
 \end{document}
