@@ -46,6 +46,8 @@ in southeastern Minnesota}
 			\item Flew one, two, or three days after snow events
 			\item Marked GPS coordinates of tracks
 			\item Rivers divided into 400, 800, or 1600 m plots
+			\item Also examined data set with every other plot excluded 
+			(Alternating Plots)
 			\item Presence of track in each plot determined
 		\end{itemize}
 	\end{columns}
@@ -61,6 +63,13 @@ in southeastern Minnesota}
 {
 	\usebackgroundtemplate{
 	\includegraphics[width=\paperwidth]{SNOWTRACKS9.jpg}}
+	\begin{frame}
+	\end{frame}
+}
+
+{
+	\usebackgroundtemplate{ 
+	\includegraphics[width=\paperwidth]{data.pdf}} 
 	\begin{frame}
 	\end{frame}
 }
@@ -126,6 +135,7 @@ in southeastern Minnesota}
 		\item $p= $ The probability an observer sees a track given that a track
 		has been made
 	\end{itemize}
+	% Add hierarchical model with parameters!
 \end{frame}
 
 \section{Exploring the data}
@@ -135,7 +145,7 @@ in southeastern Minnesota}
 		\item Detection rates varied among the observers
 	\end{itemize}
 	\begin{center}
-		\resizebox{5cm}{!}{\includegraphics{../observerPlots.pdf}}
+		\resizebox{5cm}{!}{\includegraphics{wwObsPlot.pdf}}
 	\end{center}
 	\begin{itemize}
 		\item Solution: use observer indicators as covariates for detection
@@ -158,6 +168,7 @@ in southeastern Minnesota}
 
 \begin{frame}{Hierarchical model with false detection}
 	\begin{center}
+		% Change this to model that has parameters, with E.
 		\resizebox{10cm}{!}{\includegraphics{../ModelWithE.pdf}}
 	\end{center}
 \end{frame}
@@ -168,10 +179,16 @@ in southeastern Minnesota}
 		\item $S=(\text{\# of successive 0-1s})-(\text{\# of successive 1-1s})$
 		\item Calculated $Z$-scores for each flight
 			\begin{itemize}
-				\item $Z=\frac{\hat{S}-E[S]}{SD[S]}$
+				\item $Z=\frac{S-E[S]}{SD[S]}$
 				\item $|Z_i|>2$ suggests assumption violated for flight $i$.
 			\end{itemize}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Independence, continued}
+	\begin{center}
+	\includegraphics[scale=0.4]{independenceBoxplots.pdf}
+	\end{center}
 \end{frame}
 
 \begin{frame}{Independence, continued}
@@ -184,16 +201,6 @@ in southeastern Minnesota}
 \end{frame}
 
 \section{Modeling the data}
-\begin{frame}{Introduction to Bayesian statistics}
-	\begin{itemize}
-		\item Under Bayesian statistics, parameters are random variables
-		\item According to Bayes' theorem
-		\begin{itemize}
-			\item $\text{posterior distribution} \propto \text{prior
-			distribution}\times \text{likelihood}$
-		\end{itemize}
-	\end{itemize}
-\end{frame}
 
 \begin{frame}{Bayesian vs. likelihood occupancy models}
 	\begin{itemize}
@@ -206,6 +213,17 @@ in southeastern Minnesota}
 		\begin{itemize}
 			\item We added false detection and track-laying
 			\item Extra parameters made likelihood model complicated
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Introduction to Bayesian statistics}
+	\begin{itemize}
+		\item Under Bayesian statistics, parameters are random variables
+		\item According to Bayes' theorem
+		\begin{itemize}
+			\item $\text{posterior distribution} \propto \text{prior
+			distribution}\times \text{likelihood}$
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -244,6 +262,8 @@ in southeastern Minnesota}
 		\item When regularity restriction lifted, similar results
 	\end{itemize}
 \end{frame}
+
+% Slide with example of data simulation/model goes here.
 
 \begin{frame}{Results from simulated data}
 	\begin{itemize}
@@ -318,10 +338,16 @@ in southeastern Minnesota}
 	\end{itemize}
 \end{frame}
 
+% Add slide with example of estimates for our actual data, one river/year?
+
 \begin{frame}{Summary and interpretation of estimates}
 	\begin{itemize}
 		\item Estimates for all parameters increase with plot size
-		\item Possible hypotheses...
+		\item Possible hypotheses:
+		\begin{itemize}
+			\item \(\psi\) and \(\theta\)
+			\item \(p\) and \(E\)
+		\end{itemize}
 		\item Used data from all plots, not alternating plots
 		\begin{itemize}
 			\item More data more useful than more independence
@@ -338,6 +364,7 @@ in southeastern Minnesota}
 			\item Number of snow events
 			\item Number of observers
 		\end{enumerate}
+		\item We suggest: 1 observer, 3 snow events, 3 days since snow
 		\item All conclusions come from regular data
 	\end{itemize}
 \end{frame}
