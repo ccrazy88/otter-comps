@@ -1,20 +1,22 @@
 \documentclass{beamer}
 \usetheme{}
-\title{Using occupancy theory and Bayesian models to estimate otter populations in southeastern Minnesota}
+\title{Using occupancy theory and Bayesian models to estimate otter populations
+in southeastern Minnesota}
 \author[Aing, Halls, Oken]{Chrisna Aing, Sarah Halls, Kiva Oken}
 \institute{Carleton College}
 \usepackage{graphpap,graphics}
 %\includeonlyframes{currentslide}
 
 \begin{document}
-	{
-	\usebackgroundtemplate{\includegraphics[width=\paperwidth]{ottertracks1.jpg}}
-
-\begin{frame}
-	\titlepage
-\end{frame}
+{
+	\usebackgroundtemplate{
+	\includegraphics[width=\paperwidth]{ottertracks1.jpg}}
+	\begin{frame}
+		\titlepage
+	\end{frame}
 }
-\begin{frame}
+
+\begin{frame}{Outline}
 	\tableofcontents[pausesections]
 \end{frame}
 
@@ -50,13 +52,15 @@
 \end{frame}
 
 {
-	\usebackgroundtemplate{\includegraphics[width=\paperwidth]{SnowTracks12.jpg}}
+	\usebackgroundtemplate{
+	\includegraphics[width=\paperwidth]{SnowTracks12.jpg}}
 	\begin{frame}{}
 	\end{frame}
 }
 
 {
-	\usebackgroundtemplate{\includegraphics[width=\paperwidth]{SNOWTRACKS9.jpg}}
+	\usebackgroundtemplate{
+	\includegraphics[width=\paperwidth]{SNOWTRACKS9.jpg}}
 	\begin{frame}
 	\end{frame}
 }
@@ -64,19 +68,20 @@
 \begin{frame}{Issues related to data}
 	\begin{itemize}
 		\item Tracks near plot boundary can be assigned to different plots
-		\item Track in one site means more likely to be track in neighboring site- not independent
+		\item Track in one site means more likely to be track in neighboring
+		site -- not independent
 	\end{itemize}
 \end{frame}
 
 \section{Occupancy Theory}
 \begin{frame}{Definitions of occupancy}
 	\begin{itemize}
-		\item The probability that a randomly selected site or sampling unit in 
+		\item The probability that a randomly selected site or sampling unit in
 		an area of interest is occupied by a species
-		\item The proportion of area, patches, or sampling units that is 
-		occupied 	
+		\item The proportion of area, patches, or sampling units that is
+		occupied
 	\end{itemize}
-	(MacKenzie, et al. 2006) 
+	(MacKenzie, et al. 2006)
 \end{frame}
 
 \begin{frame}{Estimating occupancy}
@@ -87,7 +92,7 @@
 			\item The species does not occupy the area
 			\item The species went undetected during surveying
 		\end{itemize}
-		\item Need to be able to estimate probability of observing the species 
+		\item Need to be able to estimate probability of observing the species
 		given its presence
 	\end{itemize}
 \end{frame}
@@ -95,10 +100,11 @@
 \begin{frame}{Assumptions of occupancy models}
 	\begin{itemize}
 		\item No false positives
-		\item Presence and detection probabilities are constant across sites 
+		\item Presence and detection probabilities are constant across sites
 		and surveys (or can be modeled by covariates)
 		\item Independence of detection between sites
-		\item Survey is conducted on a closed population	\end{itemize}
+		\item Survey is conducted on a closed population
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Types of occupancy models}
@@ -108,16 +114,16 @@
 		\item Hierarchical models
 	\end{itemize}
 	\begin{center}
-		\resizebox{7cm}{!}{\includegraphics{SimpleHierarchicalModel.pdf}}
+		\resizebox{7cm}{!}{\includegraphics{../SimpleHierarchicalModel.pdf}}
 	\end{center}
 \end{frame}
 
 \begin{frame}{Parameters}
 	\begin{itemize}
 		\item $\psi=$ The probability a track is occupied
-		\item $\theta=$ The probability a track is laid down in a site on a 
+		\item $\theta=$ The probability a track is laid down in a site on a
 		given day, given that the site is occupied
-		\item $p= $ The probability an observer sees a track given that a track 
+		\item $p= $ The probability an observer sees a track given that a track
 		has been made
 	\end{itemize}
 \end{frame}
@@ -132,14 +138,14 @@
 		\resizebox{5cm}{!}{\includegraphics{../observerPlots.pdf}}
 	\end{center}
 	\begin{itemize}
-		\item Solution: use observer indicators as covariates for detection 
+		\item Solution: use observer indicators as covariates for detection
 		probability
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Correlation between flights}
 	\begin{itemize}
-		\item Two observers on same day should have the same na\"ive occupancy 
+		\item Two observers on same day should have the same na\"ive occupancy
 		rates; not the case
 		\item Also looked at correlation between flights
 		\begin{itemize}
@@ -183,7 +189,7 @@
 		\item Under Bayesian statistics, parameters are random variables
 		\item According to Bayes' theorem
 		\begin{itemize}
-			\item $\text{posterior distribution} \propto \text{prior 
+			\item $\text{posterior distribution} \propto \text{prior
 			distribution}\times \text{likelihood}$
 		\end{itemize}
 	\end{itemize}
@@ -195,7 +201,7 @@
 		\begin{itemize}
 			\item Entire section of river was sampled
 		\end{itemize}
-		\item Most occupancy models have two random processes- occupancy and 
+		\item Most occupancy models have two random processes -- occupancy and
 		detection
 		\begin{itemize}
 			\item We added false detection and track-laying
@@ -206,10 +212,10 @@
 
 \begin{frame}{Issue with false detection}
 	\begin{itemize}
-		\item $(p=x, E=y, \psi=z)$ equivalent in terms of likelihood to 
+		\item $(p=x, E=y, \psi=z)$ equivalent in terms of likelihood to
 		$(p=y,E=x,\psi=1-z)$.
 		\item Leads to bimodal posterior distributions for $p$ and $E$.
-		\item Solution: restrict $p$ to interval $(0.6,1)$, $E$ to interval 
+		\item Solution: restrict $p$ to interval $(0.6,1)$, $E$ to interval
 		$(0,0.4)$.
 	\end{itemize}
 \end{frame}
@@ -229,10 +235,10 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Testing the model- data simulations}
+\begin{frame}{Testing the model -- data simulations}
 	\begin{itemize}
 		\item Simulated data with known $\psi$, $\theta$, $p$, $E$.
-		\item To simplify, every observer flew every day, flights ran all 
+		\item To simplify, every observer flew every day, flights ran all
 		three days after a snow event
 		\item Ran data on our model
 		\item When regularity restriction lifted, similar results
@@ -241,7 +247,7 @@
 
 \begin{frame}{Results from simulated data}
 	\begin{itemize}
-		\item Lower values for $\psi$ and $\theta$ had better convergence and 
+		\item Lower values for $\psi$ and $\theta$ had better convergence and
 		estimates
 		\item 95\% confidence interval about 0.2 units wide
 		\item Estimates usually within 0.1 of actual value
@@ -273,7 +279,7 @@
 \begin{frame}{Testing the CAR model}
 	\begin{itemize}
 		\item Simulated data with correlation in $\theta$
-		\begin{itemize} 
+		\begin{itemize}
 			\item $P(\text{track in site }i|\text{no track in site }i-1)=\theta$
 			\item $P(\text{track in site }i|\text{track in site }i-1)=\theta+
 			\alpha$
@@ -291,13 +297,13 @@
 \begin{frame}{Testing CAR model, continued}
 	\begin{itemize}
 		\item With correlated data, no constant $\psi$.
-		\item To find true $\psi$ from simulated data, took proportion of plots 
+		\item To find true $\psi$ from simulated data, took proportion of plots
 		occupied
-		\item When CAR model converged, estimates from CAR and standard models 
+		\item When CAR model converged, estimates from CAR and standard models
 		similar for the same data
 	\end{itemize}
 \end{frame}
-		 
+
 %Carleton slide goes here
 \section{Discussion}
 \begin{frame}{Obtaining convergence on the data}
@@ -307,11 +313,11 @@
 		\begin{itemize}
 			\item Removed false detection, 402m in 2004 converged
 		\end{itemize}
-		\item CAR model never converged with $E$. Without $E$, poor 
+		\item CAR model never converged with $E$. Without $E$, poor
 		estimates for $\psi$
 	\end{itemize}
 \end{frame}
-		
+
 \begin{frame}{Summary and interpretation of estimates}
 	\begin{itemize}
 		\item Estimates for all parameters increase with plot size
@@ -346,5 +352,5 @@
 
 \begin{frame}{Questions?}
 \end{frame}
-	
+
 \end{document}
