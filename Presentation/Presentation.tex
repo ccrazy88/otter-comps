@@ -4,7 +4,9 @@
 in southeastern Minnesota}
 \author[Aing, Halls, Oken]{Chrisna Aing, Sarah Halls, Kiva Oken}
 \institute{Carleton College}
-\usepackage{graphpap,graphics}
+\usepackage{graphics}
+\usepackage{color}
+\usepackage{multirow}
 %\includeonlyframes{currentslide}
 
 \begin{document}
@@ -17,7 +19,7 @@ in southeastern Minnesota}
 }
 
 \begin{frame}{Outline}
-	\tableofcontents[pausesections]
+		\tableofcontents[pausesections]
 \end{frame}
 
 \section{The data and questions}
@@ -39,7 +41,7 @@ in southeastern Minnesota}
 \begin{frame}{Collecting data}
 	\begin{columns}
 		\column{5cm}
-		\resizebox{5cm}{!}{\includegraphics{cuteOtter1.pdf}}
+		\resizebox{5cm}{!}{\includegraphics{cuteOtter2.jpg}}
 		\column{5cm}
 		\begin{itemize}[<+->]
 			\item Researchers flew over rivers during winters of 2003, 2004
@@ -68,10 +70,15 @@ in southeastern Minnesota}
 }
 
 {
-	\usebackgroundtemplate{ 
-	\includegraphics[width=\paperwidth]{data.pdf}} 
-	\begin{frame}
-	\end{frame}
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{data.pdf}}
+\begin{frame}
+    \begin{picture}(310,190)(9,7.5)
+        \linethickness{1.5pt}
+        \only<2->{\color<2>{red}\put(50,120){\framebox(290,15){}}}
+        \only<3->{\color<3>{red}\put(150,-20){\framebox(15,80){}}}
+        \only<4->{\color<4>{red}\put(150,-35){\framebox(103,30){}}}
+    \end{picture}
+\end{frame}
 }
 
 \begin{frame}{Issues related to data}
@@ -135,7 +142,9 @@ in southeastern Minnesota}
 		\item $p= $ The probability an observer sees a track given that a track
 		has been made
 	\end{itemize}
-	% Add hierarchical model with parameters!
+	\begin{center}
+		\resizebox{7cm}{!}{\includegraphics{../SimpleModelWithParams.pdf}}
+	\end{center}
 \end{frame}
 
 \section{Exploring the data}
@@ -168,8 +177,13 @@ in southeastern Minnesota}
 
 \begin{frame}{Hierarchical model with false detection}
 	\begin{center}
-		% Change this to model that has parameters, with E.
 		\resizebox{10cm}{!}{\includegraphics{../ModelWithE.pdf}}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Hierarchical model with false detection}
+	\begin{center}
+		\resizebox{10cm}{!}{\includegraphics{../ModelWithEAndParams.pdf}}
 	\end{center}
 \end{frame}
 
@@ -225,6 +239,7 @@ in southeastern Minnesota}
 			\item $\text{posterior distribution} \propto \text{prior
 			distribution}\times \text{likelihood}$
 		\end{itemize}
+		\item Goal: Estimate the posterior distribution
 	\end{itemize}
 \end{frame}
 
@@ -263,7 +278,11 @@ in southeastern Minnesota}
 	\end{itemize}
 \end{frame}
 
-% Slide with example of data simulation/model goes here.
+\begin{frame}{Testing the model, continued}
+	\begin{center}
+	\includegraphics[scale=0.5]{../SimulatedData.pdf}
+	\end{center}
+\end{frame}
 
 \begin{frame}{Results from simulated data}
 	\begin{itemize}
@@ -338,6 +357,55 @@ in southeastern Minnesota}
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{}
+    % Mississippi River!
+	\small{
+    \begin{table}
+    \begin{center}
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        \multicolumn{4}{|l|}{\textbf{Mississippi River, 2003}} \\
+        \hline
+            & 402m & 804m & 1608m \\
+        \hline
+        \multirow{2}{*}{E[Danny]}
+            & 0.01954 & 0.04808 & 0.06885 \\
+            & (0.006515, 0.03663) & (0.01874, 0.08187) & (0.01778, 0.1383) \\
+        \hline
+        \multirow{2}{*}{E[John]}
+            & 0.05216 & 0.07771 & 0.13650 \\
+            & (0.027710, 0.07745) & (0.03881, 0.12100) & (0.03449, 0.2330) \\
+        \hline
+        \multirow{2}{*}{E[Tom]}
+            & 0.02668 & 0.06140 & 0.10230 \\
+            & (0.011990, 0.04622) & (0.02789, 0.10390) & (0.04287, 0.1796) \\
+        \hline
+        \multirow{2}{*}{p[Danny]}
+            & 0.65240 & 0.67340 & 0.74960 \\
+            & (0.548300, 0.75990) & (0.56760, 0.78290) & (0.60510, 0.8910) \\
+        \hline
+        \multirow{2}{*}{p[John]}
+            & 0.67770 & 0.77580 & 0.82540 \\
+            & (0.583500, 0.77280) & (0.66060, 0.88690) & (0.71390, 0.9326) \\
+        \hline
+        \multirow{2}{*}{p[Tom]}
+            & 0.53670 & 0.54220 & 0.65330 \\
+            & (0.501200, 0.61300) & (0.50160, 0.62850) & (0.51530, 0.8104) \\
+        \hline
+        \multirow{2}{*}{\(\psi\)}
+            & 0.59380 & 0.69370 & 0.75820 \\
+            & (0.439000, 0.75990) & (0.51800, 0.87380) & (0.54110, 0.9300) \\
+        \hline
+        \multirow{2}{*}{\(\theta\)}
+            & 0.15280 & 0.20730 & 0.27690 \\
+            & (0.111900, 0.19780) & (0.14580, 0.27390) & (0.19030, 0.3716) \\
+        \hline
+    \end{tabular}
+    \end{center}
+	\end{table} 
+	}
+\end{frame}
+
 % Add slide with example of estimates for our actual data, one river/year?
 
 \begin{frame}{Summary and interpretation of estimates}
@@ -375,9 +443,15 @@ in southeastern Minnesota}
 		\item John Fieberg, MN DNR
 		\item John Erb, MN DNR
 	\end{itemize}
+	\begin{center}
+		\resizebox{7cm}{!}{\includegraphics{cuteOtter10.jpg}}
+	\end{center}
 \end{frame}
 
 \begin{frame}{Questions?}
+	\begin{center}
+	\includegraphics[scale=0.7]{cuteOtter7.jpg}
+	\end{center}
 \end{frame}
 
 \end{document}
