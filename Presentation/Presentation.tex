@@ -47,10 +47,10 @@ in southeastern Minnesota}
 			\item Researchers flew over rivers during winters of 2003, 2004
 			\item Flew one, two, or three days after snow events
 			\item Marked GPS coordinates of tracks
-			\item Rivers divided into 400, 800, or 1600 m plots
-			\item Also examined data set with every other plot excluded 
-			(Alternating Plots)
+			\item Rivers divided into 402m, 804m, or 1608m plots
 			\item Presence of track in each plot determined
+			\item Also examined data set with every other plot excluded
+			(Alternating Plots)
 		\end{itemize}
 	\end{columns}
 \end{frame}
@@ -81,14 +81,6 @@ in southeastern Minnesota}
 \end{frame}
 }
 
-\begin{frame}{Issues related to data}
-	\begin{itemize}
-		\item Tracks near plot boundary can be assigned to different plots
-		\item Track in one site means more likely to be track in neighboring
-		site -- not independent
-	\end{itemize}
-\end{frame}
-
 \section{Occupancy Theory}
 \begin{frame}{Definitions of occupancy}
 	\begin{itemize}
@@ -98,6 +90,9 @@ in southeastern Minnesota}
 		occupied
 	\end{itemize}
 	(MacKenzie, et al. 2006)
+	\begin{center}
+		\resizebox{5cm}{!}{\includegraphics{cuteOtter3.jpg}}
+	\end{center}
 \end{frame}
 
 \begin{frame}{Estimating occupancy}
@@ -114,13 +109,18 @@ in southeastern Minnesota}
 \end{frame}
 
 \begin{frame}{Assumptions of occupancy models}
-	\begin{itemize}
-		\item No false positives
-		\item Presence and detection probabilities are constant across sites
-		and surveys (or can be modeled by covariates)
-		\item Independence of detection between sites
-		\item Survey is conducted on a closed population
-	\end{itemize}
+	\begin{columns}
+		\column{5cm}
+		\begin{itemize}
+			\item No false positives
+			\item Presence and detection probabilities are constant across sites
+			and surveys (or can be modeled by covariates)
+			\item Independence of detection between sites
+			\item Survey is conducted on a closed population
+		\end{itemize}
+		\column{5cm}
+		\resizebox{5cm}{!}{\includegraphics{cuteOtter4.jpg}}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Types of occupancy models}
@@ -163,9 +163,10 @@ in southeastern Minnesota}
 \end{frame}
 
 \begin{frame}{Correlation between flights}
+	\begin{center}
+		\resizebox{7cm}{!}{\includegraphics{dayEventGraphs.pdf}}
+	\end{center}
 	\begin{itemize}
-		\item Two observers on same day should have the same na\"ive occupancy
-		rates; not the case
 		\item Also looked at correlation between flights
 		\begin{itemize}
 			\item Very low, overall
@@ -201,16 +202,10 @@ in southeastern Minnesota}
 
 \begin{frame}{Independence, continued}
 	\begin{center}
-	\includegraphics[scale=0.4]{independenceBoxplots.pdf}
+		\includegraphics[scale=0.4]{independenceBoxplots.pdf}
 	\end{center}
-\end{frame}
-
-\begin{frame}{Independence, continued}
-
 	\begin{itemize}
-		\item Looking at alternating plots increases the independence
-		\item Also saw trends with respect to plot size
-		\item Solution: kept issue in mind, explored spatially explicit models
+		\item Solution: keep issue in mind, include spatially dependent models
 	\end{itemize}
 \end{frame}
 
@@ -240,7 +235,25 @@ in southeastern Minnesota}
 			distribution}\times \text{likelihood}$
 		\end{itemize}
 		\item Goal: Estimate the posterior distribution
+		\begin{itemize}
+			\item Simulate a Markov Chain for many iterations
+			\item Will approach true distribution of random variable
+		\end{itemize}
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Convergence}
+	\begin{center}
+		\resizebox{9cm}{!}{\includegraphics{historyConvergence.pdf}} \\
+		\includegraphics[scale=0.8]{distnConvergence.pdf} \\
+	\end{center}
+\end{frame}
+
+\begin{frame}{Convergence}
+	\begin{center}
+		\resizebox{9cm}{!}{\includegraphics{historyNoConvergence.pdf}} \\
+		\includegraphics[scale=0.8]{distnNoConvergence.pdf} \\
+	\end{center}
 \end{frame}
 
 \begin{frame}{Issue with false detection}
@@ -254,19 +267,19 @@ in southeastern Minnesota}
 \end{frame}
 
 %This slide for DNR only
-\begin{frame}{Bayesian model specifics}
-	\begin{itemize}
-		\item $\psi,\theta \sim \text{Uniform}(0,1)$
-		\item $p[\text{obs}] \sim \text{Beta}(a,b)$
-		\begin{itemize}
-			\item $a, b \sim \text{Gamma}(1,0.1)$
-			\item E similar
-			\item $p$ and $E$ had restricted distributions
-		\end{itemize}
-		\item Burn-in period 10,000 iterations
-		\item Covariates: observer, days since snow
-	\end{itemize}
-\end{frame}
+%\begin{frame}{Bayesian model specifics}
+%	\begin{itemize}
+%		\item $\psi,\theta \sim \text{Uniform}(0,1)$
+%		\item $p[\text{obs}] \sim \text{Beta}(a,b)$
+%		\begin{itemize}
+%			\item $a, b \sim \text{Gamma}(1,0.1)$
+%			\item E similar
+%			\item $p$ and $E$ had restricted distributions
+%		\end{itemize}
+%		\item Burn-in period 10,000 iterations
+%		\item Covariates: observer, days since snow
+%	\end{itemize}
+%\end{frame}
 
 \begin{frame}{Testing the model -- data simulations}
 	\begin{itemize}
@@ -304,17 +317,16 @@ in southeastern Minnesota}
 \end{frame}
 
 %DNR only slide
-\begin{frame}{CAR model specifics}
-	\begin{itemize}
-		\item $\tau^2 =$ conditional variance
-		\item $(\tau^2)^{-1} \sim \text{Gamma}(0.5,0.0005)$
-		\item $\text{logit}(\theta_s)=\alpha_0+\alpha_{1_s}$
-		\item $\alpha_0 \sim$ Improper uniform
-		\item $\alpha_1 \sim$ Gaussian CAR
-	\end{itemize}
-\end{frame}
+%\begin{frame}{CAR model specifics}
+%	\begin{itemize}
+%		\item $\tau^2 =$ conditional variance
+%		\item $(\tau^2)^{-1} \sim \text{Gamma}(0.5,0.0005)$
+%		\item $\text{logit}(\theta_s)=\alpha_0+\alpha_{1_s}$
+%		\item $\alpha_0 \sim$ Improper uniform
+%		\item $\alpha_1 \sim$ Gaussian CAR
+%	\end{itemize}
+%\end{frame}
 
-%DNR slide
 \begin{frame}{Testing the CAR model}
 	\begin{itemize}
 		\item Simulated data with correlation in $\theta$
@@ -324,26 +336,17 @@ in southeastern Minnesota}
 			\alpha$
 		\end{itemize}
 		\item CAR model did not converge
-		\item Simulated data more independent than actual data (from $\hat{S}$)
+		\item Simulated data more independent than actual data (from $S$)
 		\item Added similar correlation in $\psi$
 		\begin{itemize}
 			\item CAR model converged more often
 			\item Independence more similar to that of actual data
 		\end{itemize}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Testing CAR model, continued}
-	\begin{itemize}
-		\item With correlated data, no constant $\psi$.
-		\item To find true $\psi$ from simulated data, took proportion of plots
-		occupied
 		\item When CAR model converged, estimates from CAR and standard models
 		similar for the same data
 	\end{itemize}
 \end{frame}
 
-%Carleton slide goes here
 \section{Discussion}
 \begin{frame}{Obtaining convergence on the data}
 	\begin{itemize}
@@ -409,6 +412,9 @@ in southeastern Minnesota}
 % Add slide with example of estimates for our actual data, one river/year?
 
 \begin{frame}{Summary and interpretation of estimates}
+	\begin{center}
+		\includegraphics[scale=0.5]{Aggregation.pdf}
+	\end{center}
 	\begin{itemize}
 		\item Estimates for all parameters increase with plot size
 		\item Possible hypotheses:
