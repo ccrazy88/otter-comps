@@ -4,7 +4,7 @@
 in southeastern Minnesota}
 \author[Aing, Halls, Oken]{Chrisna Aing, Sarah Halls, Kiva Oken}
 \institute{Carleton College}
-\usepackage{graphics}
+\usepackage{graphics,graphpap}
 \usepackage{color}
 \usepackage{multirow}
 %\includeonlyframes{currentslide}
@@ -34,8 +34,16 @@ in southeastern Minnesota}
 			\item Government needs tools to monitor changes in populations
 		\end{itemize}
 		\column{5cm}
-		\resizebox{5cm}{!}{\includegraphics{cuteOtter1.pdf}}
+	%	\resizebox{5cm}{!}{\includegraphics{cuteOtter1.pdf}}
 	\end{columns}
+\end{frame}
+
+\begin{frame}{Map of area}
+	\begin{picture}(310,190)(9,7.5)
+		\put(20,-5){\resizebox{10cm}{!}{\includegraphics{map.pdf}}}
+		%\graphpaper(0,0)(310,190)
+        		\only<2>{\put(164,48){\circle{30}}}
+   	\end{picture}
 \end{frame}
 
 \begin{frame}{Collecting data}
@@ -258,13 +266,18 @@ in southeastern Minnesota}
 \end{frame}
 
 \begin{frame}{Issue with false detection}
-	\begin{itemize}
-		\item $(p=x, E=y, \psi=z)$ equivalent in terms of likelihood to
-		$(p=y,E=x,\psi=1-z)$.
-		\item Leads to bimodal posterior distributions.
-		\item Solution: restrict $p$ to interval $(0.6,1)$, $E$ to interval
-		$(0,0.4)$.
-	\end{itemize}
+	\begin{columns}
+		\column{5cm}
+		\begin{itemize}
+			\item $(p=x, E=y, \psi=z)$ equivalent in terms of likelihood to
+			$(p=y,E=x,\psi=1-z)$.
+			\item Leads to bimodal posterior distributions.
+			\item Solution: restrict $p$ to interval $(0.6,1)$, $E$ to interval
+			$(0,0.4)$.
+		\end{itemize}
+		\column{5cm}
+		\resizebox{5cm}{!}{\includegraphics{cuteOtter5.jpg}}
+	\end{columns}
 \end{frame}
 
 %This slide for DNR only
