@@ -1,49 +1,26 @@
-# Otter Comps!  And learning (a little bit) about git, perhaps!
-**Authors**: Chrisna Aing, Sarah Halls, and Kiva Oken  
+# Otter Comps!  But mostly being frustrated by git.  
+**Authors**: Kiva Oken, Sarah Halls, and Chrisna Aing  
 
-### Read the wiki!
-
-There will be a first draft of this paper here by Thursday, February 25, 2010!
-Otherwise, we will all be dead.  A presentation should also appear at some point
-and it will also be written in LaTeX, obv.  
-
-[George](http://drp.ly/pzye4+) says that throwing this on both of you will be
-next to impossible and I want to prove him wrong.  Unless we are going to type
-the entire thing together, this will be a godsend.
+I cannot believe that it is almost time to say goodbye (and graduate)!  And,
+while I proved [George](http://drp.ly/pzye4+) wrong, git was not a godsend :(.
 
 ## Git
 
-### Installation:
-
-**3rd CMC (OS X)**:
-
-1. Open the Terminal application.
-2. Enter the command `emacs .bash_profile`.  A text file should show up.
-3. In the line that begins `PATH=$PATH:`, add `:/opt/local/git/bin` to the end.
-4. Press `Ctrl-x Ctrl-s` to save and then `Ctrl-x Ctrl-c` to exit.
-5. Close and reopen the Terminal application and try executing the command 
-   `git`.  If you see a long list of commands, it is installed.
-6. [Generate](http://help.github.com/mac-key-setup/) and add a new SSH key.
-7. [Set](http://help.github.com/git-email-settings/) your username, e-mail, and
-   GitHub token.
-8. Enter the command `git config --global core.autocrlf input`.
+### Some Stuff You Should Do:
 
 **Mac OS X**:
 
-1. [Download](http://tinyurl.com/ydyjqva) and install git.
-2. Open the Terminal application.
-3. Follow Steps 6-8 of the 3rd CMC installation guide.
+* [Generate](http://help.github.com/mac-key-setup/) and add a new SSH key.
+* [Set](http://help.github.com/git-email-settings/) your username, e-mail, and
+  GitHub token.
+* Enter the command `git config --global core.autocrlf input`.*
 
 **Windows**:
 
-1. [Download](http://tinyurl.com/yayaygu) and install msysgit.
-   * Select both Windows Explorer integration options.
-   * Use Git Bash only.
-   * Use OpenSSH.
-2. Open Git Bash.
-3. [Generate](http://help.github.com/msysgit-key-setup/) and add a new SSH key.
-4. Follow Step 7 of the 3rd CMC installation guide.
-5. Enter the command `git config --global core.autocrlf true`.
+* [Generate](http://help.github.com/msysgit-key-setup/) and add a new SSH key.
+* [Set](http://help.github.com/git-email-settings/) your username, e-mail, and
+  GitHub token.
+* Enter the command `git config --global core.autocrlf true`.
 
 ### Tutorials:
 
@@ -54,22 +31,6 @@ the entire thing together, this will be a godsend.
    done.  And then you will be able to show this to all of your friends!
 2. [Working with the repository].  This is an overview of the commands you will
    use to interact with the online version of our paper and presentation.
-
-## LaTeX
-
-### Some useful rules of thumb:
-
-1. Split long sentences into several lines so that each line has at most 80
-   characters.  **This is VERY important, since git works line-by-line.  Switch
-   to a monospaced font and make sure your window is 80 characters wide!**
-2. Turn off automatic line wrapping of your LaTeX editor.
-3. Do not change line breaks without good reason.
-4. Verify that your code can be compiled flawlessly before committing your
-   modifications to the repository.
-5. Add a meaningful and descriptive comment when committing your modifications
-   to the repository.
-6. Put only those files under version control that are directly modified by the
-   user.  **This has already been done by me (or rather, .gitignore).**
 
 Goodbye!
 
