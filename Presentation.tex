@@ -7,19 +7,21 @@ in southeastern Minnesota}
 \usepackage{graphics,graphpap}
 \usepackage{color}
 \usepackage{multirow}
+\usepackage[T1]{fontenc}
+\usepackage{fix-cm}
 %\includeonlyframes{currentslide}
 
 \begin{document}
 {
 	\usebackgroundtemplate{
-	\includegraphics[width=\paperwidth]{ottertracks1.jpg}}
+	\includegraphics[width=\paperwidth]{Figures/Pictures/ottertracks1.jpg}}
 	\begin{frame}
 		\titlepage
 	\end{frame}
 }
 
 \begin{frame}{Outline}
-		\tableofcontents[pausesections]
+	\tableofcontents[pausesections]
 \end{frame}
 
 \section{The data and questions}
@@ -34,22 +36,21 @@ in southeastern Minnesota}
 			\item Government needs tools to monitor changes in populations
 		\end{itemize}
 		\column{5cm}
-		\resizebox{5cm}{!}{\includegraphics{cuteOtter1.pdf}}
+		\resizebox{5cm}{!}{\includegraphics{Figures/Pictures/cuteOtter1.pdf}}
 	\end{columns}
 \end{frame}
 
 \begin{frame}{Map of area}
 	\begin{picture}(310,190)(9,7.5)
-		\put(20,-5){\resizebox{10cm}{!}{\includegraphics{map.pdf}}}
-		%\graphpaper(0,0)(310,190)
-        		\only<2>{\put(164,48){\circle{30}}}
-   	\end{picture}
+		\put(20,-5){\resizebox{10cm}{!}{\includegraphics{Figures/map.pdf}}}
+		\only<2>{\put(164,48){\circle{30}}}
+	\end{picture}
 \end{frame}
 
 \begin{frame}{Collecting data}
 	\begin{columns}
 		\column{5cm}
-		\resizebox{5cm}{!}{\includegraphics{cuteOtter2.jpg}}
+		\resizebox{5cm}{!}{\includegraphics{Figures/Pictures/cuteOtter2.jpg}}
 		\column{5cm}
 		\begin{itemize}[<+->]
 			\item Researchers flew over rivers during winters of 2003, 2004
@@ -65,20 +66,20 @@ in southeastern Minnesota}
 
 {
 	\usebackgroundtemplate{
-	\includegraphics[width=\paperwidth]{SnowTracks12.jpg}}
+	\includegraphics[width=\paperwidth]{Figures/Pictures/SnowTracks12.jpg}}
 	\begin{frame}{}
 	\end{frame}
 }
 
 {
 	\usebackgroundtemplate{
-	\includegraphics[width=\paperwidth]{SNOWTRACKS9.jpg}}
+	\includegraphics[width=\paperwidth]{Figures/Pictures/SNOWTRACKS9.jpg}}
 	\begin{frame}
 	\end{frame}
 }
 
 {
-\usebackgroundtemplate{\includegraphics[width=\paperwidth]{data.pdf}}
+\usebackgroundtemplate{\includegraphics[width=\paperwidth]{Figures/data.pdf}}
 \begin{frame}
     \begin{picture}(310,190)(9,7.5)
         \linethickness{1.5pt}
@@ -99,7 +100,7 @@ in southeastern Minnesota}
 	\end{itemize}
 	(MacKenzie, et al. 2006)
 	\begin{center}
-		\resizebox{5cm}{!}{\includegraphics{cuteOtter3.jpg}}
+		\resizebox{5cm}{!}{\includegraphics{Figures/Pictures/cuteOtter3.jpg}}
 	\end{center}
 \end{frame}
 
@@ -128,7 +129,7 @@ in southeastern Minnesota}
 			\item Survey is conducted on a closed population
 		\end{itemize}
 		\column{5cm}
-		\resizebox{5cm}{!}{\includegraphics{cuteOtter4.jpg}}
+		\resizebox{5cm}{!}{\includegraphics{Figures/Pictures/cuteOtter4.jpg}}
 	\end{columns}
 \end{frame}
 
@@ -138,7 +139,8 @@ in southeastern Minnesota}
 		\item Hierarchical models
 	\end{itemize}
 	\begin{center}
-		\resizebox{7cm}{!}{\includegraphics{../SimpleHierarchicalModel.pdf}}
+		\resizebox{7cm}{!}{
+		\includegraphics{Figures/Diagrams/SimpleHierarchicalModel.pdf}}
 	\end{center}
 \end{frame}
 
@@ -151,7 +153,8 @@ in southeastern Minnesota}
 		has been made
 	\end{itemize}
 	\begin{center}
-		\resizebox{7cm}{!}{\includegraphics{../SimpleModelWithParams.pdf}}
+		\resizebox{7cm}{!}{
+		\includegraphics{Figures/Diagrams/SimpleModelWithParams.pdf}}
 	\end{center}
 \end{frame}
 
@@ -162,7 +165,7 @@ in southeastern Minnesota}
 		\item Detection rates varied among the observers
 	\end{itemize}
 	\begin{center}
-		\resizebox{5cm}{!}{\includegraphics{wwObsPlot.pdf}}
+		\resizebox{5cm}{!}{\includegraphics{Figures/R/wwObsPlot.pdf}}
 	\end{center}
 	\begin{itemize}
 		\item Solution: use observer indicators as covariates for detection
@@ -172,7 +175,7 @@ in southeastern Minnesota}
 
 \begin{frame}{Correlation between flights}
 	\begin{center}
-		\resizebox{7cm}{!}{\includegraphics{dayEventGraphs.pdf}}
+		\resizebox{7cm}{!}{\includegraphics{Figures/R/dayEventGraphs.pdf}}
 	\end{center}
 	\begin{itemize}
 		\item Also looked at correlation between flights
@@ -186,13 +189,14 @@ in southeastern Minnesota}
 
 \begin{frame}{Hierarchical model with false detection}
 	\begin{center}
-		\resizebox{10cm}{!}{\includegraphics{../ModelWithE.pdf}}
+		\resizebox{10cm}{!}{\includegraphics{Figures/Diagrams/ModelWithE.pdf}}
 	\end{center}
 \end{frame}
 
 \begin{frame}{Hierarchical model with false detection}
 	\begin{center}
-		\resizebox{10cm}{!}{\includegraphics{../ModelWithEAndParams.pdf}}
+		\resizebox{10cm}{!}{
+		\includegraphics{Figures/Diagrams/ModelWithEAndParams.pdf}}
 	\end{center}
 \end{frame}
 
@@ -210,7 +214,7 @@ in southeastern Minnesota}
 
 \begin{frame}{Independence, continued}
 	\begin{center}
-		\includegraphics[scale=0.4]{independenceBoxplots.pdf}
+		\includegraphics[scale=0.4]{Figures/R/independenceBoxplots.pdf}
 	\end{center}
 	\begin{itemize}
 		\item Solution: keep issue in mind, include spatially dependent models
@@ -253,15 +257,17 @@ in southeastern Minnesota}
 
 \begin{frame}{Convergence}
 	\begin{center}
-		\resizebox{8.5cm}{!}{\includegraphics{historyConvergence.pdf}} \\
-		\includegraphics[scale=0.8]{distnConvergence.pdf} \\
+		\resizebox{8.5cm}{!}{
+		\includegraphics{Figures/R/historyConvergence.pdf}} \\
+		\includegraphics[scale=0.8]{Figures/R/distnConvergence.pdf} \\
 	\end{center}
 \end{frame}
 
 \begin{frame}{Convergence}
 	\begin{center}
-		\resizebox{8.5cm}{!}{\includegraphics{historyNoConvergence.pdf}} \\
-		\includegraphics[scale=0.8]{distnNoConvergence.pdf} \\
+		\resizebox{8.5cm}{!}{
+		\includegraphics{Figures/R/historyNoConvergence.pdf}} \\
+		\includegraphics[scale=0.8]{Figures/R/distnNoConvergence.pdf} \\
 	\end{center}
 \end{frame}
 
@@ -276,11 +282,11 @@ in southeastern Minnesota}
 			$(0,0.4)$.
 		\end{itemize}
 		\column{5cm}
-		\resizebox{5cm}{!}{\includegraphics{cuteOtter6.jpg}}
+		\includegraphics[width=5cm]{Figures/Pictures/cuteOtter6.jpg}
 	\end{columns}
 \end{frame}
 
-%This slide for DNR only
+% DNR-only slide!
 %\begin{frame}{Bayesian model specifics}
 %	\begin{itemize}
 %		\item $\psi,\theta \sim \text{Uniform}(0,1)$
@@ -307,7 +313,7 @@ in southeastern Minnesota}
 
 \begin{frame}{Testing the model, continued}
 	\begin{center}
-	\includegraphics[scale=0.5]{../SimulatedData.pdf}
+		\includegraphics[width=8.5cm]{Figures/Diagrams/SimulatedData.pdf}
 	\end{center}
 \end{frame}
 
@@ -330,7 +336,7 @@ in southeastern Minnesota}
 	\end{itemize}
 \end{frame}
 
-%DNR only slide
+% DNR-only slide!
 %\begin{frame}{CAR model specifics}
 %	\begin{itemize}
 %		\item $\tau^2 =$ conditional variance
@@ -375,56 +381,11 @@ in southeastern Minnesota}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{}
-    % Mississippi River!
-	\small{
-    \begin{table}
-    \begin{center}
-    \begin{tabular}{|l|l|l|l|}
-        \hline
-        \multicolumn{4}{|l|}{\textbf{Mississippi River, 2003}} \\
-        \hline
-            & 402m & 804m & 1608m \\
-        \hline
-        \multirow{2}{*}{E[Danny]}
-            & 0.01954 & 0.04808 & 0.06885 \\
-            & (0.006515, 0.03663) & (0.01874, 0.08187) & (0.01778, 0.1383) \\
-        \hline
-        \multirow{2}{*}{E[John]}
-            & 0.05216 & 0.07771 & 0.13650 \\
-            & (0.027710, 0.07745) & (0.03881, 0.12100) & (0.03449, 0.2330) \\
-        \hline
-        \multirow{2}{*}{E[Tom]}
-            & 0.02668 & 0.06140 & 0.10230 \\
-            & (0.011990, 0.04622) & (0.02789, 0.10390) & (0.04287, 0.1796) \\
-        \hline
-        \multirow{2}{*}{p[Danny]}
-            & 0.65240 & 0.67340 & 0.74960 \\
-            & (0.548300, 0.75990) & (0.56760, 0.78290) & (0.60510, 0.8910) \\
-        \hline
-        \multirow{2}{*}{p[John]}
-            & 0.67770 & 0.77580 & 0.82540 \\
-            & (0.583500, 0.77280) & (0.66060, 0.88690) & (0.71390, 0.9326) \\
-        \hline
-        \multirow{2}{*}{p[Tom]}
-            & 0.53670 & 0.54220 & 0.65330 \\
-            & (0.501200, 0.61300) & (0.50160, 0.62850) & (0.51530, 0.8104) \\
-        \hline
-        \multirow{2}{*}{\(\psi\)}
-            & 0.59380 & 0.69370 & 0.75820 \\
-            & (0.439000, 0.75990) & (0.51800, 0.87380) & (0.54110, 0.9300) \\
-        \hline
-        \multirow{2}{*}{\(\theta\)}
-            & 0.15280 & 0.20730 & 0.27690 \\
-            & (0.111900, 0.19780) & (0.14580, 0.27390) & (0.19030, 0.3716) \\
-        \hline
-    \end{tabular}
-    \end{center}
-	\end{table} 
-	}
+\begin{frame}{Summary and interpretation of estimates}
+	\begin{center}
+		\includegraphics[width=10cm]{Figures/Graphs/2003Psi.pdf}
+	\end{center}
 \end{frame}
-
-% Add slide with example of estimates for our actual data, one river/year?
 
 \begin{frame}{Summary and interpretation of estimates}
 	\begin{itemize}
@@ -440,7 +401,7 @@ in southeastern Minnesota}
 		\end{itemize}
 	\end{itemize}
 	\begin{center}
-		\includegraphics[scale=0.5]{Aggregation.pdf}
+		\includegraphics[width=10cm]{Figures/Diagrams/Aggregation.pdf}
 	\end{center}
 \end{frame}
 
@@ -465,13 +426,13 @@ in southeastern Minnesota}
 		\item John Erb, MN DNR
 	\end{itemize}
 	\begin{center}
-		\resizebox{7cm}{!}{\includegraphics{cuteOtter10.jpg}}
+		\includegraphics[width=7cm]{Figures/Pictures/cuteOtter10.jpg}
 	\end{center}
 \end{frame}
 
 \begin{frame}{Questions?}
 	\begin{center}
-	\includegraphics[scale=0.7]{cuteOtter7.jpg}
+		\includegraphics[width=10cm]{Figures/Pictures/cuteOtter7.jpg}
 	\end{center}
 \end{frame}
 
