@@ -13,7 +13,7 @@ while I proved [George](http://drp.ly/pzye4+) wrong, git was not a godsend :(.
 * [Generate](http://help.github.com/mac-key-setup/) and add a new SSH key.
 * [Set](http://help.github.com/git-email-settings/) your username, e-mail, and
   GitHub token.
-* Enter the command `git config --global core.autocrlf input`.*
+* Enter the command `git config --global core.autocrlf input`.
 
 **Windows**:
 
