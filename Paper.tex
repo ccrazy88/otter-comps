@@ -38,7 +38,7 @@ time. We used concepts from occupancy theory to develop models to estimate
 the occupancy rate for the otter population.
 
     \subsection{Data collection}
-    During the winters of 2003 and 2004 The Minnesota Department of Natural 
+    During the winters of 2003 and 2004 The Minnesota Department of Natural
     Resources (MDNR) sponsored flights over the Whitewater, Zumbro,
     and Mississippi Rivers to survey otters. When observers saw what looked like
     an otter track, they
@@ -187,7 +187,7 @@ the occupancy rate for the otter population.
     contain false positives where observers think they see a track when it does
     not exist. Not accounting for such a process can lead to major biases; as
     the number of flights increases, the occupancy rate estimate will approach
-    1 \cite{Royle2006}. We thus introduced a false detection process whereby an 
+    1 \cite{Royle2006}. We thus introduced a false detection process whereby an
     observer
     can mark down the existence of a track when in reality there is none. This
     false detection process can occur as long as there is no track, whether or
@@ -583,7 +583,7 @@ track in a plot on a given day.
     data were again more independent than the real data.
 
     To increase the correlation between plots we simulated the correlation
-    in both the track-laying and occupancy processes. Under this 
+    in both the track-laying and occupancy processes. Under this
     simulation method we
     again had the variables $\theta$ and $\alpha$, but we also had analogous
     variables $ \psi$ and $\beta$. In this case, $\psi$ is the probability an
@@ -1017,7 +1017,7 @@ track in a plot on a given day.
     with the river.
 
 \section{Acknowledgments}
-We would like to thank our adviser, Bob Dobrow, for all of his help and advice 
+We would like to thank our adviser, Bob Dobrow, for all of his help and advice
 and John Fieberg and John Erb from the Minnesota Department of Natural Resources
 for collecting and sharing the data as well as for offering their specific
 knowledge of the subject.
@@ -1065,7 +1065,7 @@ knowledge of the subject.
     % Var[A]
     \begin{equation*}
         \begin{split}
-        Var[A]& =\sum_{i=1}^{n-1}Var[A]+2\sum_{i=1}^{n-2}Cov[\{X_i=0, 
+        Var[A]& =\sum_{i=1}^{n-1}Var[A]+2\sum_{i=1}^{n-2}Cov[\{X_i=0,
                 X_{i+1}=1\}, \{X_{i+1}=0, X_{i+2}=1\}] \\
               & =(n-1)p(1-(1-p)p) \\
               & \quad +2\sum_{i=1}^{n-2}\bigg(E[\{X_i=0, X_{i+1}=1\},
@@ -1081,7 +1081,7 @@ knowledge of the subject.
     % Var[B]
     \begin{equation*}
         \begin{split}
-        Var[B]& =\sum_{i=1}^{n-1}Var[B]+2\sum_{i=1}^{n-2}Cov[\{X_i=1, 
+        Var[B]& =\sum_{i=1}^{n-1}Var[B]+2\sum_{i=1}^{n-2}Cov[\{X_i=1,
                 X_{i+1}=1\}, \{X_{i+1}=1, X_{i+2}=1\}] \\
               & =(n-1)p^2(1-p^2) \\
               & \quad +2\sum_{i=1}^{n-2}\bigg(E[\{X_i=1, X_{i+1}=1\},
@@ -1145,28 +1145,27 @@ otterModel <- function() {
     }
 
     for (i in 1:numDataPts) {
-        # equals(track.count[...], 0) == 1 when there is no track to observe.
-        mu[i] <- 
+        # Positive detection.
+        mu[i] <-
             p[obsV[i]] * (1 - equals(trackSum[siteV[i], eventV[i], dayV[i]], 0))
-        # probability of false detection, given track and occupancy state
+        # False detection.
         nu[i] <- E[obsV[i]] * equals(trackSum[siteV[i], eventV[i], dayV[i]], 0)
         prob[i] <- mu[i] + nu[i]
         y[i] ~ dbern(prob[i])
     }
 }
 
-writeModel(otterModel, "irregularHierarchicalModel.txt")
-modelCheck("irregularHierarchicalModel.txt")
+writeModel(otterModel, "HierarchicalModel.txt")
+modelCheck("HierarchicalModel.txt")
 bugsData(c("y", "siteV", "eventV", "dayV", "obsV", "sites", "observers",
-           "numDataPts", "snowEvents", "daysAfterTotal"), 
-         "irregularOtterData.txt")
-modelData("irregularOtterData.txt")
+           "numDataPts", "snowEvents", "daysAfterTotal"),
+         "OtterData.txt")
+modelData("OtterData.txt")
 modelCompile(numChains=2)
 modelGenInits()
 
 modelUpdate(10000)
 samplesSet(c("a", "b", "c", "d", "p[]", "E[]", "psi", "theta"))
-#samplesSet(c("a", "b", "p[]", "psi", "theta"))
 modelUpdate(10000)
 \end{verbatimtab}
 
@@ -1183,11 +1182,11 @@ otterModel <- function() {
     alpha1[1:sites] ~ car.normal(adj[], weights[], num[], tau)
     alpha0 ~ dflat()
     tau ~ dgamma(.5,.0005)
-    psi ~ dunif(0,1) 
+    psi ~ dunif(0,1)
     a ~ dgamma(1,.1)
     b ~ dgamma(1,.1)
-    #c ~ dgamma(1,.1)
-    #d ~ dgamma(1,.1)
+    c ~ dgamma(1,.1)
+    d ~ dgamma(1,.1)
     for (observer in 1:observers) {
         p[observer] ~ dbeta(a,b) %_% I(.6, 1)
         E[observer] ~ dbeta(c,d) %_% I(0, .3)
@@ -1206,45 +1205,40 @@ otterModel <- function() {
     }
 
     for (i in 1:numDataPts) {
-        # equals(track.count[...], 0) == 1 when there is no track to observe.
-        mu[i] <- 
+        mu[i] <-
             p[obsV[i]] * (1 - equals(trackSum[siteV[i], eventV[i], dayV[i]], 0))
-        # probability of false detection, given track and occupancy state
         nu[i] <- E[obsV[i]] * equals(trackSum[siteV[i], eventV[i], dayV[i]], 0)
         prob[i] <- mu[i] + nu[i]
         y[i] ~ dbern(prob[i])
     }
 }
 
-writeModel(otterModel, "irregularHierarchicalModel.txt")
-modelCheck("irregularHierarchicalModel.txt")
+writeModel(otterModel, "CARModel.txt")
+modelCheck("CARModel.txt")
 bugsData(c("y", "siteV", "eventV", "dayV", "obsV", "sites", "observers",
            "numDataPts", "snowEvents", "daysAfterTotal", "num", "adj",
-           "sumNumNeigh"), 
-         "irregularOtterData.txt")
-modelData("irregularOtterData.txt")
+           "sumNumNeigh"),
+         "OtterData.txt")
+modelData("OtterData.txt")
 modelCompile(numChains=2)
 
-init.val <- function(){
-	list(
-		alpha1=runif(sites,-100,100),
-		alpha0=runif(1,-100,100),
-		tau=rgamma(1,.5,.0005),
-		psi=runif(1),
-		a=rgamma(1,1,.1),
-		b=rgamma(1,1,.1)
-		#,c=rgamma(1,1,.1),
-		#d=rgamma(1,1,.1)
-	) 
+init.val <- function() {
+list(alpha1 = runif(sites,-100,100),
+     alpha0 = runif(1,-100,100),
+     tau = rgamma(1,.5,.0005),
+     psi = runif(1),
+     a = rgamma(1, 1, .1),
+     b = rgamma(1, 1, .1),
+     c = rgamma(1, 1, .1),
+     d = rgamma(1, 1, .1))
 }
-bugsInits(init.val,numChains=2,fileName=c('init1.txt','init2.txt'))
-modelInits(c('init1.txt','init2.txt'))
+bugsInits(init.val, numChains=2, fileName=c('init1.txt','init2.txt'))
+modelInits(c('init1.txt', 'init2.txt'))
 
 modelGenInits()
 
 modelUpdate(12000)
-#samplesSet(c("a", "b", "c", "d", "p[]", "E[]", "psi"))
-samplesSet(c("a", "b", "p[]", "psi"))
+samplesSet(c("a", "b", "c", "d", "p[]", "E[]", "psi"))
 modelUpdate(10000)
 \end{verbatimtab}
 
@@ -1257,6 +1251,8 @@ snowEvents <- 2
 daysAfterTotal <- 2
 observers <- 3
 
+# This is an example of regular data.  Three observers, six snow events, two
+# observations on consecutive days after each snow event.
 eventsToDaysBegin <- c(1, 3, 5, 7, 9, 11)
 eventsToDaysEnd   <- c(2, 4, 6, 8, 10, 12)
 curDaySinceSnow <- c(1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2)
@@ -1268,13 +1264,7 @@ curObserver <- c(1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3,
 # Setting up the parameters.
 psi <- .7
 beta <- .4
-condlOcc <- psi + beta
-condlUnocc <- psi
-
 theta <- .5
-alpha <- .3
-condlTrack <- theta + alpha
-condlNoTrack <- theta
 p <- c(.70, .80, .90)
 E <- c(.05, .02, .03)
 
@@ -1292,18 +1282,10 @@ numDataPts <- 0
 
 # Simulating the data!
 for (site in 1:sites) {
-    # TRUE == 1, FALSE == 0.
-	if (site == 1) {
-		occupancy[site] <- 1 * (runif(1) < (condlOcc + condlUnocc/2))
-	} else if (occupancy[i-1] == 1) {
-		occupancy[site] <- 1 * (runif(1) < condlOcc)
-	} else
-		occupancy[site] <- 1 * (runif(1) < condlUnocc)
-	}
+    occupancy[site] <- 1 * (runif(1) < psi)
     for (event in 1:snowEvents) {
         otterTrackLaid <- 0
         currentDay <- 0
-        # Haha, this is awful.
         for (day in 1:curDaySinceSnow[eventsToDaysBegin[event]]) {
             if (day != 1) {
                 currentDay <- currentDay + 1
@@ -1317,9 +1299,9 @@ for (site in 1:sites) {
                 occupancy[site] * (runif(1) < theta))
             for (colIndex in daysToObsBegin[day]:daysToObsEnd[day]) {
                 numDataPts <- numDataPts + 1
-                sawOtterTrack <- otterTrackLaid * 
+                sawOtterTrack <- otterTrackLaid *
                     (runif(1) < p[curObserver[colIndex]])
-                sawOtherTrack <- (1 - otterTrackLaid) * 
+                sawOtherTrack <- (1 - otterTrackLaid) *
                     (runif(1) < E[curObserver[colIndex]])
                 y[numDataPts] <- sawOtterTrack + sawOtherTrack
                 siteV[numDataPts] <- site
@@ -1335,7 +1317,7 @@ for (site in 1:sites) {
 \section{Simulated regular data, dependent in $\psi$, $\theta$}
 \scriptsize
 \begin{verbatimtab}
-#Define structure
+# Define structure.
 sites <- 60
 events <- 5
 snowdays <- 3
@@ -1343,7 +1325,7 @@ obs <- 3
 I1 <- rep(c(1,0,0), events*snowdays)
 I2 <- rep(c(0,1,0), events*snowdays)
 
-#Define parameters
+# Define parameters.
 psi <- .4
 beta <- .4
 condl.occ <- psi + beta
@@ -1352,44 +1334,50 @@ theta <-.3
 alpha <-.5
 condl.track <- theta + alpha
 condl.notrack <- theta
-p <- c(.7,.7,.7)
-E <- c(.05,.05,.05)
+p <- c(.7, .7, .7)
+E <- c(.05, .05, .05)
 
-#Initialize variables
+# Initialize variables.
 occupancy <- NULL
 tracks <- matrix(nrow=sites, ncol=events*snowdays)
 y <- matrix(nrow=sites, ncol=events*snowdays*obs)
 
-for(i in 1:sites) {
-	#Determine occupancy of site. 1*(runif(1)<psi) is 1 around psi*100 percent of the time.
-	#Use conditional rates depending on occupancy of site i-1
-	if (i==1) 
-		{occupancy[i] <- 1*(runif(1)<(condl.occ+condl.unocc)/2)}	
-	else if (occupancy[i-1]==1) 
-		{occupancy[i] <- 1*(runif(1)<condl.occ)}
-	else 
-		{occupancy[i] <- 1*(runif(1)<condl.unocc)}
-	for(j in 1:events) {
-		is.track <- 0
-		for(k in 1:snowdays) {
-			index <- k + snowdays*(j-1)
-			#Decide if a track is laid down on day k of event j, given the occupancy state
-			if(i==1) {
-				tracks[i,index] <- (runif(1)<(condl.track+condl.notrack)/2)*occupancy[i]
-			}else if(tracks[i-1,index]==1) 
-				{tracks[i,index] <- (runif(1)<condl.track)*occupancy[i]
-			}else 
-				{tracks[i,index] <- (runif(1)<condl.notrack)*occupancy[i]}
+for (i in 1:sites) {
+    # Determine occupancy of site. 1 * (runif(1) < psi) is 1 around psi*100
+    # percent of the time. Use conditional rates depending on occupancy of site
+    # i-1.
+    if (i == 1)
+        {occupancy[i] <- 1 * (runif(1) < (condl.occ + condl.unocc) / 2)}
+    else if (occupancy[i-1] == 1)
+        {occupancy[i] <- 1 * (runif(1) < condl.occ)}
+    else
+        {occupancy[i] <- 1 * (runif(1) < condl.unocc)}
 
-			#Determine if any tracks have been laid down for event j.
-			is.track <- max(is.track, tracks[i,index])
-			for(m in 1:obs) {
-				index <- m + obs*(k-1) + snowdays*obs*(j-1)
-				#Determine if the observer saw a track.
-				y[i,index] <- (runif(1)<p[m])*is.track + (runif(1)<E[m])*(1-is.track)
-			}
-		}
-	}
+    for (j in 1:events) {
+        is.track <- 0
+        for (k in 1:snowdays) {
+            index <- k + snowdays * (j - 1)
+            # Decide if a track is laid down on day k of event j, given the
+            # occupancy state.
+            if (i == 1) {
+                tracks[i, index] <- (runif(1) <
+                                     (condl.track + condl.notrack) / 2) *
+                                    occupancy[i]
+            } else if (tracks[i-1, index] == 1)
+                {tracks[i, index] <- (runif(1) < condl.track) * occupancy[i]
+            } else
+                {tracks[i, index] <- (runif(1) < condl.notrack) * occupancy[i]}
+
+            # Determine if any tracks have been laid down for event j.
+            is.track <- max(is.track, tracks[i,index])
+            for (m in 1:obs) {
+                index <- m + obs * (k - 1) + snowdays * obs * (j - 1)
+                # Determine if the observer saw a track.
+                y[i, index] <- (runif(1) < p[m]) * is.track +
+                               (runif(1) < E[m]) * (1-is.track)
+            }
+        }
+    }
 }
 \end{verbatimtab}
 Note: This needs some more processing before it will run on either model.
