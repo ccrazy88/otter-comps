@@ -697,37 +697,45 @@ Our model performed surprisingly well, particularly given the complex and
 sparse nature of the data analyzed. We were successfully able to incorporate
 false detection, spatial data correlation, and the dependence of detection
 probabilities on time since snowfall events into a model and still obtain both
-accurate and precise results. While others have had success incorporating one
-of these processes into statistical models \citep{Magoun2007, Royle2006,
-Stanley2005}, we are not aware of any studies that have incorporated all three.
-[Talk more about specifics when we get them.] Having the ability to model such
-complex processes will make data collection in similar presence/absence surveys
-both easier and less costly.
+accurate and precise estimates for the occupancy rate. While others have had
+success incorporating one of these processes into occupancy models
+\citep{Magoun2007, Royle2006, Stanley2005}, we are not aware of any studies
+that have incorporated all three. [Talk more about specifics when we get them.]
+Having the ability to model such complex processes will make data collection in
+similar presence/absence surveys both easier and less costly.
 
 Interestingly, in our simulations with spatially correlated data, neither of
 our two spatially explicit models performed particularly better than the
 simpler spatially inexplicit model. While confidence intervals were sometimes
-slightly smaller for the conditional autoregressive (CAR) models that took into
-account the spatial correlation, the differences were small, and due to the
+slightly smaller for the conditional autoregressive (CAR) models that took the
+spatial correlation into account, the differences were small, and due to the
 significantly longer computing times necessitated by the added complexity of
 the spatial models, the simpler model may be a better choice. This is contrary
-to what has been found in other studies that attempting to use CAR models with
-similar binary data \citep{Wintle2006}.  However, the level of correlation in
+to what has been found in other studies that attempted to use CAR models with
+similar binary data \citep{Wintle2006}. However, the level of correlation in
 their data may have been higher.
 
-In addition, because funds for aerial surveys such as the ones used to collect
-data in this study are limited, we explored different survey designs to
-determine which aspects are most important in yielding precise and accurate
-results. In particular, we examined numbers of observers, snow events, days
-surveyed following snow events, and sites. [Make some sort of grand sweeping
-conclusions about which are most important?] No single parameter appears most
-important. However, we recommend a minimum sampling effort of [what?] to ensure
-that the standard error for psi falls below [what?]. It is notable that if
-there is more data available, the model will generally take less time to
-converge.
+In addition, because funds for aerial surveys are limited, we explored
+different survey designs to determine which aspects are most important in
+yielding precise and accurate results. In particular, we examined numbers of
+observers, snow events, days surveyed following snow events, and sites. No
+single parameter appears most important. However, we recommend a minimum
+sampling effort of [what?] to ensure that the standard error for psi falls
+below [what?]. \citet{Mackenzie2005} found that when detection probabilities
+exceed 0.5, as they do in the case of our data, they recommended a minimum of
+three surveys. Because we separate the track-laying and detection processes
+into two separate parameters ($p$ and $\theta$, respectively), more than three
+surveys are necessary in studies like this one.
 
-These statistical methods could be used on data for other species, as well.
-[John said we should talk about this. Which species?]
+These statistical methods could be used on investigations of other species, as
+well. Similar aerial snow-track surveys have been used in population studies
+for other riparian species such as ptarmigan, snowshoe hares, and red foxes
+\citep{St-Georges1995}, and non-riparian species such as caribou
+\citep{Courtois2003} and wolverines \citep{Magoun2007}. Although there may not
+be a natural river corridor to fly along for non-riparian species, transects on
+which to fly could be drawn ad hoc. The would be worthwhile, as there is great
+potential for applications of complex occupancy models such as this one in
+studies of population dynamics for use in wildlife conservation and management.
 
 \section{Acknowledgements}
 
@@ -745,15 +753,9 @@ We would like to thank...
 \leftskip 0.15in
 
 \parindent -0.15in
-
 Gorman, T., Erb, J., McMillan, B.\ \& Martin, D.\ (2006) Space Use and
 Sociality of River Otters ({\em Lontra Canadensis}) in Minnesota. {\em Journal
 of Mammalogy}, {\bf 87}, 740--747.
-
-\parindent -0.15in
-Mackenzie, D.\ \& Royle, J.\ (2005) Designing Occupancy Studies: General Advice
-and Allocating Survey Effort, {\em Journal of Applied Ecology}, {\bf 42},
-1105-1114.
 
 \parindent -0.15in
 Sargeant, G., Sovada, M., Slivinski, C.\ \& Johnson, D.\ (2005) Markov Chain
