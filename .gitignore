@@ -21,5 +21,8 @@
 # Emacs Stuff:
 *~
 
+# Vim Stuff:
+*.swp
+
 # Other Temporary Files:
 ._*
