@@ -1,0 +1,763 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{natbib}
+\usepackage{verbatim}
+\usepackage{hyperref}
+
+\renewcommand{\bibsection}{\section{References}}
+
+\begin{document}
+\addtolength{\textheight}{+0.18in}
+
+\newcommand{\lf}{\left\lfloor}
+\newcommand{\rf}{\right\rfloor}
+\newcommand{\dis}{\displaystyle}
+\newcommand{\sums}[2]{\sum_{\stackrel{{\scriptstyle {#1}}}{{#2}}}}
+\newcommand{\prods}[2]{\prod_{\stackrel{{\scriptstyle {#1}}}{{#2}}}}
+
+\long\def\symbolfootnote[#1]#2{\begingroup%
+\def\thefootnote{\fnsymbol{footnote}}\footnote[#1]{#2}\endgroup}
+
+\def\prbox{\hfill\rule{1.2ex}{1.2ex}\vspace{.2in}}
+
+\newenvironment{proof}{\noindent{\bf Proof }}{\prbox}
+
+\def\Reals{\hbox{\rm I\kern-.18em R}}
+\def\reals{\Reals}
+\def\Complexes{\hbox{\rm C\kern-.43em
+       \vrule depth 0ex height 1.4ex width .05em\kern.41em}}
+\def\complexes{\Complexes}
+
+\def\field{\hbox{\rm I\kern-.18em F}} %symbol for field
+\def\Naturals{\hbox{\rm I\kern-.17em N}}
+\def\naturals{\Naturals}
+\def\integers{\hbox{\rm Z\kern-.3em Z}}
+\def\hh{\hrule height0.9pt width1.1em}
+\def\vv{\vrule width0.8pt depth0.12em height0.92em}
+\def\square{\vbox{\kern0.15em\hh\kern0.9em\hh\kern-1.05em
+            \hbox{\vv\kern0.93em\vv}}}
+\def\Lv{L_{\alpha} }
+\def\Lvp{L_{\alpha'} }
+\def\sm{{\mbox{\boldmath $\sigma$}_m}}
+\def\MMv{R_{\mbox{\boldmath $\sigma$}_v}}
+\def\tMMv{\widetilde{R}_{\mbox{\boldmath $\sigma$}_v}}
+\def\MMm{R_{\mbox{\boldmath $\sigma$}_m}}
+\def\tMMm{\widetilde{R}_{\mbox{\boldmath $\sigma$}_m}}
+\def\MMj{R_{\mbox{\boldmath $\sigma$}_j}}
+\def\sn1{{\mbox{\boldmath $\sigma$}_{n-1}}}
+\def\snv{{\mbox{\boldmath $\sigma$}_v}}
+
+\hyphenation{eigen-value so-lu-tions heur-is-tics mod-eled de-note
+prob-a-bil-ity start-ing}
+
+\LARGE\bf
+\noindent
+\textsf{A Bayesian hierarchical occupancy model for track surveys conducted in
+a series of linear, spatially correlated, sites}
+
+\rm\large
+\vspace{2ex}
+\noindent
+\textsf{[short title: Bayesian occupancy model for track surveys]}
+
+\rm\large
+\normalsize
+
+\vspace{4ex}
+\small\bf
+\noindent
+\textsf{Chrisna Aing\footnotemark[1]\footnotetext[1]{Department of Mathematics,
+Carleton College, Northfield, MN 55057, USA}, Sarah Halls\footnotemark[1], Kiva
+Oken\footnotemark[1], Robert Dobrow\footnotemark[1]\symbolfootnote[1]
+{Correspondence author: E-mail: rdobrow@carleton.edu},
+John Fieberg \footnotemark[2]\footnotetext[2]{Minnesota Department of Natural
+Resources}}
+
+\normalsize\rm
+\vspace{2ex}
+\noindent
+\rule{5in}{.4mm}
+
+\vspace{3ex}
+\begin{quote}
+\noindent
+{\bf Summary}
+\begin{enumerate}
+    \item In creating an occupancy model for river otters ({\em Lontra
+        canadensis}) in southern Minnesota we develop an analytical approach
+        that can be used in conjunction with survey data collected in a set of
+        linear aerial survey sites.
+    \item Our approach incorporates several recent developments in occupancy
+        modeling, including the prevalence of false positives, spatial
+        correlation, and repeated sampling across distinct observers and across
+        daily snow events.
+    \item We test our method using simulated and real data. Simulations across
+        a wide range of parameters show the model to be robust, both with
+        regard to false positive and negatives, and with regard to the type of
+        spatial correlation observable in our data.  Confidence intervals for
+        both the false positive and false negative rates are remarkably small
+        given the relative paucity of the data.
+    \item Our approach lends itself to investigating the optimal allocation of
+        sampling effort and we make several recommendations for future studies.
+\end{enumerate}
+
+\vspace{2ex}
+\noindent
+{\bf Key-words:} Hierarchical modeling, occupancy, otter, simulation, spatial
+correlation, track survey
+\end{quote}
+
+\normalsize
+\section{Introduction}
+
+\textbf{[Should we add all of these sources to BibTeX?]}
+
+Wildlife populations are notoriously difficult to monitor, owing to challenges
+of detecting individuals and the costs of surveying difficult to reach habitat.
+A variety of approaches have been developed for estimating detection
+probabilities in wildlife surveys, include double sampling, removal methods,
+multiple observers, mark-recapture, distance sampling, and regression models
+\citep{Lancia2005}.
+
+\textbf{[The first citation below needs Thompson et al. 2004.]}
+
+These methods, however, typically require identifying and possibly marking
+unique individuals, and are therefore difficult to reliably implement in large
+scale monitoring efforts or with elusive species \citep{Stanley2005,
+Johnson2008}.  As a result, survey designs that record presence or absence of
+animal sign (e.g., tracks, scent marks, feces) remain popular among natural
+resource agencies \citep{Stanley2005}.  A flurry of recent research has been
+devoted to developing methods, most often based on a survey design in which
+sites are repeatedly visited, to correct for uncertain detection in
+presence-absence surveys; the collection of methods for monitoring populations
+using repeated presence-absence surveys has come to be known as ``occupancy
+modeling'' \citep{MacKenzie2006, Royle2008}.
+
+The primary purpose of this paper is to illustrate the development of an
+occupancy modeling approach to analyzing river otter (\textit{Lontra
+canadensis}) track survey data collected in the winter following snowfall
+events.  Our approach will incorporate several recent developments in occupancy
+modeling, including the prevalence of false detections \citep{Royle2006},
+spatial correlation \citep{Magoun2007}, and a model for how detection
+probabilities depend on time since a snowfall event \citep{Stanley2005}.
+
+The data we consider were collected by the Minnesota Department of Natural
+Resources (MNDNR) in 2003 using helicopter surveys with multiple observers,
+multiple sampling intervals (representing unique snowfall events), and multiple
+days within each sampling interval (days since the last snowfall event).
+Flight paths followed the main channels of river systems, which were later
+divided into a series of spatially contiguous quadrats (hereafter, we will
+refer to these quadrats as ``sites'').  Due to potential for clustering of
+individual home ranges in space and movement across site boundaries, we
+expected the response, presence of a track (Y/N), to be spatially correlated
+among sites.  In addition, sites were more likely to contain tracks if they
+were sampled several days after a snowfall event.  Lastly, observer-to-observer
+variability was significant, likely owing to measurement error associated with
+the post-hoc creation of site boundaries and the difficulty of correctly
+identifying otter tracks \citep{Evans2009}.  Thus, these data serve as a
+useful case study to illustrate methods for handling several complications that
+may be present in repeated presence-absence survey applications.
+
+In addition to fitting a series of models to the Minnesota otter data, we use
+extensive simulations to evaluate the robustness and precision of model-based
+estimates of occupancy probabilities under this sampling design.  To promote
+learning, and to facilitate adaption to other applications, we implement our
+approach using open source software, Program R \citep{R2009} and WinBUGS
+\citep{Lunn2000}, with the R package BRugs \citep{Thomas2006} to communicate
+between the two software platforms.  Lastly, we show how simulations can be
+used to compare different sampling designs, and we make recommendations
+regarding allocation of sampling effort in future surveys.
+
+\section{Materials and Methods}
+
+    \subsection{Otter survey data collection}
+
+    \textbf{[Need to cite Danny's dissertation (see next line).]}
+
+    Details of the survey are given in \citet{Martin2003} and Martin (cite
+    Danny's dissertation), but generally, aerial snow-track surveys were
+    conducted using a Bell OH-58A+ helicopter following snowfalls of greater
+    than 2.5 cm in depth.  The data discussed in this paper were collected in
+    2003 from the Mississippi River.  There were five unique snowfall events.
+    Flights occurred one, two or three days after each unique snowfall event,
+    although they did not occur on every day.  There were three observers, and
+    in some cases multiple observers flew over the river in different flights
+    on the same day.  Observers collected a Global Positioning System waypoint
+    upon encountering a track, and continued to log waypoints every five
+    seconds thereafter if a track remained present.  After these waypoints were
+    logged, three different datasets were created.  The section of the
+    Mississippi River that was flown was divided into 402 meter sites, 804
+    meter sites, and 1608 meter sites.  The presence (1) or absence (0) of a
+    waypoint in each site on a given flight was determined and recorded.
+
+    \subsection{Model development and likelihood formulation}
+
+    Fundamentally, these data consist of a set of correlated binary (0, 1)
+    responses arising from a set of biological and observational processes.  To
+    construct the likelihood, we need to think about the different ways of
+    arriving at a 1 (recorded presence of a track) or a 0 (absence of an
+    apparent track).
+
+    Let:
+
+    $\psi_s=P(\mbox{site } s \mbox{ is occupied})$
+
+    $\theta_s=P(\mbox{a track is laid down in site } s \mbox{ during the course
+    of a day} | \mbox{site } s \mbox{ is occupied})$
+
+    $p_k=P(\mbox{Observer } k \mbox{ detects a track} | \mbox{a track is
+    present}).$
+
+    $e_k=P(\mbox{Observer } k \mbox{ falsely records a track}| \mbox{there is
+    not a track})$
+
+    \textbf{[This is ugly :(.]}
+
+    We assume the $\theta$'s are independent across days and constant across
+    sampling instances, and that $p_k$ and $e_k$ are constant across sites and
+    sampling instances. We define a site as being occupied if an otter uses the
+    site for habitat during the winter.
+
+    These assumptions together imply that the probability site $i$ contains a
+    track, and this track is correctly detected by observer $l$ $k$ days after
+    a snowfall event is given by: \[\psi_s [1-(1- \theta_s)^j] p_k\text{.}\]
+    Here, $1-(1- \theta_s)^j$ is the probability that at least one track is
+    laid down between the snowfall event and the survey date. This implies that
+    the probability of a track being laid down on a given day increases with
+    time since snowfall events.  There are five other possible outcomes, three
+    of which lead to a 0 (recorded absence) and two more of which lead to a 1
+    (recorded presence); all 6 outcomes are depicted in Figure 1. [Note:  I
+    will add a figure with the hierarchical process and the probabilities of
+    each event at the bottom of the figure].
+
+    The four parameters described above: (i) occupancy rate $\psi$, (ii) a
+    track-laying parameter $\theta$, (iii) detection probability $p$, and the
+    false positive rate $e$, are the central parameters of our model.
+
+    \textbf{[Should we include the paragraph below?]}
+
+    Our data indicate a strong potential for false positives, consistent with
+    other otter studies \citep{Evans2009}. The false positive parameter $e$ is
+    the probability that a track is ``observed'' given that no track exists in
+    the site on the given day. Thus false positives can occur in unoccupied
+    sites or in an occupied site without a track. Both the correct detection
+    ($p$) and false detection ($e$) probabilities depend on the observer, so
+    that $p=p_l$ and $e=e_l$ for some observer \(l\).
+
+    We omit the details but the likelihood function constructed from the above
+    processes is described as follows. Let $S$  be the number of snow events in
+    the season. For each snow event $i$, let $N_i$ be the number of sites
+    sampled and $D_i$ be the number of days that were sampled from that snow
+    event, which is typically no greater than three. And for each snow event
+    $i$ and sampled snow day $j$, let $O_{ij}$ be the number of observers who
+    surveyed the river, which is also typically no greater than three.  We
+    denote the data by the vector ${\bf X}$. If we assume that occupancy and
+    track-laying probabilities are independent and constant across sites, then
+    the model likelihood is:
+
+    \textbf{[No more than 2 days were sampled for any snowfall event
+    on MS in 2003, but the flights ranged from 1 to 3 days after the actual
+    event, so sometimes only days 2 and 3. I think for both days and observers
+    it might be a safer bet to use sets instead of these integers.]}
+
+    \begin{eqnarray*}
+        L(\psi, \theta, \mathbf{p}, \mathbf{e}|\mathbf{X})& =&
+        \prod_{i=1}^S \prod_{j=1}^{D_i} \prod_{k=1}^{O_{ij}} \left[ \left( \psi
+        [(1-(1-\theta)^j) p_k +(1-\theta)^j) e_k ] + (1-\psi)e_k
+        \right)^{n_{ijk}} \right. \\
+        && \times \left( \psi[(1-(1-\theta)^j)(1-p_k)+(1-\theta)^j(1-e_k)]
+        \right. \\
+        && \left. \left. +(1-\psi)(1-e_k) \right)^{N_i-n_{ijk}}\right],
+    \end{eqnarray*}
+    where $n_{ijk}$ is the number of sites that record a 1 for the survey that
+    was conducted $j$ days after snow event $i$ by observer $k$.
+
+    \textbf{[The first line of the equation above crosses the margin.]}
+
+    The construction of the above likelihood, under a maximum-likelihood
+    framework, assumes a small sample of sites from a theoretically infinite
+    sample space, independence across sites and independence between observers.
+    While the latter is reasonable, the first two assumptions are almost surely
+    not. In order to make best use of flight time, the entire section of the
+    river was sampled. In addition, otters tend to travel for long distances
+    [?] in the snow and a track at site $i$ is positively correlated with the
+    existence of a track at site $i+1$. We quantified this association with
+    standard runs tests for independence in a sequence of Bernoulli trials and
+    found that for the 402-meter designs the null hypothesis of independence
+    was strongly rejected in most surveys.  Correlations decreased, as would be
+    expected, with larger plot sizes, but the positive correlation was often
+    still statistically significant.  We address the spatial correlation issue
+    below.
+
+    \textbf{[The paragraph below is also mentioned in the introduction.]}
+
+    The hierarchical model is more easily implemented via Markov Chain Monte
+    Carlo (MCMC) using R, WinBUGS, and BRugs (see Appendix). The MCMC approach
+    generates a Markov Chain to approximate the otherwise intractable posterior
+    distribution.  The base model converges within about ten minutes of
+    computing time on a standard desktop PC and 5,000 iterations of the MCMC
+    chain.  WinBUGS is popular free and open-source software for MCMC. BRugs is
+    an open-source package for R that contains the OpenBUGS library.  This
+    allows users most of WinBUGS' functionality from within R.  For background
+    on Bayesian hierarchical modeling and MCMC see \citet{Royle2008} and
+    \citet{Ntzoufras2009}.
+
+    We first constructed a simpler model that assumes independence across sites
+    (but not among observers. We used a Uniform$(0,1)$ prior distribution for
+    \(\psi\) and \(\theta\).  The \(p_i\)'s are from a beta\((a, b)\)
+    distribution and the \(e_i\)'s are from beta\((c, b)\) distribution, where
+    \(a\), \(b\) and \(c\) each come from gamma\((1, 0.1)\) distributions.
+    After running the iterations of the MCMC chain, the model returns
+    approximations of the posterior distribution for each variable.
+
+    \citet{Royle2006} point out a problem with the ``dual role'' of $p$ and
+    $e$ that occurs when false positives are added to a likelihood-based model.
+    This results from the lack of contextual information.  In particular, for
+    our model if $\theta =1$ then the likelihood above has the symmetrical
+    property that $L(\psi, \theta, p, e) = L(1-\psi, \theta, e, p)$. This gives
+    rise to bimodal posterior distributions. The suggested solution is to
+    restrict the parameter space so that $p >> e$.
+
+    In our Bayesian implementation we restricted the support for $p$ and $e$ to
+    $(.6, 1)$ and $(0, .3)$, respectively, and this worked nicely. Note that
+    for general $\theta$ the duality in the likelihood is no longer as simple
+    as described above. But the problem with unspecified parameters and
+    bimodality persists.
+
+    Finally, we needed to consider the spatial dependence the data displayed.
+    To do this, we considered conditional autoregressive (CAR) models that
+    explicitly take into account such correlation. We considered one such model
+    with a CAR prior placed only on occupancy, $\psi$, and another model with
+    CAR priors placed on both $\psi$ and the track-laying process, $\theta$.
+    The conditional variance of the CAR distributions, $\tau^2$, had a
+    gamma$(0.5,0.0005)$ prior.
+
+    \subsection{Simulation work}
+
+    To test the ability of the model to reliably and accurately converge,
+    simulated data sets with and without spatial correlation were generated and
+    analyzed by the model. Three types of data were generated: data
+    uncorrelated in \(\psi\) and \(\theta\), data with spatial correlation in
+    \(\psi\) and uncorrelated in \(\theta\), and data with spatial correlation
+    in both \(\psi\) and \(\theta\).
+
+    Simulated data without spatial correlation is generated with given values
+    of $\psi$, $\theta$, and $p$ and $e$ for each observer.
+
+    To determine the efficacy of the model over the range of possible \(\psi\)
+    and \(\theta\) values, simulated datasets with different \(\psi\) and
+    \(\theta\) values were run through the model. All other variables: numbers
+    of plots (100), observers (3), snow events (5), and observations after each
+    snow event (3), were fixed. The model's estimates were then compared to the
+    parameters used to generate the simulated data.
+
+    As discussed, it is reasonable to believe that if an otter occupies one
+    site, the neighboring sites have a higher probability of occupancy because
+    that same otter may occupy consecutive sites.  Such a correlation in the
+    occupancy process is incorporated into the simulated data through an ARIMA
+    process.  First, a latent autoregressive process, \(\epsilon_i,\)
+    \(i=1,...,n,\) is generated with a given unconditional variance of
+    \(\sigma^2\) and a given autocorrelation parameter \(a\), using the
+    arima.sim function in R.  Then occupancy probabilities for each site are
+    generated using [notation? bo?] \(\psi_i=\mbox{logit}(\epsilon_i+bo)\),
+    \(bo\) is a parameter representing the mean of the logit-transformed
+    \(\psi\)'s.  This ensures that the \(\psi\)'s are between \(0\) and \(1\)
+    and further allows every site \(i\) to have a different \(\psi_i\) that is
+    correlated with \(\psi_{i-1}\).  We can then approximate the overall
+    occupancy rate using integration to calculate \(E[\psi]\).
+
+    Simulated binary track presence data with correlation only in \(\psi\) were
+    generated using the above ARIMA machinery. The various models' estimates
+    were then compared to the paramaters used to generate the simulated data,
+    and confidence intervals were examined.
+
+    Because a single track can extend over multiple sites, we also simulated
+    data that displayed correlation in both the track-laying and occupancy
+    processes.  Correlation in the track-laying process is incorporated into
+    the simulated data through the addition of the variable \(\alpha\) and the
+    redefinition of \(\theta\).  In this simulation method, \(\theta\)
+    represents the probability that an otter lays a track in plot \(i\), given
+    that plot \(i\) is occupied and plot \(i-1\) does \textit{not} contain a
+    track. If plot \(i\) is occupied and plot \(i-1\) \textit{does} contain a
+    track, then the probability of an otter making a track in plot \(i\) is
+    \(\theta+\alpha\). Note that the correlation in occupancy is still
+    incorporated through the ARIMA process.
+
+    \subsection{Analysis of data}
+
+    \textbf{[Should we bother with this paragraph? It's not really correct
+    anymore anyway.  Chrisna: For the actual data, it is correct.  I'm not sure
+    we ever ran anything new on the actual data, and I'm not even sure if it's
+    possible at the moment because I may not have finished that part of the
+    programming.]}
+
+    The model analyzed data for each plot size of each river. For all data, the
+    model was run with a burn-in period of ten thousand iterations.  Then
+    parameters were tracked for ten thousand additional iterations.  If the
+    model converged on the first run of the data, no further analysis was done.
+    If the model did not converge on the first run of the data, it was run a
+    second time with a burn-in period of twenty thousand iterations and a
+    tracking period of twenty thousand iterations.  No further analysis was
+    done.  The parameters estimated were \(E\) and \(p\) for each observer,
+    \(\psi\), and \(\theta\).
+
+    \subsection{Simulation work to look at study design}
+
+    \textbf{[Now aren't we more interested in confidence intervals and less
+    interested in convergence? We will have to redo all of this work.  Chrisna:
+    Yes, we are.  I think this is pretty obvious though -- the more data points
+    you have, the smaller the confidence intervals will be.]}
+
+    We used simulations of data to determine the most efficient sampling
+    practices (fewest number of flights) that produce data that converge with
+    accurate estimates in the model.  The model is run with a burn-in period of
+    10,000 iterations followed by a tracking period of 10,000 iterations.  The
+    values used for the parameters in the simulated data are similar to those
+    found in the results of the actual data obtained by running the model.  All
+    of the data that was simulated had spatial correlation in both \(\psi\) and
+    \(\theta\).  In each simulation there were one hundred plots, \(\psi\) was
+    .3 with an \(\alpha\) of .5, \(\theta\) was .4 with a \(\beta\) of .4, all
+    \(p\)'s were .7, and all \(E\)'s were .05.
+
+    The number of snow events, days flown after a snow event, and number of
+    observers are varied in order to determine the best combination of these
+    parameters that will result in the fewest flights and a successful run of
+    the model.  Data collected using one, two, and three observers were
+    simulated.  For each of these numbers of observers, data with one, two, and
+    three snow events were simulated.  For each of these numbers of observers
+    combined with each of these numbers of snow events, data with one, two, and
+    three consecutive days since snow were simulated.  Most of these
+    combinations returned accurate estimates and good convergence when run in
+    the model.  For the combinations that did not, more data was simulated with
+    the number of snow events increased to five and ten.  Simulating data with
+    consecutive days since snow increased to five was also tried.
+
+\section{Results}
+
+    \subsection{Model efficacy}
+
+    The efficacy of three models was tested with three types of simulated data.
+    The three models are the basic hierarchical model, the basic model with a
+    CAR prior distribution on \(\psi\), and the basic model with CAR prior
+    distributions on both \(\psi\) and \(\theta\).  The three types of
+    simulated data are data with fixed parameters \(\psi\) and \(\theta\), data
+    with \(\psi\) generated by the previously described ARIMA process and
+    \(\theta\) fixed, and data with both \(\psi\) and \(\theta\) generated by
+    the ARIMA process.  The other parameters are held constant.  The number of
+    sites is 100, the number of observers is three, the number of observations
+    after each snow event is three, \(p = (0.7, 0.85, 0.9)\) and \(E = (0.05,
+    0.10, 0.20)\).
+
+    We state that the model converges well if the MCMC diagnostics show
+    convergence of two simulated chains, the final posterior distributions are
+    unimodal, and the simulation parameter values fall within two SE's of the
+    model's estimates.  For the most part, \(SE[E] \approx 0.01\) and \(SE(p)
+    \approx 0.02\).
+
+    \textbf{[I have no idea how to put the simulation results into words.]}
+
+    Regardless of the type of data given to each of the three models, they
+    perform similarly.  The biggest variation between the three models concerns
+    the amount of iterations required for the model to converge.  When given
+    uncorrelated data, all three models take approximately the same amount of
+    iterations to converge.  The number of iterations depends upon the values
+    of \(\psi\) and \(\theta\).  As \(\psi\) approaches \(\theta\), the amount
+    of time required for the model to converge tends to increase.  When given
+    the other two types of data, with correlation in \(\psi\) and correlation
+    in \(psi\) and \(\theta\) the two models with CAR prior distributions
+    occasionally require additional burn-in to converge.
+
+    \subsection{Analysis of data}
+
+    % Mississippi River!
+    \begin{table}
+        \caption{Mississippi River. The data converged well at the 402m and
+        804m plot sizes. At the 1608m plot size, \(E\), \(\psi\), and
+        \(\theta\) did not converge well.}
+        \label{Mississippi}
+        \begin{center}
+            \begin{tabular}{|l|l|l|l|}
+                \hline
+                \multicolumn{4}{|l|}{\textbf{Mississippi River}} \\
+                \hline
+                    & 402m & 804m & 1608m \\
+                \hline
+                \multirow{2}{*}{E[Danny]}
+                    & 0.01954 & 0.04808 & 0.06885 \\
+                    & (0.006515, 0.03663) & (0.01874, 0.08187) & (0.01778,
+                    0.1383) \\
+                \hline
+                \multirow{2}{*}{E[John]}
+                    & 0.05216 & 0.07771 & 0.13650 \\
+                    & (0.027710, 0.07745) & (0.03881, 0.12100) & (0.03449,
+                    0.2330) \\
+                \hline
+                \multirow{2}{*}{E[Tom]}
+                    & 0.02668 & 0.06140 & 0.10230 \\
+                    & (0.011990, 0.04622) & (0.02789, 0.10390) & (0.04287,
+                    0.1796) \\
+                \hline
+                \multirow{2}{*}{p[Danny]}
+                    & 0.65240 & 0.67340 & 0.74960 \\
+                    & (0.548300, 0.75990) & (0.56760, 0.78290) & (0.60510,
+                    0.8910) \\
+                \hline
+                \multirow{2}{*}{p[John]}
+                    & 0.67770 & 0.77580 & 0.82540 \\
+                    & (0.583500, 0.77280) & (0.66060, 0.88690) & (0.71390,
+                    0.9326) \\
+                \hline
+                \multirow{2}{*}{p[Tom]}
+                    & 0.53670 & 0.54220 & 0.65330 \\
+                    & (0.501200, 0.61300) & (0.50160, 0.62850) & (0.51530,
+                    0.8104) \\
+                \hline
+                \multirow{2}{*}{\(\psi\)}
+                    & 0.59380 & 0.69370 & 0.75820 \\
+                    & (0.439000, 0.75990) & (0.51800, 0.87380) & (0.54110,
+                    0.9300) \\
+                \hline
+                \multirow{2}{*}{\(\theta\)}
+                    & 0.15280 & 0.20730 & 0.27690 \\
+                    & (0.111900, 0.19780) & (0.14580, 0.27390) & (0.19030,
+                    0.3716) \\
+                \hline
+            \end{tabular}
+        \end{center}
+    \end{table}
+
+    % Whitewater River!
+    \begin{table}
+        \caption{Whitewater River. While the 402m data converged well, \(E\),
+        \(\psi\), and \(\theta\) did not converge well for the 804m data.}
+        \label{Whitewater}
+        \begin{center}
+            \begin{tabular}{|l|l|l|}
+                \hline
+                \multicolumn{3}{|l|}{\textbf{Whitewater River, 2003}} \\
+                \hline
+                    & 402m & 804m \\
+                \hline
+                \multirow{2}{*}{E[Danny]}
+                    & 0.05608 & 0.0555 \\
+                    & (0.02474, 0.09554) & (0.002859, 0.1390) \\
+                \hline
+                \multirow{2}{*}{E[John]}
+                    & 0.16570 & 0.1931 \\
+                    & (0.10130, 0.23510) & (0.065910, 0.3384) \\
+                \hline
+                \multirow{2}{*}{E[Tom]}
+                    & 0.15350 & 0.2241 \\
+                    & (0.09758, 0.21660) & (0.110000, 0.3623) \\
+                \hline
+                \multirow{2}{*}{p[Danny]}
+                    & 0.66990 & 0.6985 \\
+                    & (0.56080, 0.79040) & (0.573100, 0.8366) \\
+                \hline
+                \multirow{2}{*}{p[John]}
+                    & 0.92040 & 0.9877 \\
+                    & (0.84270, 0.97590) & (0.945100, 1.0000) \\
+                \hline
+                \multirow{2}{*}{p[Tom]}
+                    & 0.75910 & 0.8575 \\
+                    & (0.65060, 0.85800) & (0.745400, 0.9600) \\
+                \hline
+                \multirow{2}{*}{\(\psi\)}
+                    & 0.87590 & 0.9126 \\
+                    & (0.72910, 0.98880) & (0.746900, 0.9955) \\
+                \hline
+                \multirow{2}{*}{\(\theta\)}
+                    & 0.24100 & 0.3779 \\
+                    & (0.17890, 0.30900) & (0.286500, 0.4721) \\
+                \hline
+            \end{tabular}
+        \end{center}
+    \end{table}
+
+    % Zumbro River!
+    \begin{table}
+        \caption{Zumbro River. The 402m data converged well. While
+        \(\psi\) and \(\theta\) converged well for the 804m data, none of the
+        other parameters did.}
+        \label{Zumbro}
+        \begin{center}
+            \begin{tabular}{|l|l|l|}
+                \hline
+                \multicolumn{3}{|l|}{\textbf{Zumbro River, 2003}} \\
+                \hline
+                    & 402m & 804m \\
+                \hline
+                \multirow{2}{*}{E[Danny]}
+                    & 0.02922 & 0.007066 \\
+                    & (0.006786, 0.05994) & (0.0000, 0.03403) \\
+                \hline
+                \multirow{2}{*}{E[John]}
+                    & 0.03388 & 0.008312 \\
+                    & (0.008584, 0.06880) & (0.0000, 0.04188) \\
+                \hline
+                \multirow{2}{*}{E[Tom]}
+                    & 0.02228 & 0.012960 \\
+                    & (0.002430, 0.05385) & (0.0000, 0.05642) \\
+                \hline
+                \multirow{2}{*}{p[Danny]}
+                    & 0.81890 & 0.837100 \\
+                    & (0.749500, 0.88540) & (0.7615, 0.90700) \\
+                \hline
+                \multirow{2}{*}{p[John]}
+                    & 0.81770 & 0.852500 \\
+                    & (0.740100, 0.88670) & (0.7597, 0.92230) \\
+                \hline
+                \multirow{2}{*}{p[Tom]}
+                    & 0.73120 & 0.805400 \\
+                    & (0.625400, 0.82440) & (0.6885, 0.89780) \\
+                \hline
+                \multirow{2}{*}{\(\psi\)}
+                    & 0.66550 & 0.651600 \\
+                    & (0.549100, 0.78150) & (0.5098, 0.78210) \\
+                \hline
+                \multirow{2}{*}{\(\theta\)}
+                    & 0.29950 & 0.395800 \\
+                    & (0.236400, 0.36550) & (0.3100, 0.48520) \\
+                \hline
+            \end{tabular}
+        \end{center}
+    \end{table}
+
+    Tables \ref{Mississippi}, \ref{Whitewater}, and \ref{Zumbro} contain our
+    estimates for all of the data.
+
+    With respect to the model's ability to converge on the actual data, the
+    most important factors are plot size, the number of flights recorded, and
+    the number of estimated parameters. In general, both plot size and the
+    number of flights recorded must be sufficiently small and large,
+    respectively, for the standard model with \(E\) to converge.
+
+    The presence of numerous observations that occur in the second and third
+    days since the most recent snow event allows one of the more crucial
+    assumptions of our hierarchical model -- that otter tracks laid on each day
+    after a snow event are visible throughout the entire observation period and
+    therefore, that it is more likely for an observer to detect a track on
+    later days -- to be thoroughly tested. Most of the \(\psi\) and \(\theta\)
+    estimates of the data fall into ranges where our model is at its best, both
+    with respect to convergence and to accurately estimating \(\psi\).
+
+    As plot size increases, every estimated parameter tends to increase as
+    well.  Although the vast majority of these increases, even at the 1608m
+    plot size, lie well within the 95\% confidence interval of the accompanying
+    estimate at the 402m plot size, this trend is intuitive. Once 402m plots
+    are aggregated into 1608m plots, only one of the four 402m plots needs to
+    be assigned a 1 in order for the entire 1608m plot to receive a 1. The
+    amount of correlation between 1s determines the increase in the proportion
+    of 1s to the number of plots -- as the amount of correlation increases,
+    there will be more aggregated strings of 1s, so the increase in the
+    proportion decreases.
+
+    \subsection{Study design}
+
+    Data with higher numbers of snow events and consecutive days since snow was
+    not simulated because the model ran successfully on many combinations of
+    one, two, and three observers, snow events, and consecutive days since
+    snow.  Increasing the number of snow events or consecutive days since snow
+    would also increase the total number of flights and therefore would not be
+    more efficient than the combinations that were found to run successfully on
+    the model.  Similarly, data with more than three observers was not
+    simulated because it would also increase the number of flights, and there
+    was success in estimating the parameters with only one, two, and three
+    observers.
+
+    The number of observers appears to be the least important of the three
+    sampling variables.  Accurate estimates were obtained for all number of
+    observers, as long as there were sufficient numbers of snow events and
+    observations after each snow event.  For one observer, at least three snow
+    events and three observations on consecutive days after each snow event are
+    required for the model to converge and give accurate estimates.  For two or
+    three observers, two events with three observations on consecutive days
+    after each snow event is sufficient.
+
+    The number of snow events appears to be the second-most important of the
+    three sampling variables.  Although two snow events are required, only with
+    one observer does the addition of a third snow event noticeably improve the
+    model's estimates.
+
+    The number of observations after each snow event appears to be the most
+    important of the three sampling variables.  At least two observations after
+    each snow event on consecutive days are required.  Additional observations
+    after each event help the model converge more quickly, but the estimates
+    become only slightly more accurate.
+
+    Therefore, the most efficient combination of these sampling practices (in
+    number of flights)  was found to be one observer, three snow events, and
+    three consecutive days after each snow event.
+
+\section{Discussion}
+
+Our model performed surprisingly well, particularly given the complex and
+sparse nature of the data analyzed. We were successfully able to incorporate
+false detection, spatial data correlation, and the dependence of detection
+probabilities on time since snowfall events into a model and still obtain both
+accurate and precise results. While others have had success incorporating one
+of these processes into statistical models \citep{Magoun2007, Royle2006,
+Stanley2005}, we are not aware of any studies that have incorporated all three.
+[Talk more about specifics when we get them.] Having the ability to model such
+complex processes will make data collection in similar presence/absence surveys
+both easier and less costly.
+
+Interestingly, in our simulations with spatially correlated data, neither of
+our two spatially explicit models performed particularly better than the
+simpler spatially inexplicit model. While confidence intervals were sometimes
+slightly smaller for the conditional autoregressive (CAR) models that took into
+account the spatial correlation, the differences were small, and due to the
+significantly longer computing times necessitated by the added complexity of
+the spatial models, the simpler model may be a better choice. This is contrary
+to what has been found in other studies that attempting to use CAR models with
+similar binary data \citep{Wintle2006}.  However, the level of correlation in
+their data may have been higher.
+
+In addition, because funds for aerial surveys such as the ones used to collect
+data in this study are limited, we explored different survey designs to
+determine which aspects are most important in yielding precise and accurate
+results. In particular, we examined numbers of observers, snow events, days
+surveyed following snow events, and sites. [Make some sort of grand sweeping
+conclusions about which are most important?] No single parameter appears most
+important. However, we recommend a minimum sampling effort of [what?] to ensure
+that the standard error for psi falls below [what?]. It is notable that if
+there is more data available, the model will generally take less time to
+converge.
+
+These statistical methods could be used on data for other species, as well.
+[John said we should talk about this. Which species?]
+
+\section{Acknowledgements}
+
+We would like to thank...
+
+% Bibliography!
+\bibliographystyle{Style}
+\bibliography{Bibliography}
+
+\section{Missing References}
+\noindent
+
+\textbf{[These are the ones that didn't show up in the paper.]}
+
+\leftskip 0.15in
+
+\parindent -0.15in
+
+Gorman, T., Erb, J., McMillan, B.\ \& Martin, D.\ (2006) Space Use and
+Sociality of River Otters ({\em Lontra Canadensis}) in Minnesota. {\em Journal
+of Mammalogy}, {\bf 87}, 740--747.
+
+\parindent -0.15in
+Mackenzie, D.\ \& Royle, J.\ (2005) Designing Occupancy Studies: General Advice
+and Allocating Survey Effort, {\em Journal of Applied Ecology}, {\bf 42},
+1105-1114.
+
+\parindent -0.15in
+Sargeant, G., Sovada, M., Slivinski, C.\ \& Johnson, D.\ (2005) Markov Chain
+Monte Carlo Estimation of Species Distributions: A Case Study of the Swift Fox
+in Western Kansas, {\em Journal of Wildlife Management}, {\bf 69}, 483--497.
+
+\end{document}
